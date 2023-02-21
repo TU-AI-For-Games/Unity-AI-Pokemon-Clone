@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>RandomTBush</author>
+      <authoring_tool>3dsMax 11 - Feeling ColladaMax v3.05B.</authoring_tool>
+      <comments>ColladaMax Export Options: ExportNormals=1;ExportEPolyAsTriangles=1;ExportXRefs=1;ExportSelected=0;ExportTangents=0;ExportAnimations=1;SampleAnim=0;ExportAnimClip=0;BakeMatrices=0;ExportRelativePaths=1;AnimStart=0;AnimEnd=3.33333;</comments>
+    </contributor>
+    <created>2014-10-02T01:09:27Z</created>
+    <modified>2014-10-02T01:09:28Z</modified>
+    <unit meter="0.0254" name="inch"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images>
+    <image id="pm0137_00_Body1.png" name="pm0137_00_Body1_png">
+      <init_from>./images/pm0137_00_Body1.png</init_from>
+    </image>
+    <image id="pm0137_00_Eye1.png" name="pm0137_00_Eye1_png">
+      <init_from>./images/pm0137_00_Eye1.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="Material__114" name="Material__114">
+      <instance_effect url="#Material__114-fx"/>
+    </material>
+    <material id="Material__115" name="Material__115">
+      <instance_effect url="#Material__115-fx"/>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="Material__114-fx" name="Material__114">
+      <profile_COMMON>
+        <newparam sid="pm0137_00_Body1_png-surface">
+          <surface type="2D">
+            <init_from>pm0137_00_Body1.png</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="pm0137_00_Body1_png-sampler">
+          <sampler2D>
+            <source>pm0137_00_Body1_png-surface</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+            <mipfilter>NONE</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <ambient>
+              <color>0.588 0.588 0.588 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="pm0137_00_Body1_png-sampler" texcoord="CHANNEL1">
+                <extra>
+                  <technique profile="MAYA">
+                    <mirrorU>0</mirrorU>
+                    <mirrorV>0</mirrorV>
+                    <wrapU>1</wrapU>
+                    <wrapV>1</wrapV>
+                    <repeatU>1</repeatU>
+                    <repeatV>1</repeatV>
+                    <offsetU>0</offsetU>
+                    <offsetV>0</offsetV>
+                    <rotateUV>0</rotateUV>
+                  </technique>
+                  <technique profile="MAX3D">
+                    <amount>1</amount>
+                  </technique>
+                </extra>
+              </texture>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0.415939</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <reflectivity>
+              <float>1</float>
+            </reflectivity>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="FCOLLADA">
+              <spec_level>
+                <float>0</float>
+              </spec_level>
+              <emission_level>
+                <float>0</float>
+              </emission_level>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="MAX3D">
+          <faceted>0</faceted>
+          <double_sided>0</double_sided>
+          <wireframe>0</wireframe>
+          <face_map>0</face_map>
+        </technique>
+      </extra>
+    </effect>
+    <effect id="Material__115-fx" name="Material__115">
+      <profile_COMMON>
+        <newparam sid="pm0137_00_Eye1_png-surface">
+          <surface type="2D">
+            <init_from>pm0137_00_Eye1.png</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="pm0137_00_Eye1_png-sampler">
+          <sampler2D>
+            <source>pm0137_00_Eye1_png-surface</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+            <mipfilter>NONE</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <blinn>
+            <ambient>
+              <color>0.588 0.588 0.588 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="pm0137_00_Eye1_png-sampler" texcoord="CHANNEL1">
+                <extra>
+                  <technique profile="MAYA">
+                    <mirrorU>0</mirrorU>
+                    <mirrorV>0</mirrorV>
+                    <wrapU>1</wrapU>
+                    <wrapV>1</wrapV>
+                    <repeatU>1</repeatU>
+                    <repeatV>1</repeatV>
+                    <offsetU>0</offsetU>
+                    <offsetV>0</offsetV>
+                    <rotateUV>0</rotateUV>
+                  </technique>
+                  <technique profile="MAX3D">
+                    <amount>1</amount>
+                  </technique>
+                </extra>
+              </texture>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0.415939</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <reflectivity>
+              <float>1</float>
+            </reflectivity>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="FCOLLADA">
+              <spec_level>
+                <float>0</float>
+              </spec_level>
+              <emission_level>
+                <float>0</float>
+              </emission_level>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="MAX3D">
+          <faceted>0</faceted>
+          <double_sided>0</double_sided>
+          <wireframe>0</wireframe>
+          <face_map>0</face_map>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="Porygon-mesh" name="Porygon">
+      <mesh>
+        <source id="Porygon-mesh-positions">
+          <float_array id="Porygon-mesh-positions-array" count="309">0 34.3686 23.0064 16.1196 30.975 4.83659 0 30.975 4.83659 21.5087 34.3686 23.0064 -16.1196 30.975 4.83659 18.1047 35.766 31.676 -21.5087 34.3686 23.0064 0 35.766 31.676 -18.1047 35.766 31.676 0 -8.56417 4.83659 16.1196 -8.56417 4.83659 11.3332 -1.14149 48.8858 -11.3332 -1.14149 48.8858 21.5091 -22.9298 23.0064 18.1047 -9.73434 31.676 -16.1196 -8.56417 4.83659 0 -1.14149 48.8858 0 -15.9491 43.7043 13.3902 -15.9491 43.7043 -21.5091 -22.9298 23.0064 -13.3902 -15.9491 43.7043 -18.1047 -9.73434 31.676 0 14.4901 66.4992 8.72737 11.5426 80 20.7859 14.4901 66.4992 0 11.5426 80 20.1646 11.136 53.1818 -8.72737 11.5426 80 0 11.136 53.1818 -20.7859 14.4901 66.4992 -20.1646 11.136 53.1818 18.0157 -15.9487 43.7043 -18.0157 -15.9487 43.7043 0 -15.9487 43.7043 13.8539 -29.0051 43.2299 0 -29.0051 43.2299 -13.8539 -29.0051 43.2299 6.29678 -50.9092 43.4041 7.30985 -49.535 42.4841 10.1703 -36.2621 59.3017 0 -36.2621 59.3018 0 -50.9092 43.4041 0 -49.535 42.4841 13.4049 -32.8626 55.2107 -6.29678 -50.9092 43.4041 -10.1703 -36.2621 59.3017 -7.30985 -49.535 42.4841 -13.4049 -32.8626 55.2107 0 -22.9298 23.0064 15.3116 -21.644 60.7029 11.5427 -24.6433 67.5159 17.7437 -10.0794 57.9851 0 -24.6433 67.5159 8.69846 -15.1338 73.8275 0 -15.1338 73.8274 0 -6.61611 75.8347 11.9444 -6.61611 75.8347 17.4838 -3.02185 67.4509 -15.3116 -21.644 60.7029 -11.5427 -24.6433 67.5159 -17.7437 -10.0794 57.9851 -8.69846 -15.1338 73.8275 -17.4838 -3.02185 67.4509 -11.9444 -6.61611 75.8347 0 31.1098 5.66951 12.2765 40.0462 5.68749 12.2765 31.1098 5.66951 0 40.0462 5.68749 7.51071 35.0754 27.2723 0 35.0754 27.2723 1.80705 78.4574 53.225 1.81795 75.273 55.978 0 78.4574 53.225 0 75.273 55.978 -12.2765 31.1098 5.66951 -12.2765 40.0462 5.68749 -7.51071 35.0754 27.2723 -1.80705 78.4574 53.225 -1.81795 75.273 55.978 21.5089 13.626 0 21.5089 -20.5804 8.6544 21.5089 13.626 25.3479 21.5089 -20.5779 0 21.5089 34.9996 12.5673 21.5089 34.9996 0 39.6387 13.626 0 39.6387 34.9996 0 39.6387 34.9996 7.84237 39.6387 13.626 18.2735 39.6387 -20.5814 5.9001 39.6387 -20.5779 0 -21.5089 13.626 -0.000001 -21.5089 13.626 25.3479 -21.5089 -20.5803 8.6544 -21.5089 34.9996 12.5673 -21.5089 -20.5779 -0.000002 -21.5089 34.9996 0 -39.6387 13.626 -0.000001 -39.6387 13.626 18.2735 -39.6387 34.9996 7.84237 -39.6387 -20.5814 5.9001 -39.6387 34.9996 0 -39.6387 -20.5779 0</float_array>
+          <technique_common>
+            <accessor source="#Porygon-mesh-positions-array" count="103" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Porygon-mesh-normals">
+          <float_array id="Porygon-mesh-normals-array" count="417">0 0.985206 -0.171376 0.485154 0.527751 -0.697212 0 0.638907 -0.769284 0.766766 0.639901 -0.05096 -0.485154 0.527751 -0.697212 0.504272 0.72091 0.475394 -0.766766 0.639901 -0.05096 0 0.883585 0.46827 -0.504272 0.72091 0.475394 0 -0.435773 -0.900057 0.508223 -0.337144 -0.792492 0.471748 0.037777 0.880924 -0.471748 0.037777 0.880924 0.681204 -0.727656 -0.08048 0.93081 0.00029 0.365504 -0.508223 -0.337144 -0.792492 0 0.049838 0.998757 0 -0.711097 0.703094 0.498638 -0.551007 0.669142 -0.681204 -0.727656 -0.08048 -0.498638 -0.551007 0.669142 -0.93081 0.00029 0.365504 0 0.999874 -0.015889 0.305369 0.47156 0.827273 0.74921 0.630471 0.202954 0 0.535571 0.84449 0.655317 0.540582 -0.527571 -0.305369 0.47156 0.827273 0 0.738159 -0.674627 -0.74921 0.630471 0.202954 -0.655317 0.540582 -0.527571 0.721095 -0.002697 -0.692831 -0.721095 -0.002697 -0.692831 0 0.185383 -0.982666 0.680004 -0.165989 -0.714172 0 0.036307 -0.999341 -0.680004 -0.165989 -0.714172 0.345284 -0.934999 -0.080972 0.624125 -0.451208 -0.637871 0.482353 -0.624233 0.614548 0 -0.660024 0.751244 0 -0.993024 -0.11791 0 -0.273297 -0.96193 0.932152 -0.328688 0.151847 -0.345284 -0.934999 -0.080972 -0.482353 -0.624233 0.614548 -0.624125 -0.451208 -0.637871 -0.932152 -0.328688 0.151847 0 -0.985269 -0.171013 0.941445 -0.242347 0.234413 0.533335 -0.47436 0.700383 0.98487 -0.13906 0.103407 0 -0.565197 0.824956 0.203848 -0.397588 0.894634 0 -0.397412 0.91764 0 -0.226476 0.974017 0.525971 -0.206385 0.825082 0.925704 -0.137641 0.352316 -0.941445 -0.242347 0.234413 -0.533335 -0.47436 0.700383 -0.98487 -0.13906 0.103407 -0.203848 -0.397588 0.894634 -0.925704 -0.137641 0.352316 -0.525971 -0.206385 0.825082 0 -0.76765 -0.64087 0.895437 0.000862 -0.445187 0.628516 -0.616259 -0.474544 0 0.002012 -0.999998 0.768551 -0.57879 0.272638 0 -0.983566 0.180552 0.66653 0.472573 0.576551 0.710051 0.461908 0.531478 0 0.654006 0.756489 0 0.654006 0.756489 -0.628516 -0.616259 -0.474544 -0.895437 0.000862 -0.445187 -0.768551 -0.57879 0.272638 -0.66653 0.472574 0.576551 -0.710051 0.461908 0.531478 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0 0.707107 -0.707107 0.138171 0.888606 0.437364 0 0.707107 -0.707107 0.141678 0.827283 0.543627 0 0 -1 0 0 -1 0 -0.706897 -0.707317 -0.000056 -0.706983 -0.707231 0.111752 -0.858777 0.500013 0.085379 -0.822514 0.562299 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 0 0.707107 -0.707107 0 0.707107 -0.707107 -0.138171 0.888606 0.437364 0 0 -1 -0.141678 0.827283 0.543627 0 0 -1 0 -0.706897 -0.707316 0.000058 -0.706986 -0.707227 -0.11175 -0.858777 0.500013 -0.085376 -0.822511 0.562304 0 -0.581146 0.813799 0 -0.581146 0.813799 0 -0.581146 0.813799 0 -0.581146 0.813799 0 0.777817 -0.628491 0 0.777817 -0.628491 0 0.777817 -0.628491 0 0.777817 -0.628491 0 -0.581146 0.813799 0 -0.581146 0.813799 0 0.777817 -0.628491 0 0.777817 -0.628491 0.309083 0.047776 0.949834 0.362964 0.054983 0.93018 -0.309083 0.047776 0.949834 -0.362964 0.054983 0.93018</float_array>
+          <technique_common>
+            <accessor source="#Porygon-mesh-normals-array" count="139" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Porygon-mesh-map-channel1">
+          <float_array id="Porygon-mesh-map-channel1-array" count="609">0.499998 0.332038 0 0.578072 0.421886 0 0.499998 0.421886 0 0.603626 0.332025 0 0.421925 0.421886 0 0.586344 0.289061 0 0.396371 0.332025 0 0.499998 0.289064 0 0.413653 0.289061 0 0.499998 0.609375 0 0.578178 0.609375 0 0.667817 0.406043 0 0.552519 0.097811 0 0.447478 0.097811 0 0.667817 0.677103 0 0.711073 0.614747 0 0.711073 0.399343 0 0.421819 0.609375 0 0.499998 0.097811 0 0.499998 0.027591 0 0.560711 0.027591 0 0.798835 0.573878 0 0.33218 0.406043 0 0.33218 0.677103 0 0.439286 0.027591 0 0.77243 0.644709 0 0.288924 0.614747 0 0.288924 0.399343 0 0.201162 0.573878 0 0.227567 0.644709 0 0.499998 0.722656 0 0.541793 0.65625 0 0.599183 0.722656 0 0.499998 0.65625 0 0.59798 0.789063 0 0.458204 0.65625 0 0.499998 0.789063 0 0.400814 0.722656 0 0.402017 0.789063 0 0.584622 0.921875 0 0.415375 0.921875 0 0.499998 0.921875 0 0.565559 0.984375 0 0.499998 0.984375 0 0.434438 0.984375 0 0.842341 0.648438 0 0.851548 0.648648 0 0.85995 0.75 0 0.8125 0.75 0 0.8125 0.648438 0 0.8125 0.640625 0 0.847161 0.640625 0 0.88879 0.745853 0 0.9354 0.707767 0 0.8125 0.542969 0 0.878338 0.542969 0 0.157655 0.648438 0 0.140047 0.75 0 0.148449 0.648648 0 0.187497 0.75 0 0.187497 0.648438 0 0.187497 0.640625 0 0.152836 0.640625 0 0.111207 0.745853 0 0.064597 0.707767 0 0.187497 0.542969 0 0.121659 0.542969 0 0.867188 0.882812 0 0.947533 0.765625 0 0.9719 0.882813 0 0.867188 0.765625 0 0.930464 0.984375 0 0.867188 0.984375 0 0.991779 0.956193 0 0.132809 0.882812 0 0.028097 0.882813 0 0.052464 0.765625 0 0.069532 0.984375 0 0.132809 0.765625 0 0.132809 0.984375 0 0.008218 0.956193 0 0.718982 0.790513 0 0.681032 0.800781 0 0.702537 0.734375 0 0.755174 0.71055 0 0.796091 0.758738 0 0.76446 0.821792 0 0.673999 0.734375 0 0.625 0.800781 0 0.668156 0.851563 0 0.844443 0.880926 0 0.625 0.734375 0 0.625 0.851563 0 0.625 0.890625 0 0.684147 0.890625 0 0.752723 0.873816 0 0.808726 0.931914 0 0.669188 0.980469 0 0.733762 0.967231 0 0.625 0.980469 0 0.706264 0.886447 0 0.281015 0.790513 0 0.29746 0.734375 0 0.318965 0.800781 0 0.244823 0.71055 0 0.203906 0.758738 0 0.235537 0.821792 0 0.325998 0.734375 0 0.374997 0.800781 0 0.331841 0.851563 0 0.155554 0.880926 0 0.247274 0.873816 0 0.374997 0.734375 0 0.374997 0.851563 0 0.374997 0.890625 0 0.31585 0.890625 0 0.191271 0.931914 0 0.266235 0.967231 0 0.293733 0.886447 0 0.330809 0.980469 0 0.374997 0.980469 0 0.43613 1.97921 0 0.30155 1.7997 0 0.49115 1.88292 0 0.25816 1.87477 0 0.34012 1.96544 0 0.42585 1.77901 0 0.198446 1.7997 0 0.063866 1.97921 0 0.008849 1.88292 0 0.241836 1.87477 0 0.074149 1.77901 0 0.159873 1.96544 0 0.992188 0.355504 0 0.935687 0.398586 0 0.935687 0.355433 0 0.992188 0.398586 0 0.95715 0.253907 0 0.992188 0.253905 0 0.984375 0.6875 0 0.864489 0.478142 0 0.899098 0.378 0 0.962356 0.691305 0 0.992188 0.6875 0 0.992188 0.710938 0 0.984375 0.710938 0 0.007813 0.355504 0 0.064314 0.355433 0 0.064314 0.398586 0 0.04285 0.253907 0 0.007813 0.398586 0 0.007813 0.253905 0 0.135511 0.478142 0 0.015625 0.6875 0 0.100902 0.378 0 0.037644 0.691305 0 0.015625 0.710938 0 0.007813 0.710938 0 0.007813 0.6875 0 0.796868 0.12891 0 0.640616 0.089269 0 0.796871 0.011182 0 0.640627 0.128906 0 0.898432 0.069749 0 0.898431 0.128912 0 0.796866 0.210942 0 0.898429 0.210944 0 0.898428 0.24781 0 0.796864 0.295837 0 0.640608 0.237994 0 0.640625 0.210938 0 0.933913 0.210945 0 0.955294 0.128914 0 0.613929 0.210937 0 0.601469 0.128905 0 0.203129 0.12891 0 0.203126 0.011182 0 0.359381 0.089269 0 0.101564 0.069749 0 0.35937 0.128906 0 0.101566 0.128912 0 0.203131 0.210942 0 0.203133 0.295837 0 0.101569 0.24781 0 0.359389 0.237994 0 0.101568 0.210944 0 0.359372 0.210938 0 0.066084 0.210945 0 0.044703 0.128914 0 0.386068 0.210937 0 0.398528 0.128905 0 0.983004 0.031251 0 0.992188 0.031249 0 0.016996 0.031251 0 0.007813 0.031249 0 0.777115 0.38272 0 0.614519 0.318119 0 0.82319 0.384104 0 0.927774 0.331036 0 0.222882 0.38272 0 0.385478 0.318119 0 0.176807 0.384104 0 0.072223 0.331036 0</float_array>
+          <technique_common>
+            <accessor source="#Porygon-mesh-map-channel1-array" count="203" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Porygon-mesh-vertices">
+          <input semantic="POSITION" source="#Porygon-mesh-positions"/>
+        </vertices>
+        <triangles material="Material__114" count="178">
+          <input semantic="VERTEX" source="#Porygon-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Porygon-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Porygon-mesh-map-channel1" offset="2" set="1"/>
+          <p>0 0 0 1 1 1 2 2 2 0 0 0 3 3 3 1 1 1 0 0 0 2 2 2 4 4 4 0 0 0 5 5 5 3 3 3 0 0 0 4 4 4 6 6 6 0 0 0 7 7 7 5 5 5 0 0 0 6 6 6 8 8 8 0 0 0 8 8 8 7 7 7 1 1 1 9 9 9 2 2 2 1 1 1 10 10 10 9 9 9 1 1 1 3 3 11 10 10 10 2 2 2 9 9 9 4 4 4 5 5 5 7 7 7 11 11 12 8 8 8 12 12 13 7 7 7 3 3 11 13 13 14 10 10 10 3 3 11 14 14 15 13 13 14 3 3 11 5 5 16 14 14 15 9 9 9 15 15 17 4 4 4 11 11 12 7 7 7 16 16 18 11 11 12 16 16 18 17 17 19 11 11 12 17 17 19 18 18 20 16 16 18 12 12 13 17 17 19 16 16 18 7 7 7 12 12 13 5 5 16 11 11 21 14 14 15 15 15 17 6 6 22 4 4 4 15 15 17 19 19 23 6 6 22 17 17 19 12 12 13 20 20 24 11 11 21 18 18 25 14 14 15 19 19 23 21 21 26 6 6 22 21 21 26 8 8 27 6 6 22 21 21 26 12 12 28 8 8 27 21 21 26 20 20 29 12 12 28 22 22 30 23 23 31 24 24 32 22 22 30 25 25 33 23 23 31 22 22 30 24 24 32 26 26 34 22 22 30 27 27 35 25 25 33 22 22 30 26 26 34 28 28 36 22 22 30 29 29 37 27 27 35 22 22 30 28 28 36 30 30 38 22 22 30 30 30 38 29 29 37 26 26 34 31 31 39 28 28 36 30 30 38 28 28 36 32 32 40 31 31 39 33 33 41 28 28 36 31 31 39 34 34 42 33 33 41 28 28 36 33 33 41 32 32 40 34 34 42 35 35 43 33 33 41 32 32 40 33 33 41 36 36 44 36 36 44 33 33 41 35 35 43 37 37 45 38 38 46 39 39 47 37 37 45 39 39 47 40 40 48 37 37 45 40 40 48 41 41 49 37 37 45 41 41 49 42 42 50 37 37 45 42 42 50 38 38 51 38 38 46 43 43 52 39 39 47 38 38 46 34 34 53 43 43 52 42 42 50 35 35 54 38 38 51 35 35 54 34 34 55 38 38 51 44 44 56 45 45 57 46 46 58 44 44 56 40 40 59 45 45 57 44 44 56 41 41 60 40 40 59 44 44 56 42 42 61 41 41 60 44 44 56 46 46 62 42 42 61 46 46 58 45 45 57 47 47 63 46 46 58 47 47 63 36 36 64 46 46 62 35 35 65 42 42 61 46 46 62 36 36 66 35 35 65 48 48 67 10 10 68 13 13 69 48 48 67 9 9 70 10 10 68 48 48 67 13 13 69 18 18 71 48 48 67 18 18 71 17 17 72 13 13 69 14 14 73 18 18 71 48 48 74 19 19 75 15 15 76 48 48 74 20 20 77 19 19 75 48 48 74 15 15 76 9 9 78 48 48 74 17 17 79 20 20 77 19 19 75 20 20 77 21 21 80 49 49 81 50 50 82 43 43 83 49 49 81 43 43 83 34 34 84 49 49 81 34 34 84 31 31 85 49 49 81 31 31 85 51 51 86 50 50 82 39 39 87 43 43 83 50 50 82 52 52 88 39 39 87 50 50 82 53 53 89 52 52 88 31 31 85 26 26 90 51 51 86 39 39 87 52 52 88 40 40 91 53 53 89 54 54 92 52 52 88 53 53 89 55 55 93 54 54 92 53 53 89 56 56 94 55 55 93 26 26 90 57 57 95 51 51 86 26 26 90 24 24 96 57 57 95 56 56 94 23 23 97 55 55 93 24 24 96 23 23 98 57 57 95 23 23 97 25 25 99 55 55 93 23 23 98 56 56 100 57 57 95 58 58 101 47 47 102 59 59 103 58 58 101 36 36 104 47 47 102 58 58 101 32 32 105 36 36 104 58 58 101 60 60 106 32 32 105 59 59 103 47 47 102 45 45 107 59 59 103 45 45 107 52 52 108 59 59 103 52 52 108 61 61 109 60 60 106 30 30 110 32 32 105 60 60 106 62 62 111 30 30 110 45 45 107 40 40 112 52 52 108 61 61 109 52 52 108 54 54 113 61 61 109 54 54 113 55 55 114 61 61 109 55 55 114 63 63 115 62 62 111 29 29 116 30 30 110 62 62 111 27 27 117 29 29 116 62 62 111 63 63 118 27 27 117 55 55 114 27 27 119 63 63 115 55 55 114 25 25 120 27 27 119 64 64 133 65 65 134 66 66 135 64 64 133 67 67 136 65 65 134 64 64 133 66 66 135 68 68 137 64 64 133 68 68 137 69 69 138 65 65 134 70 70 139 68 68 140 65 65 134 68 68 140 66 66 141 70 70 139 71 71 142 68 68 140 70 70 139 72 72 143 73 73 144 70 70 139 73 73 144 71 71 145 64 64 146 74 74 147 75 75 148 64 64 146 76 76 149 74 74 147 64 64 146 75 75 148 67 67 150 64 64 146 69 69 151 76 76 149 75 75 148 76 76 152 77 77 153 75 75 148 74 74 154 76 76 152 77 77 153 76 76 152 78 78 155 77 77 153 78 78 156 73 73 157 77 77 153 73 73 157 72 72 158 79 79 159 80 80 160 81 81 161 79 79 159 82 82 162 80 80 160 79 79 159 81 81 161 83 83 163 79 79 159 83 83 163 84 84 164 85 85 165 86 86 166 87 87 167 85 85 165 87 87 167 88 88 168 85 85 165 88 88 168 89 89 169 85 85 165 89 89 169 90 90 170 84 91 164 87 92 171 86 93 166 84 91 164 83 94 172 87 92 171 84 91 164 86 93 166 85 95 165 84 91 164 85 95 165 79 96 159 85 95 165 90 97 170 79 96 159 90 97 170 82 98 162 79 96 159 90 97 170 89 99 173 82 98 162 89 99 173 80 100 174 82 98 162 91 101 175 92 102 176 93 103 177 91 101 175 94 104 178 92 102 176 91 101 175 93 103 177 95 105 179 91 101 175 96 106 180 94 104 178 97 107 181 98 108 182 99 109 183 97 107 181 100 110 184 98 108 182 97 107 181 99 109 183 101 111 185 97 107 181 102 112 186 100 110 184 96 113 180 101 114 185 99 115 187 96 113 180 97 116 181 101 114 185 96 113 180 99 115 187 94 117 188 96 113 180 91 118 175 97 116 181 91 118 175 102 119 186 97 116 181 91 118 175 95 120 179 102 119 186 95 120 179 100 121 189 102 119 186 95 120 179 93 122 190 100 121 189 69 123 138 71 124 191 73 125 192 69 123 138 68 126 137 71 124 191 67 127 136 70 128 139 65 129 134 67 127 136 72 130 143 70 128 139 69 123 151 78 131 193 76 132 149 69 123 151 73 125 194 78 131 193 77 133 153 67 127 150 75 134 148 77 133 153 72 130 158 67 127 150 81 135 195 80 100 196 89 99 169 81 135 195 89 99 169 88 136 168 88 136 168 87 92 167 81 135 197 87 92 167 83 94 198 81 135 197 92 137 199 100 121 184 93 122 200 92 137 199 98 138 182 100 121 184 98 138 182 92 137 201 99 115 183 92 137 201 94 117 202 99 115 183</p>
+        </triangles>
+        <triangles material="Material__115" count="8">
+          <input semantic="VERTEX" source="#Porygon-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Porygon-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Porygon-mesh-map-channel1" offset="2" set="1"/>
+          <p>56 56 121 49 49 122 57 57 123 56 56 121 50 50 124 49 49 122 56 56 121 53 53 125 50 50 124 57 57 123 49 49 122 51 51 126 58 58 127 63 63 128 62 62 129 58 58 127 59 59 130 63 63 128 58 58 127 62 62 129 60 60 131 59 59 130 61 61 132 63 63 128</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers>
+    <controller id="Porygon-mesh-skin">
+      <skin source="#Porygon-mesh">
+        <bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+        <source id="Porygon-mesh-skin-joints">
+          <Name_array id="Porygon-mesh-skin-joints-array" count="5">Bone1 Bone2 Bone3 Bone4 Bone5</Name_array>
+          <technique_common>
+            <accessor source="#Porygon-mesh-skin-joints-array" count="5" stride="1">
+              <param name="JOINT" type="Name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Porygon-mesh-skin-bind_poses">
+          <float_array id="Porygon-mesh-skin-bind_poses-array" count="80">-0.000003 0.000000 1 -22.9193 -1 0 -0.000003 0.000085 0 -1 0.000000 6.514 0 0 0 1 -0.000003 -0.345742 0.93833 -46.2186 -1 0 -0.000003 0.000085 0.000001 -0.93833 -0.345742 9.08072 0 0 0 1 0.000000 -1 0.000000 13.481 -0.000000 0.000000 1 -22.9194 -1 -0.000000 -0.000000 21.4245 0 0 0 1 -0.000000 -1 0.000000 13.481 -0.000000 -0.000000 -1 22.9192 1 -0.000000 -0.000000 21.4245 0 0 0 1 -0.000002 0.755123 0.655583 -36.6399 -1 0 -0.000003 0.000085 -0.000002 -0.655583 0.755123 8.98192 0 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#Porygon-mesh-skin-bind_poses-array" count="5" stride="16">
+              <param name="TRANSFORM" type="float4x4"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Porygon-mesh-skin-weights">
+          <float_array id="Porygon-mesh-skin-weights-array" count="1">1</float_array>
+          <technique_common>
+            <accessor source="#Porygon-mesh-skin-weights-array" count="1" stride="1">
+              <param name="WEIGHT" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#Porygon-mesh-skin-joints"/>
+          <input semantic="INV_BIND_MATRIX" source="#Porygon-mesh-skin-bind_poses"/>
+        </joints>
+        <vertex_weights count="103">
+          <input semantic="JOINT" source="#Porygon-mesh-skin-joints" offset="0"/>
+          <input semantic="WEIGHT" source="#Porygon-mesh-skin-weights" offset="1"/>
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+          <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 0 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 1 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 4 0 2 0 2 0 2 0 2 0 2 0 2 0 2 0 2 0 2 0 2 0 2 0 2 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0</v>
+        </vertex_weights>
+      </skin>
+    </controller>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="unnamed_scene" name="unnamed_scene">
+      <node id="pm0137_00-node" name="pm0137_00" type="JOINT">
+        <translate>0 0 0</translate>
+        <rotate>-1 0 0 -90</rotate>
+        <node id="Origin-node" name="Origin" type="JOINT">
+          <translate>0 0 0</translate>
+          <node id="Waist-node" name="Waist" sid="Bone1" type="JOINT">
+            <translate>0 22.9193 -6.514</translate>
+            <rotate>0 0 -1 -90.0002</rotate>
+            <node id="RFoot-node" name="RFoot" sid="Bone4" type="JOINT">
+              <translate>-0.000019 21.4245 -6.967</translate>
+              <rotate>-0.577349 0.577352 -0.577349 -120</rotate>
+              <node id="EndRFoot-node" name="EndRFoot" type="JOINT">
+                <translate>26.2034 -0.000001 0</translate>
+              </node>
+            </node>
+            <node id="Tail-node" name="Tail" sid="Bone5" type="JOINT">
+              <translate>-5.68125 0 -27.042</translate>
+              <rotate>0 -1 0 -49.0361</rotate>
+              <node id="EndTail-node" name="EndTail" type="JOINT">
+                <translate>58.9469 0 0.000007</translate>
+              </node>
+            </node>
+            <node id="Head-node" name="Head" sid="Bone2" type="JOINT">
+              <translate>23.5886 0 13.973</translate>
+              <rotate>0 1 0 -20.2271</rotate>
+              <node id="EndHead-node" name="EndHead" type="JOINT">
+                <translate>30.2332 0 0.000007</translate>
+              </node>
+            </node>
+            <node id="LFoot-node" name="LFoot" sid="Bone3" type="JOINT">
+              <translate>0 -21.4245 -6.967</translate>
+              <rotate>0.577351 0.577349 0.577351 -120</rotate>
+              <node id="EndLFoot-node" name="EndLFoot" type="JOINT">
+                <translate>26.2034 0 0</translate>
+              </node>
+            </node>
+            <node id="EndWaist-node" name="EndWaist" type="JOINT">
+              <translate>20.0105 0 0</translate>
+            </node>
+          </node>
+        </node>
+        <node id="pm0137_00_Skin-node" name="pm0137_00_Skin" type="JOINT">
+          <translate>0 0 0</translate>
+        </node>
+      </node>
+      <node id="Porygon-node" name="Porygon" type="NODE">
+        <instance_controller url="#Porygon-mesh-skin">
+          <skeleton>#Waist-node</skeleton>
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material__114" target="#Material__114">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="1"/>
+              </instance_material>
+              <instance_material symbol="Material__115" target="#Material__115">
+                <bind_vertex_input semantic="CHANNEL1" input_semantic="TEXCOORD" input_set="1"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_controller>
+      </node>
+      <extra>
+        <technique profile="FCOLLADA">
+          <start_time>0</start_time>
+          <end_time>3.33333</end_time>
+        </technique>
+      </extra>
+      <extra>
+        <technique profile="MAX3D">
+          <frame_rate>30</frame_rate>
+        </technique>
+      </extra>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#unnamed_scene"/>
+  </scene>
+</COLLADA>

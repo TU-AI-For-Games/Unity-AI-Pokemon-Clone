@@ -1,22 +1,43 @@
 ﻿using System;
+using UnityEngine;
 
-
-[System.Serializable]
-public abstract class Move
+public class Move
 {
-    protected string m_name;
-    protected string m_description;
-    protected PocketMonster.Element m_type;
-    protected float m_damage;
-    protected float m_accuracy;
+    private string m_name;
+    private string m_description;
+    private PocketMonster.Element m_type;
+    private float m_damage;
+    private float m_accuracy;
 
-    public enum OutcomeType
+    public enum Effect
     {
-        Hit,
-        CriticalHit,
-        Miss
+        Damage,
+        Heal,
+        IncreaseAttack,
+        DecreaseAttack,
+        IncreaseAccuracy,
+        DecreaseAccuracy,
+        IncreaseDefense,
+        DecreaseDefense,
+        IncreaseSpeed,
+        DecreaseSpeed,
+        Status
     }
 
-    protected abstract OutcomeType Outcome(PocketMonster enemyMon);
+    private Effect m_effect;
 
+    public Move(string name, string description, PocketMonster.Element type, Effect effect, float damage, float accuracy)
+    {
+        m_name = name;
+        m_description = description;
+        m_type = type;
+        m_effect = effect;
+        m_damage = damage;
+        m_accuracy = accuracy;
+    }
+
+    public override string ToString()
+    {
+        return m_name;
+    }
 }

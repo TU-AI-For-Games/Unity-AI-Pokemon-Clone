@@ -7,10 +7,23 @@ public class PocketMonster : MonoBehaviour
 {
     public enum Element
     {
-        Normal,
+        Bug,
+        Dark,
+        Dragon,
+        Electric,
         Fire,
-        Water,
-        Grass
+        Fighting,
+        Flying,
+        Ghost,
+        Grass,
+        Ground,
+        Ice,
+        Normal,
+        Poison,
+        Psychic,
+        Rock,
+        Steel,
+        Water
     }
 
     public Element Type { get; private set; }

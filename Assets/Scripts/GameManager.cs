@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MoveManager.Instance.LoadMoves();
+        PocketMonsterManager.Instance.PrintPokemon(151);
     }
 
     // Update is called once per frame

@@ -40,4 +40,9 @@ public class Move
     {
         return m_name;
     }
+
+    public void Print()
+    {
+        Debug.Log(m_name);
+    }
 }

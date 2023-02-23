@@ -5,18 +5,26 @@ using UnityEngine;
 
 public class PocketMonsterManager : Singleton<PocketMonsterManager>
 {
-    // An ordered list of the 151 pokemon
-    private List<PocketMonster> m_pocketMonsters;
+    [Header("Please make sure this is in the order of the pokedex!")]
+    [SerializeField] private List<GameObject> m_models;
+
+    private Dictionary<int, PocketMonster> m_pocketMonsters;
 
     protected override void InternalInit()
     {
-        m_pocketMonsters = new List<PocketMonster>(151);
-
         LoadPkmn();
+
+        // Set up the pokemon's models
+        foreach (KeyValuePair<int, PocketMonster> dictPair in m_pocketMonsters)
+        {
+            dictPair.Value.SetMesh(m_models[dictPair.Key - 1]);
+        }
     }
 
     private void LoadPkmn()
     {
+        List<PocketMonster> pocketMonsters = new List<PocketMonster>(151);
+
         TextAsset movesFile = (TextAsset)Resources.Load("Data\\pokemon");
         string[] linesFromFile = movesFile.text.Split('\n');
 
@@ -24,6 +32,8 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
         {
             // Read the line and build a PocketMonster object
             string[] data = linesFromFile[i].Split(',');
+
+            int nationalDexNo = int.Parse(data[0]);
 
             string pkmnName = data[1];
             PocketMonster.Element type = PocketMonster.StringToType(data[2]);
@@ -43,12 +53,13 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
                 MoveManager.Instance.GetMove(int.Parse(data[10]))
             };
 
-            m_pocketMonsters.Add(new PocketMonster(pkmnName, type, stats, moves));
+            pocketMonsters.Add(new PocketMonster(pkmnName, type, stats, moves));
         }
+
     }
 
     public void PrintPokemon(int pkdexNo)
     {
-        m_pocketMonsters[pkdexNo - 1].Print();
+        m_pocketMonsters[pkdexNo].Print();
     }
 }

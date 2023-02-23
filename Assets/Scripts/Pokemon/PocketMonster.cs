@@ -54,9 +54,11 @@ public class PocketMonster
 
     //private Ability m_ability;
 
-    [SerializeField] private Stats m_stats;
+    private Stats m_stats;
 
-    [SerializeField] private Move[] m_moves;
+    private Move[] m_moves;
+
+    private GameObject m_model;
 
     public PocketMonster(string name, Element type, /*Ability ability, */ Stats stats, Move[] moves)
     {
@@ -65,6 +67,11 @@ public class PocketMonster
         //m_ability = ability;
         m_stats = stats;
         m_moves = moves;
+    }
+
+    public void SetMesh(GameObject model)
+    {
+        m_model = model;
     }
 
     public static Element StringToType(string type)

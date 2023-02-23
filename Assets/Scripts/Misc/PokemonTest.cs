@@ -20,12 +20,14 @@ public class PokemonTest : MonoBehaviour
 [CustomEditor(typeof(PokemonTest))]
 public class PokemonTestTool : Editor
 {
-    private int m_currentPkdxNo = 0;
+    [SerializeField] private int m_currentPkdxNo = 97;
 
     private readonly string[] m_pkmnDetails = new string[10];
 
     public override void OnInspectorGUI()
     {
+        DrawDefaultInspector();
+
         foreach (var stat in m_pkmnDetails)
         {
             GUILayout.Label(stat);

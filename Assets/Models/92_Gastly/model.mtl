@@ -1,0 +1,35 @@
+newmtl BodyA
+ illum 2
+ Ka 0.509804 0.509804 0.509804
+ Kd 0.8 0.8 0.8
+ Ks 0.7803922 0.7803922 0.7803922
+ Ns 20
+ d 1
+ Tr 0
+ map_Kd Ghos_bodyCl_ctr.png
+newmtl BodyB
+ illum 2
+ Ka 0.509804 0.509804 0.509804
+ Kd 0.8 0.8 0.8
+ Ks 1 1 1
+ Ns 20
+ d 1
+ Tr 0
+ map_Kd Ghos_bodyCl_ctr.png
+newmtl EyeA
+ illum 2
+ Ka 0.509804 0.509804 0.509804
+ Kd 0.8 0.8 0.8
+ Ks 0.7803922 0.7803922 0.7803922
+ Ns 20
+ d 1
+ Tr 0
+ map_Kd Ghos_eyeCl_ctr.png
+newmtl shadow_w
+ illum 2
+ Ka 0 0 0
+ Kd 0 0 0
+ Ks 0 0 0
+ Ns 20
+ d 1
+ Tr 0

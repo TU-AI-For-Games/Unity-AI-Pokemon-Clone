@@ -1,151 +1,151 @@
-Nat,Pokemon,Type,HP,Atk,Def,Spe,"Move 1 ",Move 2,Move 3,Move 4
-1,Bulbasaur,Grass,45,49,49,45,Razor Leaf,Headbutt,Giga Drain,Vine Whip
-2,Ivysaur,Grass,60,62,63,60,Solarbeam,Fury Cutter,Leech Seed,Sunny Day
-3,Venusaur,Grass,80,82,83,80,Giga Drain,Tackle,Poisonpowder,Solarbeam
-4,Charmander,Fire,39,52,43,65,Flamethrower,Slash,Dragonbreath,Ember
-5,Charmeleon,Fire,58,64,58,80,Fire Blast,Strength,Dig,Smokescreen
-6,Charizard,Fire,78,84,78,100,Fire Punch,Fly,Dragonbreath,Flamethrower
-7,Squirtle,Water,44,48,65,43,Surf,Bite,Blizzard,Growl
-8,Wartortle,Water,59,63,80,58,Waterfall,Icy Wind,Dig,Rapid Spin
-9,Blastoise,Water,79,83,100,78,Hydro Pump,Rapid Spin,Earthquake,Surf
-10,Caterpie,Bug,45,30,35,45,Tackle,String Shot,Tackle,String Shot
-11,Metapod,Bug,50,20,55,30,Tackle,Harden,Tackle,Harden
-12,Butterfree,Bug,60,45,50,70,Gust,Psychic,Hyper Beam,Stun Spore
-13,Weedle,Bug,40,35,30,50,Poison Sting,String Shot,Poison Sting,String Shot
-14,Kakuna,Bug,45,25,50,35,Tackle,Harden,Tackle,Harden
-15,Beedrill,Bug,65,80,40,75,Twineedle,Sludge Bomb,Pursuit,Focus Energy
-16,Pidgey,Normal,40,45,40,56,Fly,Return,Steel Wing,Sand-attack
-17,Pidgeotto,Normal,63,60,55,71,Fly,Swift,Steel Wing,Aerial Ace
-18,Pidgeot,Normal,83,80,75,91,Fly,Swift,Hyper Beam,Aerial Ace
-19,Rattata,Normal,30,56,35,72,Super Fang,Headbutt,Shadow Ball,Focus Energy
-20,Raticate,Normal,55,81,60,97,Super Fang,Hyper Fang,Pursuit,Scary Face
-21,Spearow,Normal,40,60,30,70,Drill Peck,Frustration,Steel Wing,Growl
-22,Fearow,Normal,65,90,65,100,Drill Peck,Hyper Beam,Pursuit,Fly
-23,Ekans,Poison,30,60,44,55,Sludge Bomb,Bite,Dig,Wrap
-24,Arbok,Poison,60,85,69,80,Sludge Bomb,Earthquake,Strength,Dig
-25,Pikachu,Electric,35,55,30,90,Thunderbolt,Surf,Iron Tail,Thunder Wave
-26,Raichu,Electric,60,90,55,100,Thunder,Quick Attack,Spark,Body Slam
-27,Sandshrew,Ground,50,75,85,40,Earthquake,Fury Swipes,Defense Curl,Fury Cutter
-28,Sandslash,Ground,75,100,110,65,Earthquake,Slash,Rollout,Fury Swipes
-29,Nidoran,Poison,55,47,52,41,Headbutt,Iron Tail,Blizzard,Poison Sting
-30,Nidorina,Poison,70,62,67,56,Strength,Bite,Blizzard,Poison Sting
-31,Nidoqueen,Poison,90,82,87,76,Body Slam,Earthquake,Ice Punch,Poison Sting
-33,Nidorino,Poison,61,72,57,65,Strength,Double Kick,Thunder,Horn Attack
-34,Nidoking,Poison,81,92,77,85,Thunder,Earthquake,Horn Attack,Mud-Slap
-35,Clefairy,Normal,70,45,48,35,Strength,Psychic,Growl,Tackle
-36,Clefable,Normal,95,70,73,60,Strength,Headbutt,Ice Punch,Psychic
-37,Vulpix,Fire,38,41,40,65,Flamethrower,Dig,Ember,Quick Attack
-38,Ninetales,Fire,73,76,75,100,Fire Blast,Overheat,Dig,Quick Attack
-39,Jigglypuff,Normal,115,45,20,20,Body Slam,Rollout,Defense Curl,Double-Edge
-40,Wigglytuff,Normal,140,70,45,45,Double-Edge,Fire Punch,Rollout,Body Slam
-41,Zubat,Poison,40,45,35,55,Wing Attack,Giga Drain,Air Cutter,Bite
-42,Golbat,Poison,75,80,70,90,Crunch,Aerial Ace,Wing Attack,Giga Drain
-43,Oddish,Grass,45,50,55,30,Giga Drain,Sludge Bomb,Acid,Solarbeam
-44,Gloom,Grass,60,65,70,40,Solarbeam,Sludge Bomb,Acid,Giga Drain
-45,Vileplume,Grass,75,80,85,50,Petal Dance,Acid,Solarbeam,Giga Drain
-46,Paras,Bug,35,70,55,25,Giga Drain,Slash,Fury Cutter,Growth
-47,Parasect,Bug,60,95,80,30,Giga Drain,Slash,Fury Cutter,Growth
-48,Venonat,Bug,60,55,50,45,Sludge Bomb,Psychic,Tackle,Growl
-49,Venomoth,Bug,70,65,60,90,Sludge Bomb,Psychic,Psybeam,Leech Life
-50,Diglett,Ground,10,55,25,95,Earthquake,Slash,Growl,Dig
-51,Dugtrio,Ground,35,80,50,120,Earthquake,Slash,Dig,Growl
-52,Meowth,Normal,40,45,35,90,Slash,Faint Attack,Shadow Ball,Bite
-53,Persian,Normal,65,70,60,115,Headbutt,Slash,Faint Attack,Shadow Ball
-54,Psyduck,Water,50,52,48,55,Dig,Confusion,Surf,Scratch
-55,Golduck,Water,80,82,78,85,Hydro Pump,Psychic,Dig,Surf
-56,Mankey,Fighting,40,80,35,70,Cross Chop,Strength,Karate Chop,Rock Smash
-57,Primeape,Fighting,65,105,60,95,Cross Chop,Strength,Karate Chop,Rock Smash
-58,Growlithe,Fire,55,70,45,60,Ember,Bite,Dig,Tackle
-59,Arcanine,Fire,90,110,80,95,Flame Wheel,Extremespeed,Flamethrower,Dig
-60,Poliwag,Water,40,50,40,90,Water Gun,Body Slam,Surf,Tackle
-61,Poliwhirl,Water,65,65,65,90,Surf,Body Slam,Tackle,Water Gun
-62,Poliwrath,Water,90,85,95,70,Dynamicpunch,Hydro Pump,Mach Punch,Body Slam
-63,Abra,Psychic,25,20,15,90,Confusion,Psybeam,Reflect,Thunderpunch
-64,Kadabra,Psychic,40,35,30,105,Psychic,Psybeam,Reflect,Thunderpunch
-65,Alakazam,Psychic,55,50,45,120,Psychic,Ice Punch,Thunder,Shadow Ball
-66,Machop,Fighting,70,80,50,35,Strength,Rock Smash,Cross Chop,Dig
-67,Machoke,Fighting,80,100,70,45,Strength,Rock Smash,Cross Chop,Dig
-68,Machamp,Fighting,90,130,80,55,Thunderpunch,Fire Punch,Strength,Cross Chop
-69,Bellsprout,Grass,50,75,35,40,Giga Drain,Sludge Bomb,Razor Leaf,Acid
-70,Weepinbell,Grass,65,90,50,55,Giga Drain,Sludge Bomb,Razor Leaf,Acid
-71,Victreebel,Grass,80,105,65,70,Solarbeam,Sludge Bomb,Giga Drain,Razor Leaf
-72,Tentacool,Water,40,40,35,70,Surf,Sludge Bomb,Blizzard,Bubblebeam
-73,Tentacruel,Water,80,70,65,100,Surf,Sludge Bomb,Blizzard,Bubblebeam
-74,Geodude,Rock,40,80,100,20,Earthquake,Rollout,Rock Slide,Rock Smash
-75,Graveler,Rock,55,95,115,35,Earthquake,Rollout,Rock Slide,Rock Smash
-76,Golem,Rock,80,110,130,45,Earthquake,Rollout,Rock Slide,Rock Smash
-77,Ponyta,Fire,50,85,55,90,Fire Blast,Headbutt,Flamethrower,Stomp
-78,Rapidash,Fire,65,100,70,105,Fire Blast,Headbutt,Flamethrower,Stomp
-79,Slowpoke,Water,90,65,65,15,Surf,Psychic,Earthquake,Ice Beam
-80,Slowbro,Water,95,75,110,30,Surf,Psychic,Earthquake,Ice Beam
-81,Magnemite,Electric,25,35,70,45,Thunder,Swift,Thunderbolt,Shock Wave
-82,Magneton,Electric,50,60,95,70,Thunder,Swift,Thunderbolt,Shock Wave
-83,Farfetch'd,Normal,52,65,55,60,Slash,Fly,Steel Wing,Wing Attack
-84,Doduo,Normal,35,85,45,75,Drill Peck,Tri Attack,Steel Wing,Pursuit
-85,Dodrio,Normal,60,110,70,100,Drill Peck,Tri Attack,Steel Wing,Pursuit
-86,Seel,Water,65,45,55,45,Surf,Ice Beam,Headbutt,Aurora Beam
-87,Dewgong,Water,90,70,80,70,Surf,Ice Beam,Headbutt,Aurora Beam
-88,Grimer,Poison,80,80,50,25,Sludge Bomb,Sludge,Acid,Dynamicpunch
-89,Muk,Poison,105,105,75,50,Sludge Bomb,Sludge,Acid,Dynamicpunch
-90,Shellder,Water,30,65,100,40,Surf,Ice Beam,Swift,Aurora Beam
-91,Cloyster,Water,50,90,180,70,Surf,Ice Beam,Swift,Aurora Beam
-92,Gastly,Ghost,30,35,30,80,Shadow Ball,Psychic,Thief,Sludge Bomb
-93,Haunter,Ghost,45,50,45,95,Shadow Ball,Psychic,Thief,Sludge Bomb
-94,Gengar,Ghost,60,65,60,110,Shadow Ball,Psychic,Thief,Sludge Bomb
-95,Onix,Rock,35,45,160,70,Earthquake,Rock Throw,Strength,Tackle
-96,Drowzee,Psychic,60,48,45,42,Psychic,Headbutt,"Body Slam ",Confusion
-97,Hypno,Psychic,85,73,70,67,Psychic,Headbutt,Body Slam,Confusion
-98,Krabby,Water,30,105,90,50,Crabhammer,Strength,Blizzard,Surf
-99,Kingler,Water,55,130,115,75,Crabhammer,Strength,Blizzard,Surf
-100,Voltorb,Electric,40,30,50,100,Thunder,Thunderbolt,Shock Wave,Swift
-101,Electrode,Electric,60,50,70,140,Thunder,Thunderbolt,Shock Wave,Swift
-102,Exeggcute,Grass,60,40,80,40,Psychic,Giga Drain,Egg Bomb,Confusion
-103,Exeggutor,Grass,95,95,85,55,Psychic,Giga Drain,Egg Bomb,Confusion
-104,Cubone,Ground,50,50,95,35,Bonemerang,Headbutt,Icy Wind,Dig
-105,Marowak,Ground,60,80,110,45,Bonemerang,Headbutt,Icy Wind,Dig
-106,Hitmonlee,Fighting,50,120,53,87,Hi Jump Kick,Mega Kick,Double Kick,Strength
-107,Hitmonchan,Fighting,50,105,79,76,Mach Punch,Strength,Ice Punch,Fire Punch
-108,Lickitung,Normal,90,55,75,30,Hyper Beam,Shadow Ball,Surf,Growl
-109,Koffing,Poison,40,65,95,35,Sludge Bomb,Fire Blast,Zap Cannon,Selfdestruct
-110,Weezing,Poison,65,90,120,60,Sludge Bomb,Fire Blast,Zap Cannon,Selfdestruct
-111,Rhyhorn,Ground,80,85,95,25,Earthquake,Rollout,Iron Tail,Dig
-112,Rhydon,Ground,105,130,120,40,Earthquake,Rollout,Iron Tail,Dig
-113,Chansey,Normal,250,5,5,50,Egg Bomb,Blizzard,Growl,Body Slam
-114,Tangela,Grass,65,55,115,60,Giga Drain,Thief,Solarbeam,Sleep Powder
-115,Kangaskhan,Normal,105,95,80,90,Dizzy Punch,Bite,Surf,Earthquake
-116,Horsea,Water,30,40,70,60,Hydro Pump,Blizzard,Surf,Swift
-117,Seadra,Water,55,65,95,85,Hydro Pump,Blizzard,Surf,Dragonbreath
-118,Goldeen,Water,45,67,60,63,Surf,Horn Attack,Waterfall,Bubblebeam
-119,Seaking,Water,80,92,65,68,Surf,Horn Attack,Waterfall,Bubblebeam
-120,Staryu,Water,30,45,55,85,Psychic,Hydro Pump,Thunder,Rapid Spin
-121,Starmie,Water,60,75,85,115,Psychic,Hydro Pump,Thunder,Rapid Spin
-122,Mr. Mime,Psychic,40,45,65,90,Psybeam,Psychic,Shadow Ball,Reflect
-123,Scyther,Bug,70,110,80,105,Wing Attack,Pursuit,Slash,Swift
-124,Jynx,Ice,65,50,35,95,Ice Punch,Psychic,Ice Beam,Lick
-125,Electabuzz,Electric,65,83,57,105,Thunderpunch,Swift,Thunderbolt,Thunder Wave
-126,Magmar,Fire,65,95,57,93,Fire Punch,Flamethrower,Thunderpunch,Brick Break
-127,Pinsir,Bug,65,125,100,85,Fury Cutter,Vicegrip,Submission,Earthquake
-128,Tauros,Normal,75,100,95,110,Take Down,Pursuit,Rock Smash,Body Slam
-129,Magikarp,Water,20,10,55,80,Tackle,Flail,Tackle,Flail
-130,Gyarados,Water,95,125,79,81,Waterfall,Dragonbreath,Surf,Earthquake
-131,Lapras,Water,130,85,80,60,Waterfall,Surf,Ice Beam,Thunderbolt
-132,Ditto,Normal,48,48,48,48,Tackle,Tackle,Tackle,Tackle
-133,Eevee,Normal,55,55,50,55,Take Down,Iron Tail,Shadow Ball,Growl
-134,Vaporeon,Water,130,65,60,65,Waterfall,Surf,Ice Beam,Quick Attack
-135,Jolteon,Electric,65,65,60,130,Thunderbolt,Pin Missile,Double Kick,Quick Attack
-136,Flareon,Fire,65,130,60,65,Fire Blast,Flamethrower,Flame Wheel,Quick Attack
-137,Porygon,Normal,65,60,70,40,Tri Attack,Blizzard,Tackle,Growl
-138,Omanyte,Rock,35,40,100,35,Surf,Ancientpower,Blizzard,Spike Cannon
-139,Omastar,Rock,70,60,125,55,Surf,Ancientpower,Blizzard,Spike Cannon
-140,Kabuto,Rock,30,80,90,55,Rollout,Giga Drain,Blizzard,Surf
-141,Kabutops,Rock,60,115,105,80,Rollout,Giga Drain,Blizzard,Surf
-142,Aerodactyl,Rock,80,105,65,130,Ancientpower,Steel Wing,Rock Slide,Fly
-143,Snorlax,Normal,160,110,65,30,Headbutt,Fire Punch,Thunderpunch,Body Slam
-144,Articuno,Ice,90,85,100,85,Blizzard,Aerial Ace,Ice Beam,Fly
-145,Zapdos,Electric,90,90,85,100,Thunder,Thunderbolt,Aerial Ace,Fly
-146,Moltres,Fire,90,100,90,90,Fire Blast,Flamethrower,Aerial Ace,Fly
-147,Dratini,Dragon,41,64,45,50,Dragonbreath,Outrage,Thunderbolt,Headbutt
-148,Dragonair,Dragon,61,84,65,70,Dragonbreath,Fire Blast,Thunder Wave,Headbutt
-149,Dragonite,Dragon,91,134,95,80,Twister,Wing Attack,Thunder,Hyper Beam
-150,Mewtwo,Psychic,106,110,90,130,Psychic,Ice Beam,Fire Blast,Thunder
-151,Mew,Psychic,100,100,100,100,Psychic,Flamethrower,Shadow Ball,Ice Beam
+Nat,Pokemon,Type,HP,Atk,Def,Spe,Move 1,Move 2,Move 3,Move 4
+1,Bulbasaur,Grass,45,49,49,45,75,29,202,22
+2,Ivysaur,Grass,60,62,63,60,76,210,73,241
+3,Venusaur,Grass,80,82,83,80,202,33,77,76
+4,Charmander,Fire,39,52,43,65,53,163,225,52
+5,Charmeleon,Fire,58,64,58,80,126,70,91,108
+6,Charizard,Fire,78,84,78,100,7,19,225,53
+7,Squirtle,Water,44,48,65,43,57,44,59,45
+8,Wartortle,Water,59,63,80,58,127,196,91,229
+9,Blastoise,Water,79,83,100,78,56,229,89,57
+10,Caterpie,Bug,45,30,35,45,33,81,33,81
+11,Metapod,Bug,50,20,55,30,33,106,33,106
+12,Butterfree,Bug,60,45,50,70,16,94,63,78
+13,Weedle,Bug,40,35,30,50,40,81,40,81
+14,Kakuna,Bug,45,25,50,35,33,106,33,106
+15,Beedrill,Bug,65,80,40,75,41,188,228,116
+16,Pidgey,Normal,40,45,40,56,19,216,211,28
+17,Pidgeotto,Normal,63,60,55,71,19,129,211,332
+18,Pidgeot,Normal,83,80,75,91,19,129,63,332
+19,Rattata,Normal,30,56,35,72,162,29,247,116
+20,Raticate,Normal,55,81,60,97,162,158,228,184
+21,Spearow,Normal,40,60,30,70,65,218,211,45
+22,Fearow,Normal,65,90,65,100,65,63,228,19
+23,Ekans,Poison,30,60,44,55,188,44,91,35
+24,Arbok,Poison,60,85,69,80,188,89,70,91
+25,Pikachu,Electric,35,55,30,90,85,57,231,86
+26,Raichu,Electric,60,90,55,100,87,98,209,34
+27,Sandshrew,Ground,50,75,85,40,89,154,111,210
+28,Sandslash,Ground,75,100,110,65,89,163,205,154
+29,Nidoran,Poison,55,47,52,41,29,231,59,40
+30,Nidorina,Poison,70,62,67,56,70,44,59,40
+31,Nidoqueen,Poison,90,82,87,76,34,89,8,40
+33,Nidorino,Poison,61,72,57,65,70,24,87,30
+34,Nidoking,Poison,81,92,77,85,87,89,30,189
+35,Clefairy,Normal,70,45,48,35,70,94,45,33
+36,Clefable,Normal,95,70,73,60,70,29,8,94
+37,Vulpix,Fire,38,41,40,65,53,91,52,98
+38,Ninetales,Fire,73,76,75,100,126,315,91,98
+39,Jigglypuff,Normal,115,45,20,20,34,205,111,38
+40,Wigglytuff,Normal,140,70,45,45,38,7,205,34
+41,Zubat,Poison,40,45,35,55,17,202,314,44
+42,Golbat,Poison,75,80,70,90,242,332,17,202
+43,Oddish,Grass,45,50,55,30,202,188,51,76
+44,Gloom,Grass,60,65,70,40,76,188,51,202
+45,Vileplume,Grass,75,80,85,50,80,51,76,202
+46,Paras,Bug,35,70,55,25,202,163,210,74
+47,Parasect,Bug,60,95,80,30,202,163,210,74
+48,Venonat,Bug,60,55,50,45,188,94,33,45
+49,Venomoth,Bug,70,65,60,90,188,94,60,141
+50,Diglett,Ground,10,55,25,95,89,163,45,91
+51,Dugtrio,Ground,35,80,50,120,89,163,91,45
+52,Meowth,Normal,40,45,35,90,163,185,247,44
+53,Persian,Normal,65,70,60,115,29,163,185,247
+54,Psyduck,Water,50,52,48,55,91,93,57,10
+55,Golduck,Water,80,82,78,85,56,94,91,57
+56,Mankey,Fighting,40,80,35,70,238,70,2,249
+57,Primeape,Fighting,65,105,60,95,238,70,2,249
+58,Growlithe,Fire,55,70,45,60,52,44,91,33
+59,Arcanine,Fire,90,110,80,95,172,245,53,91
+60,Poliwag,Water,40,50,40,90,55,34,57,33
+61,Poliwhirl,Water,65,65,65,90,57,34,33,55
+62,Poliwrath,Water,90,85,95,70,223,56,183,34
+63,Abra,Psychic,25,20,15,90,93,60,115,9
+64,Kadabra,Psychic,40,35,30,105,94,60,115,9
+65,Alakazam,Psychic,55,50,45,120,94,8,87,247
+66,Machop,Fighting,70,80,50,35,70,249,238,91
+67,Machoke,Fighting,80,100,70,45,70,249,238,91
+68,Machamp,Fighting,90,130,80,55,9,7,70,238
+69,Bellsprout,Grass,50,75,35,40,202,188,75,51
+70,Weepinbell,Grass,65,90,50,55,202,188,75,51
+71,Victreebel,Grass,80,105,65,70,76,188,202,75
+72,Tentacool,Water,40,40,35,70,57,188,59,61
+73,Tentacruel,Water,80,70,65,100,57,188,59,61
+74,Geodude,Rock,40,80,100,20,89,205,157,249
+75,Graveler,Rock,55,95,115,35,89,205,157,249
+76,Golem,Rock,80,110,130,45,89,205,157,249
+77,Ponyta,Fire,50,85,55,90,126,29,53,23
+78,Rapidash,Fire,65,100,70,105,126,29,53,23
+79,Slowpoke,Water,90,65,65,15,57,94,89,58
+80,Slowbro,Water,95,75,110,30,57,94,89,58
+81,Magnemite,Electric,25,35,70,45,87,129,85,351
+82,Magneton,Electric,50,60,95,70,87,129,85,351
+83,Farfetch'd,Normal,52,65,55,60,163,19,211,17
+84,Doduo,Normal,35,85,45,75,65,161,211,228
+85,Dodrio,Normal,60,110,70,100,65,161,211,228
+86,Seel,Water,65,45,55,45,57,58,29,62
+87,Dewgong,Water,90,70,80,70,57,58,29,62
+88,Grimer,Poison,80,80,50,25,188,124,51,223
+89,Muk,Poison,105,105,75,50,188,124,51,223
+90,Shellder,Water,30,65,100,40,57,58,129,62
+91,Cloyster,Water,50,90,180,70,57,58,129,62
+92,Gastly,Ghost,30,35,30,80,247,94,168,188
+93,Haunter,Ghost,45,50,45,95,247,94,168,188
+94,Gengar,Ghost,60,65,60,110,247,94,168,188
+95,Onix,Rock,35,45,160,70,89,88,70,33
+96,Drowzee,Psychic,60,48,45,42,94,29,34,93
+97,Hypno,Psychic,85,73,70,67,94,29,34,93
+98,Krabby,Water,30,105,90,50,152,70,59,57
+99,Kingler,Water,55,130,115,75,152,70,59,57
+100,Voltorb,Electric,40,30,50,100,87,85,351,129
+101,Electrode,Electric,60,50,70,140,87,85,351,129
+102,Exeggcute,Grass,60,40,80,40,94,202,121,93
+103,Exeggutor,Grass,95,95,85,55,94,202,121,93
+104,Cubone,Ground,50,50,95,35,155,29,196,91
+105,Marowak,Ground,60,80,110,45,155,29,196,91
+106,Hitmonlee,Fighting,50,120,53,87,136,25,24,70
+107,Hitmonchan,Fighting,50,105,79,76,183,70,8,7
+108,Lickitung,Normal,90,55,75,30,63,247,57,45
+109,Koffing,Poison,40,65,95,35,188,126,192,120
+110,Weezing,Poison,65,90,120,60,188,126,192,120
+111,Rhyhorn,Ground,80,85,95,25,89,205,231,91
+112,Rhydon,Ground,105,130,120,40,89,205,231,91
+113,Chansey,Normal,250,5,5,50,121,59,45,34
+114,Tangela,Grass,65,55,115,60,202,168,76,79
+115,Kangaskhan,Normal,105,95,80,90,146,44,57,89
+116,Horsea,Water,30,40,70,60,56,59,57,129
+117,Seadra,Water,55,65,95,85,56,59,57,225
+118,Goldeen,Water,45,67,60,63,57,30,127,61
+119,Seaking,Water,80,92,65,68,57,30,127,61
+120,Staryu,Water,30,45,55,85,94,56,87,229
+121,Starmie,Water,60,75,85,115,94,56,87,229
+122,Mr. Mime,Psychic,40,45,65,90,60,94,247,115
+123,Scyther,Bug,70,110,80,105,17,228,163,129
+124,Jynx,Ice,65,50,35,95,8,94,58,122
+125,Electabuzz,Electric,65,83,57,105,9,129,85,86
+126,Magmar,Fire,65,95,57,93,7,53,9,280
+127,Pinsir,Bug,65,125,100,85,210,11,66,89
+128,Tauros,Normal,75,100,95,110,36,228,249,34
+129,Magikarp,Water,20,10,55,80,33,175,33,175
+130,Gyarados,Water,95,125,79,81,127,225,57,89
+131,Lapras,Water,130,85,80,60,127,57,58,85
+132,Ditto,Normal,48,48,48,48,33,33,33,33
+133,Eevee,Normal,55,55,50,55,36,231,247,45
+134,Vaporeon,Water,130,65,60,65,127,57,58,98
+135,Jolteon,Electric,65,65,60,130,85,42,24,98
+136,Flareon,Fire,65,130,60,65,126,53,172,98
+137,Porygon,Normal,65,60,70,40,161,59,33,45
+138,Omanyte,Rock,35,40,100,35,57,246,59,131
+139,Omastar,Rock,70,60,125,55,57,246,59,131
+140,Kabuto,Rock,30,80,90,55,205,202,59,57
+141,Kabutops,Rock,60,115,105,80,205,202,59,57
+142,Aerodactyl,Rock,80,105,65,130,246,211,157,19
+143,Snorlax,Normal,160,110,65,30,29,7,9,34
+144,Articuno,Ice,90,85,100,85,59,332,58,19
+145,Zapdos,Electric,90,90,85,100,87,85,332,19
+146,Moltres,Fire,90,100,90,90,126,53,332,19
+147,Dratini,Dragon,41,64,45,50,225,200,85,29
+148,Dragonair,Dragon,61,84,65,70,225,126,86,29
+149,Dragonite,Dragon,91,134,95,80,239,17,87,63
+150,Mewtwo,Psychic,106,110,90,130,94,58,126,87
+151,Mew,Psychic,100,100,100,100,94,53,247,58

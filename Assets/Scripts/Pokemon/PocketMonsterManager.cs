@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class PocketMonsterManager : Singleton<PocketMonsterManager>
 {
     [Header("Please make sure this is in the order of the pokedex!")]
@@ -12,6 +13,8 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
 
     protected override void InternalInit()
     {
+        m_pocketMonsters = new Dictionary<int, PocketMonster>();
+
         LoadPkmn();
 
         // Set up the pokemon's models
@@ -21,10 +24,18 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
         }
     }
 
+    public PocketMonster GetPocketMonster(int id)
+    {
+        return m_pocketMonsters[id];
+    }
+
+    public GameObject GetPocketMonsterMesh(int id)
+    {
+        return m_models[id - 1];
+    }
+
     private void LoadPkmn()
     {
-        List<PocketMonster> pocketMonsters = new List<PocketMonster>(151);
-
         TextAsset movesFile = (TextAsset)Resources.Load("Data\\pokemon");
         string[] linesFromFile = movesFile.text.Split('\n');
 
@@ -53,7 +64,7 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
                 MoveManager.Instance.GetMove(int.Parse(data[10]))
             };
 
-            pocketMonsters.Add(new PocketMonster(pkmnName, type, stats, moves));
+            m_pocketMonsters.Add(nationalDexNo, new PocketMonster(pkmnName, type, stats, moves));
         }
 
     }
@@ -61,5 +72,10 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
     public void PrintPokemon(int pkdexNo)
     {
         m_pocketMonsters[pkdexNo].Print();
+    }
+
+    public int GetPocketMonsterCount()
+    {
+        return m_pocketMonsters.Count;
     }
 }

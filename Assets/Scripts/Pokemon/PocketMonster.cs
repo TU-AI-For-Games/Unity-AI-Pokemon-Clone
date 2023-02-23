@@ -33,20 +33,20 @@ public class PocketMonster
     {
         public Stats(float hp, float attack, float defense, float speed)
         {
-            m_hp = hp;
-            m_attack = attack;
-            m_defense = defense;
-            m_speed = speed;
+            HP = hp;
+            Attack = attack;
+            Defense = defense;
+            Speed = speed;
         }
 
-        public float m_hp;
-        public float m_attack;
-        public float m_defense;
-        public float m_speed;
+        public float HP;
+        public float Attack;
+        public float Defense;
+        public float Speed;
 
         public void Print()
         {
-            Debug.Log($"HP: {m_hp}\tATK: {m_attack}\tDEF: {m_defense}\tSPD: {m_speed}");
+            Debug.Log($"HP: {HP}\tATK: {Attack}\tDEF: {Defense}\tSPD: {Speed}");
         }
     }
 
@@ -133,5 +133,30 @@ public class PocketMonster
         {
             move.Print();
         }
+    }
+
+    public float GetHP()
+    {
+        return m_stats.HP;
+    }
+
+    public float GetAttackStat()
+    {
+        return m_stats.Attack;
+    }
+
+    public float GetDefenseStat()
+    {
+        return m_stats.Defense;
+    }
+
+    public float GetSpeedStat()
+    {
+        return m_stats.Speed;
+    }
+
+    public Move[] GetMoves()
+    {
+        return m_moves;
     }
 }

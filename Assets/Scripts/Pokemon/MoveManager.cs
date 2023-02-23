@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class MoveManager : Singleton<MoveManager>
 {
     private Dictionary<int, Move> m_moves;

@@ -20,7 +20,7 @@ public class PokemonTest : MonoBehaviour
 [CustomEditor(typeof(PokemonTest))]
 public class PokemonTestTool : Editor
 {
-    [SerializeField] private int m_currentPkdxNo = 97;
+    [SerializeField] private int m_currentPkdxNo = 1;
 
     private readonly string[] m_pkmnDetails = new string[10];
 
@@ -49,7 +49,7 @@ public class PokemonTestTool : Editor
             m_currentPkdxNo++;
             if (m_currentPkdxNo > PocketMonsterManager.Instance.GetPocketMonsterCount())
             {
-                m_currentPkdxNo = 0;
+                m_currentPkdxNo = 1;
             }
 
             SetPokemonModel();

@@ -23,4 +23,12 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up, m_rotationSpeed * Time.deltaTime * Input.GetAxisRaw(StringConstants.ROTATE));
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag(StringConstants.WILD_POKEMON_TAG))
+        {
+            GameManager.Instance.StartBattle();
+        }
+    }
 }

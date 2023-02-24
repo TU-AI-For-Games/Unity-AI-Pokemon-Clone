@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject m_battleHUD;
     [SerializeField] private GameObject m_gameHUD;
@@ -33,5 +33,9 @@ public class GameManager : MonoBehaviour
         // TODO: Show the HUD
         Debug.Log("BATTLE STARTED!");
         m_state = State.Battle;
+    }
+
+    protected override void InternalInit()
+    {
     }
 }

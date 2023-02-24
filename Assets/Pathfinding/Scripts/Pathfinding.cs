@@ -21,6 +21,7 @@ public class Pathfinding : MonoBehaviour
     [SerializeField]
     public bool showPath = false;
 
+    // GameObjects
     [SerializeField] public GameObject startingObject;
     [SerializeField] public GameObject targetObject;
 
@@ -130,10 +131,12 @@ public class Pathfinding : MonoBehaviour
                 // Check if path to this one is shorter, or not in Open list
                 if (newMovementCostToNeighbor < neighbor.gCost || !openNodes.Contains(neighbor))
                 {
+                    // Calculate the costs for this new node
                     neighbor.gCost = newMovementCostToNeighbor;
                     neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode);
                     neighbor.SetParent(currentNode);
 
+                    // If the openNodes doesn't already contain this node, add it
                     if (!openNodes.Contains(neighbor))
                     {
                         openNodes.Add(neighbor);

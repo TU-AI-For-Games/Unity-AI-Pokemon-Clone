@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -10,15 +11,15 @@ public class Pathfinding : MonoBehaviour
 {
     
     [SerializeField]
-    public float straightCost = 10;
+    public int straightCost = 10;
     [SerializeField]
-    public float diagonalCost = 14;
+    public int diagonalCost = 14;
     [Range(0.0f, 180.0f)]
     public float maxWalkableAngle = 30;
     [SerializeField]
     public bool showDebug = false;
     [SerializeField]
-    public int iterations = 10;
+    public bool showPath = false;
 
     [SerializeField] public GameObject startingObject;
     [SerializeField] public GameObject targetObject;
@@ -32,14 +33,14 @@ public class Pathfinding : MonoBehaviour
     [SerializeField]
     private int gridSize = 10;
 
-    private Node[,] nodes;
+    private Node[,] _nodes;
 
     
 
     void MakeGrid(Vector3 location)
     {
 
-        nodes = new Node[gridSize, gridSize];
+        _nodes = new Node[gridSize, gridSize];
 
         // Make a 2D grid of nodes
         for (int x = 0; x < gridSize; x++)
@@ -53,25 +54,24 @@ public class Pathfinding : MonoBehaviour
                 var hit = Physics.Linecast(offset + new Vector3(0, 100, 0), offset + new Vector3(0, -100, 0), out var rayHit, walkableMask);
                 
                 
-                nodes[x, z] = MakeNode(offset, new Vector2Int(x,z));
+                _nodes[x, z] = MakeNode(offset, new Vector2Int(x,z));
 
                 if (hit) 
                 {
-
                     // If the angle of the terrain is more than the max walkable angle, it will be un-walkable
                     if(Vector3.Angle(Vector3.up, rayHit.normal) > maxWalkableAngle)
                     {
-                        nodes[x, z].SetWalkable(false);
+                        _nodes[x, z].SetWalkable(false);
                     }
 
                     // Set the Y position of the node to the terrain
-                    var OldPos = nodes[x, z].GetNodeWorldPosition();
-                    nodes[x, z].SetNodeWorldPosition(new Vector3(OldPos.x, rayHit.point.y, OldPos.z));
+                    var OldPos = _nodes[x, z].GetNodeWorldPosition();
+                    _nodes[x, z].SetNodeWorldPosition(new Vector3(OldPos.x, rayHit.point.y, OldPos.z));
                 }
                 else
                 {
                     // This means the ray did not hit anything, making an un-walkable node
-                    nodes[x, z].SetWalkable(false);
+                    _nodes[x, z].SetWalkable(false);
                 }
 
             }
@@ -79,7 +79,7 @@ public class Pathfinding : MonoBehaviour
     }
 
 
-    bool FindPath(Vector3 startPosition, Vector3 targetPosition)
+    void FindPath(Vector3 startPosition, Vector3 targetPosition)
     {
         
         // Get the nodes
@@ -87,34 +87,35 @@ public class Pathfinding : MonoBehaviour
         var endNode = GetNodeFromPosition(targetPosition);
 
         // If one of them is not valid, cancel
-        if (startNode == null || endNode == null) return false;
+        if (startNode == null || endNode == null) return;
         
         // Select the nodes
         startNode.SetSelected(true);
         endNode.SetSelected(true);
         
         // Make the Open and Closed lists
-        List<Node> OpenNodes = new List<Node>();
-        List<Node> ClosedNodes = new List<Node>();
+        List<Node> openNodes = new List<Node>();
+        List<Node> closedNodes = new List<Node>();
         
-        OpenNodes.Add(startNode);
+        openNodes.Add(startNode);
         
-        
-        var currentNode = startNode;
     
         // While we have not yet reached the target node
 
-        for (int i = 0; i < iterations; i++)
+        while (openNodes.Count > 0)
         {
-            currentNode = GetLowestCost(OpenNodes, endNode);
-            OpenNodes.Remove(currentNode);
-            ClosedNodes.Add(currentNode);
+            var currentNode = openNodes[0];
+
+            currentNode = GetLowestCost(openNodes, currentNode);
+            
+            openNodes.Remove(currentNode);
+            closedNodes.Add(currentNode);
 
             // If the path is found, return
             if (currentNode == endNode)
             {
-              print("Path Found!");
-              return true;
+                RetracePath(startNode,endNode);
+                return;
             }
 
             var neighbors = GetNeighboringNodes(currentNode);
@@ -122,18 +123,42 @@ public class Pathfinding : MonoBehaviour
             foreach (var neighbor in neighbors)
             {
                 // Check if the neighbor is valid, if not, continue to next
-                if (!neighbor.IsWalkable() || ClosedNodes.Contains(neighbor)) continue;
+                if (!neighbor.IsWalkable() || closedNodes.Contains(neighbor)) continue;
+
+                int newMovementCostToNeighbor = currentNode.gCost + GetDistanceBetweenNodes(currentNode, neighbor);
                 
-                
-                
+                // Check if path to this one is shorter, or not in Open list
+                if (newMovementCostToNeighbor < neighbor.gCost || !openNodes.Contains(neighbor))
+                {
+                    neighbor.gCost = newMovementCostToNeighbor;
+                    neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode);
+                    neighbor.SetParent(currentNode);
+
+                    if (!openNodes.Contains(neighbor))
+                    {
+                        openNodes.Add(neighbor);
+                    }
+                }
             }
-
         }
+    }
+
+    void RetracePath(Node startNode, Node endNode)
+    {
+        List<Node> path = new List<Node>();
+
+        Node currentNode = endNode;
+
+        while (currentNode != startNode)
+        {
+            path.Add(currentNode);
+            currentNode.SetSelected(true);
+            currentNode = currentNode.GetParent();
+        }
+
+        path.Reverse();
         
-       
-
-        return false;
-
+        
     }
 
 
@@ -149,35 +174,17 @@ public class Pathfinding : MonoBehaviour
         return new Node(nodeRadius, worldPosition, gridPosition, unWalkableMask);
     }
 
-    private Node GetLowestCost(List<Node> openNodes, Node endNode)
+    private Node GetLowestCost(List<Node> openNodes, Node currentNode)
     {
-        Node currentNext = null;
-
-        int index = 1;
-        foreach (var node in openNodes)
-        {
-            if (currentNext == null)
-            {
-                currentNext = node;
-                continue;
-            }
-            
-            var newGCost = index % 2 == 0 ? straightCost : diagonalCost;
-            var newHCost = Vector2Int.Distance(node.GetNodeGridPosition(), endNode.GetNodeGridPosition());
-
-            node.gCost = newGCost + node.GetParent().gCost;
-            node.hCost = Mathf.RoundToInt(newHCost);
-
-            if (node.fCost < currentNext.fCost)
-            {
-                currentNext = node;
-            }
-
-            index++;
-
-        }
-        return currentNext;
+        var returnNode = currentNode;
         
+        foreach (var node in openNodes.Where(node => node.fCost < returnNode.fCost || node.fCost == returnNode.fCost && node.hCost < returnNode.hCost))
+        {
+            returnNode = node;
+        }
+
+        return returnNode;
+
     }
     
     
@@ -194,13 +201,13 @@ public class Pathfinding : MonoBehaviour
         Vector2Int nodeCoords = new Vector2Int(gridPosition.x, gridPosition.z);
 
         // Return the node if the coordinates is valid
-        return NodeExists(nodeCoords) ? nodes[nodeCoords.x, nodeCoords.y] : null;
+        return NodeExists(nodeCoords) ? _nodes[nodeCoords.x, nodeCoords.y] : null;
     }
 
     private bool NodeExists(Vector2Int nodeCoords)
     {
         // Node Coordinates are outside the grid
-        if (nodeCoords.x > nodes.GetLength(0) || nodeCoords.y > nodes.GetLength(1)) return false;
+        if (nodeCoords.x > gridSize-1 || nodeCoords.y > gridSize-1) return false;
 
         // Node Coordinates are negative
         if (nodeCoords.x < 0 || nodeCoords.y < 0) return false;
@@ -210,6 +217,16 @@ public class Pathfinding : MonoBehaviour
         return true;
     }
 
+    int GetDistanceBetweenNodes(Node A, Node B)
+    {
+        int distanceX = Mathf.Abs(A.GetNodeGridPosition().x - B.GetNodeGridPosition().x);
+        int distanceY = Mathf.Abs(A.GetNodeGridPosition().y - B.GetNodeGridPosition().y);
+
+        if (distanceX > distanceY)
+            return diagonalCost * distanceY + straightCost * (distanceX - distanceY);
+        return diagonalCost * distanceX + straightCost * (distanceY - distanceX);
+
+    }
 
     // Lookup table for neighbor Nodes
     private readonly Vector2Int[] _nodeNeighbors =
@@ -230,7 +247,6 @@ public class Pathfinding : MonoBehaviour
     {
 
         var neighbors = new List<Node>();
-
         
         // Loop through all the eight neighbors and add them to the neighbors list
         
@@ -239,7 +255,7 @@ public class Pathfinding : MonoBehaviour
             var offset = parentNode.GetNodeGridPosition() + _nodeNeighbors[i];
             if (!NodeExists(offset)) continue;
             
-            var newNode = nodes[offset.x, offset.y];
+            var newNode = _nodes[offset.x, offset.y];
             neighbors.Add(newNode);
         }
 
@@ -248,20 +264,31 @@ public class Pathfinding : MonoBehaviour
     
     private void OnDrawGizmos()
     {
+        
+        if (_nodes == null) return;
+        
+        
+        foreach (var node in _nodes)
+        {
+            var radius = node.GetNodeRadius() * 0.9f;
+            bool selected = node.IsSelected();
+            Gizmos.color = selected ? Color.blue : node.IsWalkable() ? Color.green : Color.red;
+            
+            
+            if (showDebug || (showPath && selected))
+            {
+                Gizmos.DrawSphere(node.GetNodeWorldPosition(), radius/4);
+            }
 
-        if (!showDebug) return;
-        if (nodes == null) return;
+        }
+        
+        
+
+
+      
 
         // Draw debug points to show the nodes
 
-        foreach (var node in nodes)
-        {
-        
-            var radius = node.GetNodeRadius() * 0.9f;
-            Gizmos.color = node.IsSelected() ? Color.blue : node.IsWalkable() ? Color.green : Color.red;
-            Gizmos.DrawSphere(node.GetNodeWorldPosition(), radius/4);
-            Handles.Label(node.GetNodeWorldPosition() + new Vector3(0,1,0), node.fCost.ToString());
 
-        }
     }
 }

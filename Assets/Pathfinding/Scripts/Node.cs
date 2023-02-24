@@ -8,11 +8,11 @@ public class Node
 {
     
     // G cost is the cost from start to this node
-    public float gCost;
+    public int gCost;
     // H cost is the cost from this to the end
-    public float hCost;
+    public int hCost;
     // F cost is the combined cost
-    public float fCost => gCost + hCost;
+    public int fCost => gCost + hCost;
 
     private float m_radius;
     private Vector3 m_worldPosition;

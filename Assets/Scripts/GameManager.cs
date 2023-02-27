@@ -13,7 +13,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Battle Settings")]
     [SerializeField] private Camera m_battleCamera;
-    [SerializeField] private GameObject m_battleHUD;
+    [SerializeField] private BattleUI m_battleHUD;
     [SerializeField] private Transform m_battlePlayerPosition;
     [SerializeField] private Transform m_battlePlayerPkmnPosition;
     [SerializeField] private Transform m_battleTrainerPosition;
@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager>
         Debug.Log("BATTLE STARTED!");
         m_state = State.Battle;
         WildPocketMonsterManager.Instance.CanSpawnPokemon = false;
-        m_battleHUD.SetActive(true);
+        m_battleHUD.gameObject.SetActive(true);
         m_gameHUD.SetActive(false);
 
         m_mainCamera.gameObject.SetActive(false);
@@ -74,6 +74,8 @@ public class GameManager : Singleton<GameManager>
             case BattleType.WildPkmn:
                 battler.transform.position = m_battleWildPkmnPosition.position;
                 battler.transform.rotation = m_battleWildPkmnPosition.rotation;
+
+                m_battleHUD.OnOtherSwitchPokemon(battler.GetComponent<WildPocketMonster>().Pokemon);
                 break;
             case BattleType.Trainer:
                 // TODO: SET UP TRAINER BATTLES

@@ -44,13 +44,15 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
         }
 
         // TODO: Use an object pooling system
-        GameObject pokemonWrapper =
-            Instantiate(m_wildPocketMonsterTemplate, GenerateRandomPosition(), Quaternion.identity);
+        GameObject pokemonWrapper = Instantiate(m_wildPocketMonsterTemplate, GenerateRandomPosition(), Quaternion.identity);
 
         int randomId = Random.Range(1, PocketMonsterManager.Instance.GetPocketMonsterCount());
 
         // Spawn the pokemon
         Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(randomId), pokemonWrapper.transform);
+
+        // Set up the WildPocketMonster reference
+        pokemonWrapper.GetComponent<WildPocketMonster>().SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(randomId));
     }
 
     private Vector3 GenerateRandomPosition()

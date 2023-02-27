@@ -70,5 +70,9 @@ public class BattleUI : MonoBehaviour
         m_playerHpSlider.value = activeMon.GetHP() / activeMon.GetBaseHP();
     }
 
-
+    public void OnOtherSwitchPokemon(PocketMonster mon)
+    {
+        m_otherPkmnName.text = mon.Name;
+        m_otherHpSlider.value = mon.GetHP() / mon.GetBaseHP();
+    }
 }

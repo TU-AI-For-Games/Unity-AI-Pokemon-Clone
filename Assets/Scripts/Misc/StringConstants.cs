@@ -10,6 +10,7 @@ public static class StringConstants
 
     #region GAMEOBJECT_TAGS
     public static string WILD_POKEMON_TAG = "WildPokemon";
+    public static string PLAYER_TAG = "Player";
     #endregion
 }
 

@@ -12,6 +12,9 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
     [SerializeField] private Transform m_bottomLeft;
     [SerializeField] private Transform m_topRight;
 
+    public bool CanSpawnPokemon { get; set; }
+
+
     protected override void InternalInit()
     {
 
@@ -26,7 +29,7 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
     {
         m_spawnCountdown -= Time.deltaTime;
 
-        if(m_spawnCountdown < 0f)
+        if (m_spawnCountdown < 0f)
         {
             m_spawnCountdown = m_spawnTime;
             SpawnPokemon();
@@ -35,8 +38,14 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
 
     public void SpawnPokemon()
     {
+        if (!CanSpawnPokemon)
+        {
+            return;
+        }
+
         // TODO: Use an object pooling system
-        GameObject pokemonWrapper = Instantiate(m_wildPocketMonsterTemplate, GenerateRandomPosition(), Quaternion.identity);
+        GameObject pokemonWrapper =
+            Instantiate(m_wildPocketMonsterTemplate, GenerateRandomPosition(), Quaternion.identity);
 
         int randomId = Random.Range(1, PocketMonsterManager.Instance.GetPocketMonsterCount());
 

@@ -52,6 +52,8 @@ public class PocketMonster
 
     public string Name { get; }
 
+    public int ID { get; }
+
     //private Ability m_ability;
 
     private Stats m_stats;
@@ -60,8 +62,9 @@ public class PocketMonster
 
     private GameObject m_model;
 
-    public PocketMonster(string name, Element type, /*Ability ability, */ Stats stats, Move[] moves)
+    public PocketMonster(int id, string name, Element type, /*Ability ability, */ Stats stats, Move[] moves)
     {
+        ID = id;
         Name = name;
         Type = type;
         //m_ability = ability;

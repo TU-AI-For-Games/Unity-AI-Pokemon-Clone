@@ -64,7 +64,7 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
                 MoveManager.Instance.GetMove(int.Parse(data[10]))
             };
 
-            m_pocketMonsters.Add(nationalDexNo, new PocketMonster(pkmnName, type, stats, moves));
+            m_pocketMonsters.Add(nationalDexNo, new PocketMonster(nationalDexNo, pkmnName, type, stats, moves));
         }
 
     }

@@ -7,6 +7,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject m_battleHUD;
     [SerializeField] private GameObject m_gameHUD;
 
+    [SerializeField] private Camera m_mainCamera;
+    [SerializeField] private Camera m_battleCamera;
+
+    [SerializeField] private PlayerController m_player;
+
+
     public enum State
     {
         Overworld,
@@ -18,7 +24,8 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
-        PocketMonsterManager.Instance.PrintPokemon(151);
+        m_player.CanMove = true;
+        WildPocketMonsterManager.Instance.CanSpawnPokemon = true;
     }
 
     // Update is called once per frame
@@ -29,10 +36,17 @@ public class GameManager : Singleton<GameManager>
 
     public void StartBattle()
     {
-        // TODO: Set up camera
-        // TODO: Show the HUD
         Debug.Log("BATTLE STARTED!");
         m_state = State.Battle;
+        WildPocketMonsterManager.Instance.CanSpawnPokemon = false;
+        m_battleHUD.SetActive(true);
+        m_gameHUD.SetActive(false);
+
+        m_mainCamera.gameObject.SetActive(false);
+        m_battleCamera.gameObject.SetActive(true);
+
+        m_player.CanMove = false;
+        m_player.ShowPokemon();
     }
 
     protected override void InternalInit()

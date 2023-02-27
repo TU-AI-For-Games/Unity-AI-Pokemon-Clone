@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 109025844}
   - component: {fileID: 109025843}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Move3 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1337,7 +1337,7 @@ GameObject:
   - component: {fileID: 642365049}
   - component: {fileID: 642365048}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Move1 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1828,7 +1828,7 @@ GameObject:
   - component: {fileID: 1038673547}
   - component: {fileID: 1038673546}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Move4 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2729,7 +2729,7 @@ GameObject:
   - component: {fileID: 1370314737}
   - component: {fileID: 1370314736}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Move2 Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3117,7 +3117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1534839926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3272,7 +3272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1595221520}
   m_Layer: 5
-  m_Name: HP_Bar
+  m_Name: Player HP Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3387,7 +3387,7 @@ GameObject:
   - component: {fileID: 1620458897}
   - component: {fileID: 1620458898}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: Player Pkmn Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3518,10 +3518,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eada92f874dfc614ba6595ea02b5fa75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_player: {fileID: 8771825353307965059}
+  m_typeColours:
+  - {r: 0.046169113, g: 0.3584906, b: 0, a: 1}
+  - {r: 0.2726837, g: 0.26699895, b: 0.4528302, a: 1}
+  - {r: 0.3061392, g: 0, b: 0.4056604, a: 1}
+  - {r: 0.9025669, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.2580645, b: 0, a: 1}
+  - {r: 0.46226418, g: 0.33736417, b: 0, a: 1}
+  - {r: 0.6839622, g: 0.9558143, b: 1, a: 1}
+  - {r: 0.1509434, g: 0, b: 0.3018868, a: 1}
+  - {r: 0.0055811, g: 0.6792453, b: 0, a: 1}
+  - {r: 0.5471698, g: 0.47441116, b: 0.20389818, a: 1}
+  - {r: 0.5896226, g: 0.82077473, b: 1, a: 1}
+  - {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
+  - {r: 0.69838, g: 0, b: 1, a: 1}
+  - {r: 0.754717, g: 0, b: 0.62696856, a: 1}
+  - {r: 0.3679245, g: 0.2156799, b: 0, a: 1}
+  - {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  - {r: 0, g: 0.03644681, b: 1, a: 1}
   m_choiceUI: {fileID: 2128231476}
-  m_moveUI: {fileID: 1534839925}
   m_monsterUI: {fileID: 0}
   m_bagUI: {fileID: 0}
+  m_playerPkmnName: {fileID: 2004274508}
+  m_playerHpSlider: {fileID: 1620458898}
+  m_otherPkmnName: {fileID: 0}
+  m_otherHpSlider: {fileID: 0}
+  m_moveUI: {fileID: 1534839925}
+  m_move1Button: {fileID: 1417006144}
+  m_move1Text: {fileID: 642365048}
+  m_move2Button: {fileID: 1553797576}
+  m_move2Text: {fileID: 1370314736}
+  m_move3Button: {fileID: 722151587}
+  m_move3Text: {fileID: 109025843}
+  m_move4Button: {fileID: 422744558}
+  m_move4Text: {fileID: 1038673546}
 --- !u!1 &1695108722
 GameObject:
   m_ObjectHideFlags: 0
@@ -4305,7 +4336,7 @@ GameObject:
   - component: {fileID: 2004274509}
   - component: {fileID: 2004274508}
   m_Layer: 5
-  m_Name: Name
+  m_Name: Player Pkmn Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4656,7 +4687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2128231477
 RectTransform:
   m_ObjectHideFlags: 0

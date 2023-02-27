@@ -33,12 +33,14 @@ public class PocketMonster
     {
         public Stats(float hp, float attack, float defense, float speed)
         {
+            BaseHP = hp;
             HP = hp;
             Attack = attack;
             Defense = defense;
             Speed = speed;
         }
 
+        public readonly float BaseHP;
         public float HP;
         public float Attack;
         public float Defense;
@@ -141,6 +143,11 @@ public class PocketMonster
     public float GetHP()
     {
         return m_stats.HP;
+    }
+
+    public float GetBaseHP()
+    {
+        return m_stats.BaseHP;
     }
 
     public float GetAttackStat()

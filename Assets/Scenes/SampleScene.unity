@@ -1312,7 +1312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 548671779}
   m_LocalRotation: {x: 0.030700706, y: 0.8582947, z: -0.05175713, w: 0.5096164}
-  m_LocalPosition: {x: -8.5, y: 4.95, z: 8.81}
+  m_LocalPosition: {x: -7.68, y: 3.31, z: 6.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2382,7 +2382,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1107051961}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1669892747}
+        m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
+        m_MethodName: OnRunAwayPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1107051961
 MonoBehaviour:
   m_ObjectHideFlags: 0

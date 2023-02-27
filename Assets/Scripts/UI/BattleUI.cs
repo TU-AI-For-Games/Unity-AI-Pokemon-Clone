@@ -75,4 +75,9 @@ public class BattleUI : MonoBehaviour
         m_otherPkmnName.text = mon.Name;
         m_otherHpSlider.value = mon.GetHP() / mon.GetBaseHP();
     }
+
+    public void OnRunAwayPressed()
+    {
+        GameManager.Instance.EndBattle(true);
+    }
 }

@@ -7,8 +7,6 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 100f)][SerializeField] private float m_speed;
     [Range(0f, 720f)][SerializeField] private float m_rotationSpeed;
 
-    [SerializeField] private Transform m_activePokemonTransform;
-
     public bool CanMove { get; set; }
 
     private Rigidbody m_rigidBody;
@@ -47,15 +45,14 @@ public class PlayerController : MonoBehaviour
         transform.Rotate(Vector3.up * m_rotationSpeed * Time.deltaTime * Input.GetAxisRaw(StringConstants.ROTATE));
     }
 
-    public void ShowPokemon()
+    public void ShowPokemon(Transform parent)
     {
-        if (m_activePokemonTransform.childCount > 0)
+        if (parent.childCount > 0)
         {
-            Destroy(m_activePokemonTransform.GetChild(0).gameObject);
+            Destroy(parent.GetChild(0).gameObject);
         }
 
-        Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(GetActivePokemon().ID),
-            m_activePokemonTransform);
+        Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(GetActivePokemon().ID), parent);
     }
 
     public PocketMonster GetActivePokemon()
@@ -68,7 +65,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag(StringConstants.WILD_POKEMON_TAG))
         {
-            GameManager.Instance.StartBattle();
+            // The trigger collider is on a child of the pokemon, passing the parent
+            GameManager.Instance.StartBattle(GameManager.BattleType.WildPkmn, other.transform.parent.gameObject);
         }
     }
 }

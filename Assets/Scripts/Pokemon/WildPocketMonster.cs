@@ -15,12 +15,4 @@ public class WildPocketMonster : MonoBehaviour
     {
 
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag(StringConstants.PLAYER_TAG))
-        {
-            GameManager.Instance.StartBattle();
-        }
-    }
 }

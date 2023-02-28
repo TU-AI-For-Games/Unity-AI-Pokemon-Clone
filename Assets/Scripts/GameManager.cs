@@ -74,7 +74,9 @@ public class GameManager : Singleton<GameManager>
 
         m_player.transform.position = m_battlePlayerPosition.position;
         m_player.transform.rotation = m_battlePlayerPosition.rotation;
-        m_player.ShowPokemon(m_battlePlayerPkmnPosition);
+
+        SpawnPlayerPokemon();
+
         BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
 
         switch (type)
@@ -95,6 +97,12 @@ public class GameManager : Singleton<GameManager>
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
         }
+    }
+
+    public void SpawnPlayerPokemon()
+    {
+        m_player.ShowPokemon(m_battlePlayerPkmnPosition);
+        m_battleHUD.OnPlayerSwitchPokemon();
     }
 
     public void EndBattle(bool runAway)

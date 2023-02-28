@@ -198,6 +198,8 @@ public class BattleManager : Singleton<BattleManager>
         {
             // TODO: Make the player select another pokemon to battle
             Debug.Log("PLAYER MON FAINTED!");
+
+            m_battleHUD.ShowChoosePkmnMenu();
         }
         else
         {
@@ -220,6 +222,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void SetPlayerPokemon(PocketMonster pokemon)
     {
+        GameManager.Instance.SpawnPlayerPokemon();
         m_playerPokemon = pokemon;
         m_playerPokemon.ResetAccuracy();
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -47,9 +48,9 @@ public class PlayerController : MonoBehaviour
 
     public void ShowPokemon(Transform parent)
     {
-        if (parent.childCount > 0)
+        foreach (Transform child in parent)
         {
-            Destroy(parent.GetChild(0).gameObject);
+            Destroy(child.gameObject);
         }
 
         Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(GetActivePokemon().ID), parent);
@@ -60,6 +61,11 @@ public class PlayerController : MonoBehaviour
         return m_pocketMonsters[m_activePokemonIndex];
     }
 
+    public void SetActivePokemonIndex(int index)
+    {
+        m_activePokemonIndex = index;
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -68,5 +74,12 @@ public class PlayerController : MonoBehaviour
             // The trigger collider is on a child of the pokemon, passing the parent
             GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, other.transform.parent.gameObject);
         }
+    }
+
+    public bool HasUsablePokemon()
+    {
+        return m_pocketMonsters.Any(
+            pokemon => pokemon.GetStats().HP > 0
+        );
     }
 }

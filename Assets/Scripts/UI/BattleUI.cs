@@ -248,9 +248,14 @@ public class BattleUI : MonoBehaviour
                 int randomIndex = Random.Range(0, 6);
                 Debug.Log("Choosing a random mon!");
                 m_player.SetActivePokemonIndex(randomIndex);
+
             } while (m_player.GetActivePokemon().GetStats().HP <= 0);
 
             BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
+
+            BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
+
+            ShowChoiceUI();
         }
         else
         {

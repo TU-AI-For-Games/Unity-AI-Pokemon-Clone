@@ -71,7 +71,10 @@ public class BattleManager : Singleton<BattleManager>
                     if (m_battleMessages.Count == 0)
                     {
                         AttackState();
-                        m_battleState = BattleState.BattleInfo;
+                        if (m_battleState != BattleState.PlayerFainted)
+                        {
+                            SetBattleState(BattleState.BattleInfo);
+                        }
                     }
 
                     break;
@@ -87,6 +90,12 @@ public class BattleManager : Singleton<BattleManager>
                     break;
                 }
             case BattleState.PlayerFainted:
+                {
+                    if (m_battleHUD.DisplayedAllMessages())
+                    {
+                        m_battleHUD.ShowChoosePkmnMenu();
+                    }
+                }
                 break;
             case BattleState.End:
                 break;
@@ -199,7 +208,7 @@ public class BattleManager : Singleton<BattleManager>
             // TODO: Make the player select another pokemon to battle
             Debug.Log("PLAYER MON FAINTED!");
 
-            m_battleHUD.ShowChoosePkmnMenu();
+            SetBattleState(BattleState.PlayerFainted);
         }
         else
         {
@@ -403,7 +412,15 @@ public class BattleManager : Singleton<BattleManager>
     {
         m_aiChosenThisTurn = false;
 
-        m_battleState = BattleState.SelectMove;
-        m_battleHUD.ShowChoiceUI();
+        // Make the player choose a new pokemon if they fainted this turn
+        if (m_battleState == BattleState.PlayerFainted)
+        {
+            m_battleHUD.ShowChoosePkmnMenu();
+        }
+        else
+        {
+            SetBattleState(BattleState.SelectMove);
+            m_battleHUD.ShowChoiceUI();
+        }
     }
 }

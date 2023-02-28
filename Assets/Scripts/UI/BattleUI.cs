@@ -21,6 +21,8 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Slider m_otherHpSlider;
 
     [Header("Move UI")]
+    [SerializeField] private GameObject m_moveInfo;
+    [SerializeField] private TextMeshProUGUI m_moveDescription;
     [SerializeField] private GameObject m_moveUI;
     [SerializeField] private Button m_move1Button;
     [SerializeField] private TextMeshProUGUI m_move1Text;
@@ -94,24 +96,57 @@ public class BattleUI : MonoBehaviour
         GameManager.Instance.EndBattle(true);
     }
 
+    private void SetMoveDescription(Move move)
+    {
+        m_moveDescription.text = $"{move.Description}\nEffect: {MoveManager.EffectToString(move.Effect)}\nDamage: {move.Damage}\nAccuracy: {move.Accuracy}%";
+    }
+
+    public void OnMoveHoverExit()
+    {
+        m_moveInfo.SetActive(false);
+    }
+
     public void OnMove1Pressed()
     {
         BattleManager.Instance.PlayerAttack(0);
+    }
+
+
+    public void OnMove1Hover()
+    {
+        m_moveInfo.SetActive(true);
+        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[0]);
     }
 
     public void OnMove2Pressed()
     {
         BattleManager.Instance.PlayerAttack(1);
     }
+    public void OnMove2Hover()
+    {
+        m_moveInfo.SetActive(true);
+        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[1]);
+    }
 
     public void OnMove3Pressed()
     {
         BattleManager.Instance.PlayerAttack(2);
     }
+    public void OnMove3Hover()
+    {
+        m_moveInfo.SetActive(true);
+        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[2]);
+    }
 
     public void OnMove4Pressed()
     {
         BattleManager.Instance.PlayerAttack(3);
+    }
+
+    public void OnMove4Hover()
+    {
+        m_moveInfo.SetActive(true);
+        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[3]);
     }
 
     public void OnBattleInfoPressed()

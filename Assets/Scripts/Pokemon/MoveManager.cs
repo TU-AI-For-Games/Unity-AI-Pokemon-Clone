@@ -59,7 +59,7 @@ public class MoveManager : Singleton<MoveManager>
         throw new ArithmeticException($"Unable to convert from {accuracy} to float");
     }
 
-    private Move.MoveEffect StringToEffect(string effect)
+    public static Move.MoveEffect StringToEffect(string effect)
     {
         switch (effect)
         {
@@ -91,5 +91,37 @@ public class MoveManager : Singleton<MoveManager>
         }
 
         throw new ArgumentOutOfRangeException(effect, "Ensure the moveEffect is supported");
+    }
+
+    public static string EffectToString(Move.MoveEffect effect)
+    {
+        switch (effect)
+        {
+            case Move.MoveEffect.Damage:
+                return "DMG";
+            case Move.MoveEffect.Heal:
+                return "HP+";
+            case Move.MoveEffect.IncreaseAttack:
+                return "ATTK+";
+            case Move.MoveEffect.DecreaseAttack:
+                return "ATTK-";
+            case Move.MoveEffect.IncreaseAccuracy:
+                return "ACC+";
+            case Move.MoveEffect.DecreaseAccuracy:
+                return "ACC-";
+            case Move.MoveEffect.IncreaseDefense:
+                return "DEF+";
+            case Move.MoveEffect.DecreaseDefense:
+                return "DEF-";
+            case Move.MoveEffect.IncreaseSpeed:
+                return "SPD+";
+            case Move.MoveEffect.DecreaseSpeed:
+                return "SPD-";
+            case Move.MoveEffect.Status:
+                // TODO: THINK ABOUT HAVING TO IMPLEMENT THE STATUS CONDITIONS
+                return "STATUS";
+            default:
+                throw new ArgumentOutOfRangeException(nameof(effect), effect, null);
+        }
     }
 }

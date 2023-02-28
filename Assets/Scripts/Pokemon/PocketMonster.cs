@@ -43,11 +43,15 @@ public class PocketMonster
 
         public Stats(int hp, int attack, int defense, int speed)
         {
-            BaseHP = hp;
-            HP = hp;
-            Attack = attack;
-            Defense = defense;
-            Speed = speed;
+            // Calculate the stats at level 50 using the incoming stats
+            // Formulae taken from https://www.serebii.net/rb/evtraining.shtml 
+            int newHp = CalculateHpStat(hp, 15, Random.Range(1, 256), 50);
+            BaseHP = newHp;
+            HP = newHp;
+
+            Attack = CalculateStat(attack, 15, Random.Range(1, 256), 50);
+            Defense = CalculateStat(defense, 15, Random.Range(1, 256), 50);
+            Speed = CalculateStat(speed, 15, Random.Range(1, 256), 50);
         }
 
         public readonly int BaseHP;
@@ -61,6 +65,19 @@ public class PocketMonster
         {
             Debug.Log($"HP: {HP}\tATK: {Attack}\tDEF: {Defense}\tSPD: {Speed}");
         }
+
+        private int CalculateHpStat(int baseHp, int iv, int ev, int level)
+        {
+            // HP = floor((((Base Stat + IV) * 2 + (?(EV) / 4))*Level)/ 100)+Level + 10
+            return (int)Math.Floor(((baseHp + iv) * 2 + MathF.Sqrt(ev) / 4) * level / 100) + level + 10;
+        }
+
+        private int CalculateStat(int baseStat, int iv, int ev, int level)
+        {
+            // Others = floor((((Base Stat+IV)*2+(?(EV)/4))*Level)/100)+ 5
+            return (int)Math.Floor(((baseStat + iv) * 2 + MathF.Sqrt(ev) / 4) * level / 100) + 5;
+        }
+
     }
 
     public string Name { get; }

@@ -98,7 +98,7 @@ public class BattleUI : MonoBehaviour
 
     private void SetMoveDescription(Move move)
     {
-        m_moveDescription.text = $"{move.Description}\nEffect: {MoveManager.EffectToString(move.Effect)}\nDamage: {move.Damage}\nAccuracy: {move.Accuracy}%";
+        m_moveDescription.text = $"{move.Description}\nEFFECT: {MoveManager.EffectToString(move.Effect)}\nDAMAGE: {move.Damage}\nACCURACY: {move.Accuracy}%\nTYPE: {PocketMonster.TypeToString(move.Type)}";
     }
 
     public void OnMoveHoverExit()

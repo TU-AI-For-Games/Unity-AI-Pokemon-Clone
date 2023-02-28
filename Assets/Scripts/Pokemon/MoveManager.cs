@@ -28,12 +28,12 @@ public class MoveManager : Singleton<MoveManager>
             string name = csvContent[1];
             string description = csvContent[2];
             PocketMonster.Element type = PocketMonster.StringToType(csvContent[3]);
-            Move.Effect effect = StringToEffect(csvContent[4]);
-            float damage = Convert.ToSingle(csvContent[5]);
-            float accuracy = StringToAccuracy(csvContent[6]);
+            Move.MoveEffect moveEffect = StringToEffect(csvContent[4]);
+            int damage = Convert.ToInt32(csvContent[5]);
+            int accuracy = StringToAccuracy(csvContent[6]);
 
 
-            m_moves.Add(moveID, new Move(name, description, type, effect, damage, accuracy));
+            m_moves.Add(moveID, new Move(name, description, type, moveEffect, damage, accuracy));
         }
     }
 
@@ -42,54 +42,54 @@ public class MoveManager : Singleton<MoveManager>
         return m_moves[moveID];
     }
 
-    private float StringToAccuracy(string accuracy)
+    private int StringToAccuracy(string accuracy)
     {
         // Read up to the percentage sign
         int index = accuracy.IndexOf('%');
         if (index > 0)
         {
-            return Convert.ToSingle(accuracy[..index]) / 100f;
+            return Convert.ToInt32(accuracy[..index]);
         }
 
         if (accuracy.Length == 0)
         {
-            return 1f;
+            return 100;
         }
 
         throw new ArithmeticException($"Unable to convert from {accuracy} to float");
     }
 
-    private Move.Effect StringToEffect(string effect)
+    private Move.MoveEffect StringToEffect(string effect)
     {
         switch (effect)
         {
             case "Physical":
             case "Special":
-                return Move.Effect.Damage;
+                return Move.MoveEffect.Damage;
             case "a+":
             case "sa+":
-                return Move.Effect.IncreaseAttack;
+                return Move.MoveEffect.IncreaseAttack;
             case "a-":
             case "sa-":
-                return Move.Effect.DecreaseAttack;
+                return Move.MoveEffect.DecreaseAttack;
             case "acc+":
-                return Move.Effect.IncreaseAccuracy;
+                return Move.MoveEffect.IncreaseAccuracy;
             case "acc-":
-                return Move.Effect.DecreaseAccuracy;
+                return Move.MoveEffect.DecreaseAccuracy;
             case "d+":
             case "sd+":
-                return Move.Effect.IncreaseDefense;
+                return Move.MoveEffect.IncreaseDefense;
             case "d-":
             case "sd-":
-                return Move.Effect.DecreaseDefense;
+                return Move.MoveEffect.DecreaseDefense;
             case "s+":
-                return Move.Effect.IncreaseSpeed;
+                return Move.MoveEffect.IncreaseSpeed;
             case "s-":
-                return Move.Effect.DecreaseSpeed;
+                return Move.MoveEffect.DecreaseSpeed;
             case "Status":
-                return Move.Effect.Status;
+                return Move.MoveEffect.Status;
         }
 
-        throw new ArgumentOutOfRangeException(effect, "Ensure the effect is supported");
+        throw new ArgumentOutOfRangeException(effect, "Ensure the moveEffect is supported");
     }
 }

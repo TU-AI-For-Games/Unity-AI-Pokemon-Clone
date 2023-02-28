@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class PocketMonster
@@ -31,7 +32,16 @@ public class PocketMonster
 
     public class Stats
     {
-        public Stats(float hp, float attack, float defense, float speed)
+        public Stats(Stats stats)
+        {
+            BaseHP = stats.BaseHP;
+            HP = stats.HP;
+            Attack = stats.Attack;
+            Defense = stats.Defense;
+            Speed = stats.Speed;
+        }
+
+        public Stats(int hp, int attack, int defense, int speed)
         {
             BaseHP = hp;
             HP = hp;
@@ -40,11 +50,12 @@ public class PocketMonster
             Speed = speed;
         }
 
-        public readonly float BaseHP;
-        public float HP;
-        public float Attack;
-        public float Defense;
-        public float Speed;
+        public readonly int BaseHP;
+        public int HP;
+        public int Attack;
+        public int Defense;
+        public int Speed;
+        public float Accuracy;
 
         public void Print()
         {
@@ -63,6 +74,15 @@ public class PocketMonster
     private Move[] m_moves;
 
     private GameObject m_model;
+
+    public PocketMonster(PocketMonster monster)
+    {
+        ID = monster.ID;
+        Name = monster.Name;
+        Type = monster.Type;
+        m_stats = new Stats(monster.m_stats);
+        m_moves = monster.m_moves;
+    }
 
     public PocketMonster(int id, string name, Element type, /*Ability ability, */ Stats stats, Move[] moves)
     {
@@ -140,33 +160,61 @@ public class PocketMonster
         }
     }
 
-    public float GetHP()
+    public Stats GetStats()
     {
-        return m_stats.HP;
+        return m_stats;
     }
 
-    public float GetBaseHP()
+    // Whenever a pokemon is switched in or a battle starts, the accuracy is set to 1
+    public void ResetAccuracy()
     {
-        return m_stats.BaseHP;
-    }
-
-    public float GetAttackStat()
-    {
-        return m_stats.Attack;
-    }
-
-    public float GetDefenseStat()
-    {
-        return m_stats.Defense;
-    }
-
-    public float GetSpeedStat()
-    {
-        return m_stats.Speed;
+        m_stats.Accuracy = 1f;
     }
 
     public Move[] GetMoves()
     {
         return m_moves;
+    }
+
+
+
+    // Returns true if the attack hits, false if not
+    public bool TakeDamage(PocketMonster attacker, Move move, bool isCrit)
+    {
+        // According to https://bulbapedia.bulbagarden.net/wiki/Accuracy#Generation_I_and_II a move misses if the accuracy formula is more than the random number
+        int accuracy = (int)(move.Accuracy * attacker.m_stats.Accuracy);
+        int randomNum = Random.Range(1, 100);
+
+        // if R is strictly less than A, the move hits, otherwise it misses
+        if (randomNum > accuracy)
+        {
+            Debug.Log("MISS!");
+            return false;
+        }
+
+        // Calculate the damage using the formula from the attacker according to https://bulbapedia.bulbagarden.net/wiki/Damage 
+        int criticalMod = isCrit ? 2 : 1;
+
+        // TODO: Maybe introduce levels?
+        // Assuming every pokemon is level 50 for now for ease of use...
+        int level = 50;
+        int levelCritical = (2 * level * criticalMod / 5) + 2;
+        float attackDefRatio = attacker.GetStats().Attack / (float)m_stats.Defense;
+        float fraction = (levelCritical * move.Damage * attackDefRatio / 50) + 2;
+
+        float sameTypeAttackBonus = move.Type == attacker.Type ? 1.5f : 1f;
+
+        float typeMultiplier = BattleManager.Instance.GetTypeAdvantageMultiplier(move.Type, Type);
+
+        // random is realized as a multiplication by a random uniformly distributed integer between 217 and 255 (inclusive), followed by division by 255. If the calculated damage thus far is 1, random is always 1
+        float damageSoFar = fraction * sameTypeAttackBonus * typeMultiplier;
+
+        float random = (int)damageSoFar == 1 ? 1f : Random.Range(217, 255) / 255f;
+
+        Debug.Log($"DEALING {(int)damageSoFar * random} DAMAGE");
+
+        m_stats.HP -= (int)(damageSoFar * random);
+
+        return true;
     }
 }

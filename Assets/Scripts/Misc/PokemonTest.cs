@@ -63,10 +63,10 @@ public class PokemonTestTool : Editor
 
         m_pkmnDetails[0] = testAsset.CurrentPokemon.Name;
         m_pkmnDetails[1] = PocketMonster.TypeToString(testAsset.CurrentPokemon.Type);
-        m_pkmnDetails[2] = testAsset.CurrentPokemon.GetHP().ToString();
-        m_pkmnDetails[3] = testAsset.CurrentPokemon.GetAttackStat().ToString();
-        m_pkmnDetails[4] = testAsset.CurrentPokemon.GetDefenseStat().ToString();
-        m_pkmnDetails[5] = testAsset.CurrentPokemon.GetSpeedStat().ToString();
+        m_pkmnDetails[2] = testAsset.CurrentPokemon.GetStats().HP.ToString();
+        m_pkmnDetails[3] = testAsset.CurrentPokemon.GetStats().Attack.ToString();
+        m_pkmnDetails[4] = testAsset.CurrentPokemon.GetStats().Defense.ToString();
+        m_pkmnDetails[5] = testAsset.CurrentPokemon.GetStats().Speed.ToString();
 
         Move[] moves = testAsset.CurrentPokemon.GetMoves();
         m_pkmnDetails[6] = moves[0].Name;

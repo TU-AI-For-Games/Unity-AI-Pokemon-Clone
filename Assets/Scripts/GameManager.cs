@@ -81,6 +81,7 @@ public class GameManager : Singleton<GameManager>
         m_player.transform.position = m_battlePlayerPosition.position;
         m_player.transform.rotation = m_battlePlayerPosition.rotation;
         m_player.ShowPokemon(m_battlePlayerPkmnPosition);
+        BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
 
         switch (type)
         {
@@ -88,7 +89,11 @@ public class GameManager : Singleton<GameManager>
                 battler.transform.position = m_battleWildPkmnPosition.position;
                 battler.transform.rotation = m_battleWildPkmnPosition.rotation;
 
-                m_battleHUD.OnOtherSwitchPokemon(battler.GetComponent<WildPocketMonster>().Pokemon);
+                PocketMonster wildMon = battler.GetComponent<WildPocketMonster>().Pokemon;
+
+                BattleManager.Instance.SetOtherPokemon(wildMon);
+
+                m_battleHUD.OnOtherSwitchPokemon(wildMon);
                 break;
             case BattleType.Trainer:
                 // TODO: SET UP TRAINER BATTLES

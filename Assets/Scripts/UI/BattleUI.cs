@@ -31,9 +31,22 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private Button m_move4Button;
     [SerializeField] private TextMeshProUGUI m_move4Text;
 
+    [Header("Battle info UI")]
+    [SerializeField] private GameObject m_battleInfo;
+    [SerializeField] private TextMeshProUGUI m_battleInfoText;
+
     private void Awake()
     {
         OnPlayerSwitchPokemon();
+    }
+
+    private void Update()
+    {
+        // TODO: THINK OF A BETTER WAY TO DO THIS... It's 1am I want to go to sleep :'(
+        PocketMonster.Stats playerMon = BattleManager.Instance.GetPlayerPokemon().GetStats();
+        PocketMonster.Stats otherMon = BattleManager.Instance.GetOtherPokemon().GetStats();
+        m_playerHpSlider.value = playerMon.HP / (float)playerMon.BaseHP;
+        m_otherHpSlider.value = otherMon.HP / (float)otherMon.BaseHP;
     }
 
 
@@ -67,17 +80,42 @@ public class BattleUI : MonoBehaviour
 
         m_playerPkmnName.text = activeMon.Name;
 
-        m_playerHpSlider.value = activeMon.GetHP() / activeMon.GetBaseHP();
+        m_playerHpSlider.value = (float)activeMon.GetStats().HP / activeMon.GetStats().BaseHP;
     }
 
     public void OnOtherSwitchPokemon(PocketMonster mon)
     {
         m_otherPkmnName.text = mon.Name;
-        m_otherHpSlider.value = mon.GetHP() / mon.GetBaseHP();
+        m_otherHpSlider.value = (float)mon.GetStats().HP / mon.GetStats().BaseHP;
     }
 
     public void OnRunAwayPressed()
     {
         GameManager.Instance.EndBattle(true);
+    }
+
+    public void OnMove1Pressed()
+    {
+        BattleManager.Instance.PlayerAttack(0);
+    }
+
+    public void OnMove2Pressed()
+    {
+        BattleManager.Instance.PlayerAttack(1);
+    }
+
+    public void OnMove3Pressed()
+    {
+        BattleManager.Instance.PlayerAttack(2);
+    }
+
+    public void OnMove4Pressed()
+    {
+        BattleManager.Instance.PlayerAttack(3);
+    }
+
+    public void OnBattleInfoPressed()
+    {
+
     }
 }

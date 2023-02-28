@@ -6,10 +6,10 @@ public class Move
     public readonly string Name;
     public readonly string Description;
     public readonly PocketMonster.Element Type;
-    public readonly float Damage;
-    public readonly float Accuracy;
+    public readonly int Damage;
+    public readonly int Accuracy;
 
-    public enum Effect
+    public enum MoveEffect
     {
         Damage,
         Heal,
@@ -24,14 +24,14 @@ public class Move
         Status
     }
 
-    private Effect m_effect;
+    public readonly MoveEffect Effect;
 
-    public Move(string name, string description, PocketMonster.Element type, Effect effect, float damage, float accuracy)
+    public Move(string name, string description, PocketMonster.Element type, MoveEffect moveEffect, int damage, int accuracy)
     {
         Name = name;
         Description = description;
         Type = type;
-        m_effect = effect;
+        Effect = moveEffect;
         Damage = damage;
         Accuracy = accuracy;
     }

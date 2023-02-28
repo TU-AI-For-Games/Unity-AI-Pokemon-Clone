@@ -26,7 +26,7 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
 
     public PocketMonster GetPocketMonster(int id)
     {
-        return m_pocketMonsters[id];
+        return new PocketMonster(m_pocketMonsters[id]);
     }
 
     public GameObject GetPocketMonsterMesh(int id)
@@ -50,10 +50,10 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
             PocketMonster.Element type = PocketMonster.StringToType(data[2]);
 
             PocketMonster.Stats stats = new PocketMonster.Stats(
-                float.Parse(data[3]),
-                float.Parse(data[4]),
-                float.Parse(data[5]),
-                float.Parse(data[6])
+                int.Parse(data[3]),
+                int.Parse(data[4]),
+                int.Parse(data[5]),
+                int.Parse(data[6])
             );
 
             Move[] moves =

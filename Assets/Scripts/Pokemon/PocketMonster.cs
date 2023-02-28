@@ -75,6 +75,8 @@ public class PocketMonster
 
     private GameObject m_model;
 
+    private Move m_chosenMoveThisTurn;
+
     public PocketMonster(PocketMonster monster)
     {
         ID = monster.ID;
@@ -176,10 +178,19 @@ public class PocketMonster
         return m_moves;
     }
 
+    public void SetChosenMove(Move move)
+    {
+        m_chosenMoveThisTurn = move;
+    }
+
+    public Move GetChosenMove()
+    {
+        return m_chosenMoveThisTurn;
+    }
 
 
     // Returns true if the attack hits, false if not
-    public bool TakeDamage(PocketMonster attacker, Move move, bool isCrit)
+    public bool TakeDamage(PocketMonster attacker, Move move, out Move.Effectiveness effectiveness, bool isCrit)
     {
         // According to https://bulbapedia.bulbagarden.net/wiki/Accuracy#Generation_I_and_II a move misses if the accuracy formula is more than the random number
         int accuracy = (int)(move.Accuracy * attacker.m_stats.Accuracy);
@@ -189,6 +200,7 @@ public class PocketMonster
         if (randomNum > accuracy)
         {
             Debug.Log("MISS!");
+            effectiveness = Move.Effectiveness.Neutral;
             return false;
         }
 
@@ -206,6 +218,14 @@ public class PocketMonster
 
         float typeMultiplier = BattleManager.Instance.GetTypeAdvantageMultiplier(move.Type, Type);
 
+        effectiveness = typeMultiplier switch
+        {
+            2f => Move.Effectiveness.SuperEffective,
+            0.5f => Move.Effectiveness.NotVeryEffective,
+            0f => Move.Effectiveness.Immune,
+            _ => Move.Effectiveness.Neutral
+        };
+
         // random is realized as a multiplication by a random uniformly distributed integer between 217 and 255 (inclusive), followed by division by 255. If the calculated damage thus far is 1, random is always 1
         float damageSoFar = fraction * sameTypeAttackBonus * typeMultiplier;
 
@@ -216,5 +236,10 @@ public class PocketMonster
         m_stats.HP -= (int)(damageSoFar * random);
 
         return true;
+    }
+
+    public void ChooseRandomMove()
+    {
+        m_chosenMoveThisTurn = m_moves[Random.Range(0, 4)];
     }
 }

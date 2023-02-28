@@ -4502,7 +4502,7 @@ MonoBehaviour:
   m_move3Text: {fileID: 109025843}
   m_move4Button: {fileID: 422744558}
   m_move4Text: {fileID: 1038673546}
-  m_battleInfo: {fileID: 760502853}
+  m_battleInfo: {fileID: 340487524}
   m_battleInfoText: {fileID: 1918251507}
 --- !u!1 &1695108722
 GameObject:

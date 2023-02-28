@@ -32,14 +32,7 @@ public class GameManager : Singleton<GameManager>
 
     private State m_state;
 
-    public enum BattleType
-    {
-        None,
-        WildPkmn,
-        Trainer
-    }
 
-    private BattleType m_currentBattleType;
     private GameObject m_battler;
 
     // Start is called before the first frame update
@@ -58,9 +51,10 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    public void StartBattle(BattleType type, GameObject battler)
+    public void StartBattle(BattleManager.BattleType type, GameObject battler)
     {
-        m_currentBattleType = type;
+        BattleManager.Instance.SetBattleType(type);
+
         m_battler = battler;
 
         Debug.Log("BATTLE STARTED!");
@@ -85,7 +79,7 @@ public class GameManager : Singleton<GameManager>
 
         switch (type)
         {
-            case BattleType.WildPkmn:
+            case BattleManager.BattleType.WildPkmn:
                 battler.transform.position = m_battleWildPkmnPosition.position;
                 battler.transform.rotation = m_battleWildPkmnPosition.rotation;
 
@@ -95,7 +89,7 @@ public class GameManager : Singleton<GameManager>
 
                 m_battleHUD.OnOtherSwitchPokemon(wildMon);
                 break;
-            case BattleType.Trainer:
+            case BattleManager.BattleType.Trainer:
                 // TODO: SET UP TRAINER BATTLES
                 break;
             default:
@@ -105,7 +99,7 @@ public class GameManager : Singleton<GameManager>
 
     public void EndBattle(bool runAway)
     {
-        if (runAway && m_currentBattleType != BattleType.WildPkmn)
+        if (runAway && BattleManager.Instance.GetBattleType() != BattleManager.BattleType.WildPkmn)
         {
             return;
         }
@@ -125,19 +119,16 @@ public class GameManager : Singleton<GameManager>
         m_player.transform.position = m_previousPlayerPosition;
         m_player.transform.rotation = m_previousPlayerRotation;
 
-        switch (m_currentBattleType)
+        if (BattleManager.Instance.GetBattleType() == BattleManager.BattleType.WildPkmn)
         {
-            case BattleType.WildPkmn:
-                Destroy(m_battler);
-                break;
-            case BattleType.Trainer:
-                // TODO: Destroy the trainer's pokemon but maintain the trainer model
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(m_currentBattleType), m_currentBattleType, null);
+            Destroy(m_battler);
+        }
+        else if (BattleManager.Instance.GetBattleType() == BattleManager.BattleType.Trainer)
+        {
+            // TODO: Destroy the trainer's pokemon but maintain the trainer model
         }
 
-        m_currentBattleType = BattleType.None;
+        BattleManager.Instance.SetBattleType(BattleManager.BattleType.None);
     }
 
     protected override void InternalInit()

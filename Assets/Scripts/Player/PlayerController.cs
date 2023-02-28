@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag(StringConstants.WILD_POKEMON_TAG))
         {
             // The trigger collider is on a child of the pokemon, passing the parent
-            GameManager.Instance.StartBattle(GameManager.BattleType.WildPkmn, other.transform.parent.gameObject);
+            GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, other.transform.parent.gameObject);
         }
     }
 }

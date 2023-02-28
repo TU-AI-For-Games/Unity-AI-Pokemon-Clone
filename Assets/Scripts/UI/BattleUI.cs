@@ -54,14 +54,14 @@ public class BattleUI : MonoBehaviour
 
     public void Attack()
     {
-        m_choiceUI.SetActive(false);
-        m_moveUI.SetActive(true);
+        HideChoiceUI();
+        ShowMoveUI();
     }
 
     public void AttackBack()
     {
         m_choiceUI.SetActive(true);
-        m_moveUI.SetActive(false);
+        HideMoveUI();
     }
 
     public void OnPlayerSwitchPokemon()
@@ -98,7 +98,8 @@ public class BattleUI : MonoBehaviour
 
     private void SetMoveDescription(Move move)
     {
-        m_moveDescription.text = $"{move.Description}\nEFFECT: {MoveManager.EffectToString(move.Effect)}\nDAMAGE: {move.Damage}\nACCURACY: {move.Accuracy}%\nTYPE: {PocketMonster.TypeToString(move.Type)}";
+        m_moveDescription.text =
+            $"{move.Description}\nEFFECT: {MoveManager.EffectToString(move.MoveEffect)}\nDAMAGE: {move.Damage}\nACCURACY: {move.Accuracy}%\nTYPE: {PocketMonster.TypeToString(move.Type)}";
     }
 
     public void OnMoveHoverExit()
@@ -108,49 +109,122 @@ public class BattleUI : MonoBehaviour
 
     public void OnMove1Pressed()
     {
-        BattleManager.Instance.PlayerAttack(0);
+        SetPlayerChoice(0);
     }
 
 
     public void OnMove1Hover()
     {
-        m_moveInfo.SetActive(true);
-        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[0]);
+        OnHover(0);
     }
 
     public void OnMove2Pressed()
     {
-        BattleManager.Instance.PlayerAttack(1);
+        SetPlayerChoice(1);
     }
+
     public void OnMove2Hover()
     {
-        m_moveInfo.SetActive(true);
-        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[1]);
+        OnHover(1);
     }
 
     public void OnMove3Pressed()
     {
-        BattleManager.Instance.PlayerAttack(2);
+        SetPlayerChoice(2);
     }
+
     public void OnMove3Hover()
     {
-        m_moveInfo.SetActive(true);
-        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[2]);
+        OnHover(2);
     }
 
     public void OnMove4Pressed()
     {
-        BattleManager.Instance.PlayerAttack(3);
+        SetPlayerChoice(3);
     }
 
     public void OnMove4Hover()
     {
+        OnHover(3);
+    }
+
+    private void OnHover(int index)
+    {
         m_moveInfo.SetActive(true);
-        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[3]);
+        SetMoveDescription(m_player.GetActivePokemon().GetMoves()[index]);
+    }
+
+    public void ShowMoveUI()
+    {
+        m_moveUI.SetActive(true);
+    }
+
+    public void HideMoveUI()
+    {
+        m_moveUI.SetActive(false);
+    }
+
+    public void ShowChoiceUI()
+    {
+        m_choiceUI.SetActive(true);
+    }
+
+    public void HideChoiceUI()
+    {
+        m_choiceUI.SetActive(false);
+    }
+
+    public void ShowBattleInfoUI()
+    {
+        HideMoveUI();
+        m_battleInfo.SetActive(true);
+    }
+
+    public void HideBattleInfoUI()
+    {
+        m_battleInfo.SetActive(false);
+    }
+
+    public void SetBattleInfoText(string text)
+    {
+        m_battleInfoText.text = text;
+    }
+
+    private void SetPlayerChoice(int index)
+    {
+        PocketMonster playerMon = m_player.GetActivePokemon();
+        playerMon.SetChosenMove(playerMon.GetMoves()[index]);
+
+        // Once the player has selected their move, we want to inform the battle manager to start the attack cycle
+        BattleManager.Instance.SetBattleState(BattleManager.BattleState.Attack);
     }
 
     public void OnBattleInfoPressed()
     {
+        if (ShowNextBattleInfoText())
+        {
+            ShowBattleInfoUI();
+        }
+        else
+        {
+            HideBattleInfoUI();
 
+            // Go back to selecting the move
+            BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
+        }
+    }
+
+    private bool ShowNextBattleInfoText()
+    {
+        string nextBattleMessage = BattleManager.Instance.ConsumeNextMessage();
+
+        if (nextBattleMessage == null)
+        {
+            return false;
+        }
+
+        SetBattleInfoText(nextBattleMessage);
+
+        return true;
     }
 }

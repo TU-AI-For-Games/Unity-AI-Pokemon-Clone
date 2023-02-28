@@ -9,7 +9,7 @@ public class Move
     public readonly int Damage;
     public readonly int Accuracy;
 
-    public enum MoveEffect
+    public enum Effect
     {
         Damage,
         Heal,
@@ -24,14 +24,29 @@ public class Move
         Status
     }
 
-    public readonly MoveEffect Effect;
+    public enum Effectiveness
+    {
+        Immune,
+        NotVeryEffective,
+        Neutral,
+        SuperEffective
+    }
 
-    public Move(string name, string description, PocketMonster.Element type, MoveEffect moveEffect, int damage, int accuracy)
+    public enum Outcome
+    {
+        Miss,
+        Hit,
+        CriticalHit
+    }
+
+    public readonly Effect MoveEffect;
+
+    public Move(string name, string description, PocketMonster.Element type, Effect moveEffect, int damage, int accuracy)
     {
         Name = name;
         Description = description;
         Type = type;
-        Effect = moveEffect;
+        MoveEffect = moveEffect;
         Damage = damage;
         Accuracy = accuracy;
     }

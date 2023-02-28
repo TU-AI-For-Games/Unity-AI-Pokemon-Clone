@@ -28,12 +28,12 @@ public class MoveManager : Singleton<MoveManager>
             string name = csvContent[1];
             string description = csvContent[2];
             PocketMonster.Element type = PocketMonster.StringToType(csvContent[3]);
-            Move.MoveEffect moveEffect = StringToEffect(csvContent[4]);
+            Move.Effect effect = StringToEffect(csvContent[4]);
             int damage = Convert.ToInt32(csvContent[5]);
             int accuracy = StringToAccuracy(csvContent[6]);
 
 
-            m_moves.Add(moveID, new Move(name, description, type, moveEffect, damage, accuracy));
+            m_moves.Add(moveID, new Move(name, description, type, effect, damage, accuracy));
         }
     }
 
@@ -59,65 +59,65 @@ public class MoveManager : Singleton<MoveManager>
         throw new ArithmeticException($"Unable to convert from {accuracy} to float");
     }
 
-    public static Move.MoveEffect StringToEffect(string effect)
+    public static Move.Effect StringToEffect(string effect)
     {
         switch (effect)
         {
             case "Physical":
             case "Special":
-                return Move.MoveEffect.Damage;
+                return Move.Effect.Damage;
             case "a+":
             case "sa+":
-                return Move.MoveEffect.IncreaseAttack;
+                return Move.Effect.IncreaseAttack;
             case "a-":
             case "sa-":
-                return Move.MoveEffect.DecreaseAttack;
+                return Move.Effect.DecreaseAttack;
             case "acc+":
-                return Move.MoveEffect.IncreaseAccuracy;
+                return Move.Effect.IncreaseAccuracy;
             case "acc-":
-                return Move.MoveEffect.DecreaseAccuracy;
+                return Move.Effect.DecreaseAccuracy;
             case "d+":
             case "sd+":
-                return Move.MoveEffect.IncreaseDefense;
+                return Move.Effect.IncreaseDefense;
             case "d-":
             case "sd-":
-                return Move.MoveEffect.DecreaseDefense;
+                return Move.Effect.DecreaseDefense;
             case "s+":
-                return Move.MoveEffect.IncreaseSpeed;
+                return Move.Effect.IncreaseSpeed;
             case "s-":
-                return Move.MoveEffect.DecreaseSpeed;
+                return Move.Effect.DecreaseSpeed;
             case "Status":
-                return Move.MoveEffect.Status;
+                return Move.Effect.Status;
         }
 
         throw new ArgumentOutOfRangeException(effect, "Ensure the moveEffect is supported");
     }
 
-    public static string EffectToString(Move.MoveEffect effect)
+    public static string EffectToString(Move.Effect effect)
     {
         switch (effect)
         {
-            case Move.MoveEffect.Damage:
+            case Move.Effect.Damage:
                 return "DMG";
-            case Move.MoveEffect.Heal:
+            case Move.Effect.Heal:
                 return "HP+";
-            case Move.MoveEffect.IncreaseAttack:
+            case Move.Effect.IncreaseAttack:
                 return "ATTK+";
-            case Move.MoveEffect.DecreaseAttack:
+            case Move.Effect.DecreaseAttack:
                 return "ATTK-";
-            case Move.MoveEffect.IncreaseAccuracy:
+            case Move.Effect.IncreaseAccuracy:
                 return "ACC+";
-            case Move.MoveEffect.DecreaseAccuracy:
+            case Move.Effect.DecreaseAccuracy:
                 return "ACC-";
-            case Move.MoveEffect.IncreaseDefense:
+            case Move.Effect.IncreaseDefense:
                 return "DEF+";
-            case Move.MoveEffect.DecreaseDefense:
+            case Move.Effect.DecreaseDefense:
                 return "DEF-";
-            case Move.MoveEffect.IncreaseSpeed:
+            case Move.Effect.IncreaseSpeed:
                 return "SPD+";
-            case Move.MoveEffect.DecreaseSpeed:
+            case Move.Effect.DecreaseSpeed:
                 return "SPD-";
-            case Move.MoveEffect.Status:
+            case Move.Effect.Status:
                 // TODO: THINK ABOUT HAVING TO IMPLEMENT THE STATUS CONDITIONS
                 return "STATUS";
             default:

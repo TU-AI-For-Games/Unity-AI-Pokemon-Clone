@@ -12,24 +12,144 @@ public class BattleManager : Singleton<BattleManager>
     private PocketMonster m_playerPokemon;
     private PocketMonster m_otherPokemon;
 
-    public enum MoveOutcome
+    [SerializeField] private BattleUI m_battleHUD;
+
+    private Queue<string> m_battleMessages;
+
+    public enum BattleState
     {
-        Hit,
-        CriticalHit,
-        Miss
+        SelectMove,
+        Attack,
+        BattleInfo,
+        PlayerFainted,
+        End
     }
 
+    private BattleState m_battleState;
+
+    public enum BattleType
+    {
+        None,
+        WildPkmn,
+        Trainer
+    }
+
+    private BattleType m_currentBattleType;
+
+    private bool m_aiChosenThisTurn = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        m_battleMessages = new Queue<string>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (m_battleState)
+        {
+            case BattleState.SelectMove:
+                {
+                    // TODO: For now, the AI is just choosing a random move, of course this will be more sophisticated when Jay has done the decision making
+                    if (!m_aiChosenThisTurn && m_currentBattleType == BattleType.WildPkmn)
+                    {
+                        m_otherPokemon.ChooseRandomMove();
+                        m_aiChosenThisTurn = true;
+                    }
 
+                    break;
+                }
+            case BattleState.Attack:
+                {
+                    // We haven't attacked yet if there are no messages in the queue
+                    if (m_battleMessages.Count == 0)
+                    {
+                        AttackState();
+                        m_battleState = BattleState.BattleInfo;
+                    }
+
+                    break;
+                }
+            case BattleState.BattleInfo:
+                {
+                    // When the messages have all been consumed, we can move to the next state
+                    if (m_battleMessages.Count == 0)
+                    {
+                        m_battleState = BattleState.SelectMove;
+                        m_battleHUD.ShowChoiceUI();
+                        m_aiChosenThisTurn = false;
+                    }
+
+                    break;
+                }
+            case BattleState.PlayerFainted:
+                break;
+            case BattleState.End:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(m_battleState), m_battleState, null);
+        }
+    }
+
+    private void AttackState()
+    {
+        // Determine which pokemon is going first based on speed
+        PocketMonster firstMon;
+        PocketMonster secondMon;
+
+        if (m_playerPokemon.GetStats().Speed < m_otherPokemon.GetStats().Speed)
+        {
+            firstMon = m_otherPokemon;
+            secondMon = m_playerPokemon;
+        }
+        else
+        {
+            firstMon = m_playerPokemon;
+            secondMon = m_otherPokemon;
+        }
+
+        HandleMove(firstMon, secondMon);
+        HandleMove(secondMon, firstMon);
+
+        m_battleHUD.ShowBattleInfoUI();
+    }
+
+    private void HandleMove(PocketMonster attacker, PocketMonster target)
+    {
+        Move.Outcome outcome = Attack(attacker.GetChosenMove(), attacker, target, out Move.Effectiveness effectiveness);
+
+        m_battleMessages.Enqueue(
+            GenerateOutcomeString(
+                    attacker.Name,
+                    target.Name,
+                    attacker.GetChosenMove().Name,
+                    outcome
+            )
+            );
+
+        if (effectiveness != Move.Effectiveness.Neutral)
+        {
+            m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
+        }
+
+        // If the target died this turn, then we want to add that message to the queue
+        if (target.GetStats().HP < 0)
+        {
+            m_battleMessages.Enqueue($"{target.Name} fainted...");
+
+            OnFaint(target);
+        }
+    }
+
+    private void OnFaint(PocketMonster pokemon)
+    {
+        Debug.Log($"{pokemon.Name.ToUpper()} FAINTED");
+    }
+
+    public void SetBattleState(BattleState state)
+    {
+        m_battleState = state;
     }
 
     public void SetPlayerPokemon(PocketMonster pokemon)
@@ -44,62 +164,66 @@ public class BattleManager : Singleton<BattleManager>
         m_otherPokemon.ResetAccuracy();
     }
 
-    public MoveOutcome PlayerAttack(int moveID)
+    public string ConsumeNextMessage()
     {
-        Move move = m_playerPokemon.GetMoves()[moveID];
+        if (m_battleMessages.Count != 0)
+        {
+            return m_battleMessages.Dequeue();
+        }
 
-        return Attack(move, m_playerPokemon, m_otherPokemon);
+        return null;
     }
 
-    private MoveOutcome Attack(Move move, PocketMonster attacker, PocketMonster target)
+    private Move.Outcome Attack(Move move, PocketMonster attacker, PocketMonster target, out Move.Effectiveness effectiveness)
     {
-        switch (move.Effect)
+        switch (move.MoveEffect)
         {
-            case Move.MoveEffect.Damage:
-                return DealDamage(move, attacker, target);
-            case Move.MoveEffect.Heal:
+            case Move.Effect.Damage:
+                return DealDamage(move, attacker, target, out effectiveness);
+            case Move.Effect.Heal:
                 break;
-            case Move.MoveEffect.IncreaseAttack:
+            case Move.Effect.IncreaseAttack:
                 break;
-            case Move.MoveEffect.DecreaseAttack:
+            case Move.Effect.DecreaseAttack:
                 break;
-            case Move.MoveEffect.IncreaseAccuracy:
+            case Move.Effect.IncreaseAccuracy:
                 break;
-            case Move.MoveEffect.DecreaseAccuracy:
+            case Move.Effect.DecreaseAccuracy:
                 break;
-            case Move.MoveEffect.IncreaseDefense:
+            case Move.Effect.IncreaseDefense:
                 break;
-            case Move.MoveEffect.DecreaseDefense:
+            case Move.Effect.DecreaseDefense:
                 break;
-            case Move.MoveEffect.IncreaseSpeed:
+            case Move.Effect.IncreaseSpeed:
                 break;
-            case Move.MoveEffect.DecreaseSpeed:
+            case Move.Effect.DecreaseSpeed:
                 break;
-            case Move.MoveEffect.Status:
+            case Move.Effect.Status:
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
         }
 
-        return MoveOutcome.Miss;
+        effectiveness = Move.Effectiveness.Immune;
+        return Move.Outcome.Miss;
     }
 
-    private MoveOutcome DealDamage(Move move, PocketMonster attacker, PocketMonster target)
+    private Move.Outcome DealDamage(Move move, PocketMonster attacker, PocketMonster target, out Move.Effectiveness effectiveness)
     {
-        MoveOutcome outcome = MoveOutcome.Hit;
+        Move.Outcome outcome = Move.Outcome.Hit;
 
         bool isCrit = IsCriticalHit(attacker);
 
         if (isCrit)
         {
-            outcome = MoveOutcome.CriticalHit;
+            outcome = Move.Outcome.CriticalHit;
         }
 
-        bool hit = target.TakeDamage(attacker, move, isCrit);
+        bool hit = target.TakeDamage(attacker, move, out effectiveness, isCrit);
 
         if (!hit)
         {
-            outcome = MoveOutcome.Miss;
+            outcome = Move.Outcome.Miss;
         }
 
         return outcome;
@@ -159,5 +283,50 @@ public class BattleManager : Singleton<BattleManager>
     public PocketMonster GetOtherPokemon()
     {
         return m_otherPokemon;
+    }
+
+    // TODO: Ideally this would come from a stringtable but I really cba...
+    private string GenerateOutcomeString(string attackerName, string targetName, string moveName, Move.Outcome outcome)
+    {
+        string outcomeString = $"{attackerName} used {moveName} on {targetName}...\n";
+
+        if (outcome == Move.Outcome.CriticalHit)
+        {
+            outcomeString += "It was a critical hit!";
+        }
+        else if (outcome == Move.Outcome.Miss)
+        {
+            outcomeString += "The attack missed";
+        }
+
+        return outcomeString;
+    }
+
+    private string GenerateEffectivenessString(Move.Effectiveness effectiveness)
+    {
+        if (effectiveness == Move.Effectiveness.Immune)
+        {
+            return "It had no effect...";
+        }
+        if (effectiveness == Move.Effectiveness.NotVeryEffective)
+        {
+            return "It was not very effective...";
+        }
+        if (effectiveness == Move.Effectiveness.SuperEffective)
+        {
+            return "It was super effective!";
+        }
+
+        return "";
+    }
+
+    public void SetBattleType(BattleType type)
+    {
+        m_currentBattleType = type;
+    }
+
+    public BattleType GetBattleType()
+    {
+        return m_currentBattleType;
     }
 }

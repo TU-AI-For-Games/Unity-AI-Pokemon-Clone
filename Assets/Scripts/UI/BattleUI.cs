@@ -36,6 +36,7 @@ public class BattleUI : MonoBehaviour
     [Header("Battle info UI")]
     [SerializeField] private GameObject m_battleInfo;
     [SerializeField] private TextMeshProUGUI m_battleInfoText;
+    private bool m_displayedAllMessages = false;
 
     private void Awake()
     {
@@ -178,6 +179,8 @@ public class BattleUI : MonoBehaviour
     {
         HideMoveUI();
         m_battleInfo.SetActive(true);
+        ShowNextBattleInfoText();
+        m_displayedAllMessages = false;
     }
 
     public void HideBattleInfoUI()
@@ -207,10 +210,12 @@ public class BattleUI : MonoBehaviour
         }
         else
         {
+            m_displayedAllMessages = true;
+
             HideBattleInfoUI();
 
             // Go back to selecting the move
-            BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
+            BattleManager.Instance.NextTurn();
         }
     }
 
@@ -226,5 +231,10 @@ public class BattleUI : MonoBehaviour
         SetBattleInfoText(nextBattleMessage);
 
         return true;
+    }
+
+    public bool DisplayedAllMessages()
+    {
+        return m_displayedAllMessages;
     }
 }

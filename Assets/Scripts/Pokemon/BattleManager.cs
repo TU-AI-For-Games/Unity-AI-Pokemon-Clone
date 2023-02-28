@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
 
 public class BattleManager : Singleton<BattleManager>
@@ -36,7 +37,10 @@ public class BattleManager : Singleton<BattleManager>
 
     private BattleType m_currentBattleType;
 
+    public bool AllMessagesConsumed = false;
+    private bool m_inBattle = false;
     private bool m_aiChosenThisTurn = false;
+    private bool m_battleEnded = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +51,7 @@ public class BattleManager : Singleton<BattleManager>
     // Update is called once per frame
     void Update()
     {
+        // TODO: This should probably be properly implemented and event-driven, but that's what refactoring is for! 
         switch (m_battleState)
         {
             case BattleState.SelectMove:
@@ -74,11 +79,9 @@ public class BattleManager : Singleton<BattleManager>
             case BattleState.BattleInfo:
                 {
                     // When the messages have all been consumed, we can move to the next state
-                    if (m_battleMessages.Count == 0)
+                    if (m_battleHUD.DisplayedAllMessages())
                     {
-                        m_battleState = BattleState.SelectMove;
-                        m_battleHUD.ShowChoiceUI();
-                        m_aiChosenThisTurn = false;
+                        Debug.Log("Nothing more to show...");
                     }
 
                     break;
@@ -90,6 +93,22 @@ public class BattleManager : Singleton<BattleManager>
             default:
                 throw new ArgumentOutOfRangeException(nameof(m_battleState), m_battleState, null);
         }
+
+        // If the battle has finished and we have no more messages to read on screen, go back to the overworld
+        if (m_inBattle && m_battleEnded && m_battleHUD.DisplayedAllMessages())
+        {
+            GameManager.Instance.EndBattle(false);
+            m_inBattle = false;
+        }
+    }
+
+
+    public void InitialiseBattle(BattleType type)
+    {
+        m_currentBattleType = type;
+        m_aiChosenThisTurn = false;
+        m_inBattle = true;
+        m_battleEnded = false;
     }
 
     private void AttackState()
@@ -110,14 +129,49 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         HandleMove(firstMon, secondMon);
+
+        // If the target died this turn, then we want to add that message to the queue
+
+        if (CheckIfFainted(secondMon))
+        {
+            OnFaint(secondMon, secondMon == m_playerPokemon);
+        }
+
         HandleMove(secondMon, firstMon);
+
+        if (CheckIfFainted(firstMon))
+        {
+            OnFaint(firstMon, firstMon == m_playerPokemon);
+        }
 
         m_battleHUD.ShowBattleInfoUI();
     }
 
+    private bool CheckIfFainted(PocketMonster pokemon)
+    {
+        return pokemon.GetStats().HP < 0;
+    }
+
     private void HandleMove(PocketMonster attacker, PocketMonster target)
     {
-        Move.Outcome outcome = Attack(attacker.GetChosenMove(), attacker, target, out Move.Effectiveness effectiveness);
+        if (attacker.GetStats().HP <= 0)
+        {
+            // Don't attack if we fainted!
+            return;
+        }
+
+        Move.Outcome outcome;
+        Move.Effectiveness effectiveness = Move.Effectiveness.Neutral;
+
+        if (target.GetStats().HP > 0)
+        {
+            outcome = Attack(attacker.GetChosenMove(), attacker, target, out effectiveness);
+        }
+        else
+        {
+            // Miss the target if it has fainted!
+            outcome = Move.Outcome.Miss;
+        }
 
         m_battleMessages.Enqueue(
             GenerateOutcomeString(
@@ -132,19 +186,31 @@ public class BattleManager : Singleton<BattleManager>
         {
             m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
         }
-
-        // If the target died this turn, then we want to add that message to the queue
-        if (target.GetStats().HP < 0)
-        {
-            m_battleMessages.Enqueue($"{target.Name} fainted...");
-
-            OnFaint(target);
-        }
     }
 
-    private void OnFaint(PocketMonster pokemon)
+    private void OnFaint(PocketMonster pokemon, bool isPlayerMon)
     {
+        m_battleMessages.Enqueue($"{pokemon.Name} fainted...");
+
         Debug.Log($"{pokemon.Name.ToUpper()} FAINTED");
+
+        if (isPlayerMon)
+        {
+            // TODO: Make the player select another pokemon to battle
+            Debug.Log("PLAYER MON FAINTED!");
+        }
+        else
+        {
+            if (m_currentBattleType == BattleType.WildPkmn)
+            {
+                // If the wild pokemon fainted then we want to end the battle
+                m_battleEnded = true;
+            }
+            else
+            {
+                // TODO: Make the trainer AI pick another pokemon to battle
+            }
+        }
     }
 
     public void SetBattleState(BattleState state)
@@ -328,5 +394,13 @@ public class BattleManager : Singleton<BattleManager>
     public BattleType GetBattleType()
     {
         return m_currentBattleType;
+    }
+
+    public void NextTurn()
+    {
+        m_aiChosenThisTurn = false;
+
+        m_battleState = BattleState.SelectMove;
+        m_battleHUD.ShowChoiceUI();
     }
 }

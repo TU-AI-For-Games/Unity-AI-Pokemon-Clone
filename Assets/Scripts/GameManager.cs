@@ -53,7 +53,7 @@ public class GameManager : Singleton<GameManager>
 
     public void StartBattle(BattleManager.BattleType type, GameObject battler)
     {
-        BattleManager.Instance.SetBattleType(type);
+        BattleManager.Instance.InitialiseBattle(type);
 
         m_battler = battler;
 

@@ -5393,7 +5393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273aa5c3a47a1f6418b68299d53d906a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_battleHUD: {fileID: 0}
+  m_battleHUD: {fileID: 1669892747}
 --- !u!1 &1918251505
 GameObject:
   m_ObjectHideFlags: 0

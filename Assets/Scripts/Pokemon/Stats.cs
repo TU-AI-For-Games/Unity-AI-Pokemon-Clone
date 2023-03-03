@@ -121,7 +121,7 @@ public class Stats
 
     private bool DecreaseStat(ref float modifier)
     {
-        if(modifier > 0f)
+        if(modifier > -2f)
         {
             modifier -= 0.5f;
             return true;

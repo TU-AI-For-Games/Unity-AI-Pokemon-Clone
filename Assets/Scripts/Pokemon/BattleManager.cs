@@ -210,9 +210,15 @@ public class BattleManager : Singleton<BattleManager>
             m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
         }
 
-        if(statChange)
+        if (statChange)
         {
             // Enqueue the message saying the stat and whether it increased or decreased
+            m_battleMessages.Enqueue(GenerateStatChangeString(
+                    chosenMove,
+                    attacker, 
+                    target
+                )
+                );
         }
     }
 
@@ -245,42 +251,48 @@ public class BattleManager : Singleton<BattleManager>
 
     private bool HandleStatChange(Move move, PocketMonster attacker, PocketMonster target)
     {
-        PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
-
-        switch (move.MoveEffect)
+        if (move.AffectedStatChange != Move.StatChangeAffected.None)
         {
-            case Move.Effect.Heal:
-                break;
-            case Move.Effect.IncreaseAttack:
-                affectedMon.GetStats().IncreaseAttack();
-                break;
-            case Move.Effect.DecreaseAttack:
-                affectedMon.GetStats().DecreaseAttack();
-                break;
-            case Move.Effect.IncreaseAccuracy:
-                // TODO: Accuracy
-                break;
-            case Move.Effect.DecreaseAccuracy:
-                // TODO: Accuracy
-                break;
-            case Move.Effect.IncreaseDefense:
-                affectedMon.GetStats().IncreaseDefense();
-                break;
-            case Move.Effect.DecreaseDefense:
-                affectedMon.GetStats().DecreaseDefense();
-                break;
-            case Move.Effect.IncreaseSpeed:
-                affectedMon.GetStats().IncreaseSpeed();
-                break;
-            case Move.Effect.DecreaseSpeed:
-                affectedMon.GetStats().DecreaseSpeed();
-                break;
-            case Move.Effect.RaiseAllStats:
-                affectedMon.GetStats().IncreaseAttack();
-                affectedMon.GetStats().IncreaseDefense();
-                affectedMon.GetStats().IncreaseSpeed();
-                break;
+            PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
+
+            int RandomChance = Random.Range(0, 100);
+
+            if (move.StatChangeChance > RandomChance)
+            {
+                switch (move.MoveEffect)
+                {
+                    case Move.Effect.Heal:
+                        break;
+                    case Move.Effect.IncreaseAttack:
+                        return affectedMon.GetStats().IncreaseAttack();
+                    case Move.Effect.DecreaseAttack:
+                        return affectedMon.GetStats().DecreaseAttack();
+                    case Move.Effect.IncreaseAccuracy:
+                        // TODO: Accuracy
+                        break;
+                    case Move.Effect.DecreaseAccuracy:
+                        // TODO: Accuracy
+                        break;
+                    case Move.Effect.IncreaseDefense:
+                        return affectedMon.GetStats().IncreaseDefense();
+                    case Move.Effect.DecreaseDefense:
+                        return affectedMon.GetStats().DecreaseDefense();
+                    case Move.Effect.IncreaseSpeed:
+                        return affectedMon.GetStats().IncreaseSpeed();
+                    case Move.Effect.DecreaseSpeed:
+                        return affectedMon.GetStats().DecreaseSpeed();
+                    case Move.Effect.RaiseAllStats:
+                        {
+                            bool statChanged = affectedMon.GetStats().IncreaseAttack();
+                            statChanged = affectedMon.GetStats().IncreaseDefense();
+                            statChanged = affectedMon.GetStats().IncreaseSpeed();
+                            return statChanged;
+                        }
+                }
+            }
         }
+
+        return false;
     }
 
     public void SetBattleState(BattleState state)
@@ -418,6 +430,35 @@ public class BattleManager : Singleton<BattleManager>
         if (effectiveness == Move.Effectiveness.SuperEffective)
         {
             return "It was super effective!";
+        }
+
+        return "";
+    }
+
+    private string GenerateStatChangeString(Move move, PocketMonster attacker, PocketMonster target)
+    {
+        string affected = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker.Name : target.Name;
+
+        switch (move.MoveEffect)
+        {
+            case Move.Effect.IncreaseAttack:
+                return $"{affected}'s Attack Increased";
+            case Move.Effect.DecreaseAttack:
+                return $"{affected}'s Attack Decreased";
+            case Move.Effect.IncreaseAccuracy:
+                return $"{affected}'s Accuracy Increased";
+            case Move.Effect.DecreaseAccuracy:
+                return $"{affected}'s Accuracy Decreased";
+            case Move.Effect.IncreaseDefense:
+                return $"{affected}'s Defense Increased";
+            case Move.Effect.DecreaseDefense:
+                return $"{affected}'s Defense Decreased";
+            case Move.Effect.IncreaseSpeed:
+                return $"{affected}'s Speed Increased";
+            case Move.Effect.DecreaseSpeed:
+                return $"{affected}'s Speed Decreased";
+            case Move.Effect.RaiseAllStats:
+                return $"{affected}'s Defense Increased";
         }
 
         return "";

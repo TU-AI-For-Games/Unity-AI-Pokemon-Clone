@@ -60,6 +60,8 @@ public class Flocking : MonoBehaviour
     [SerializeField] private float _obstacleWeight;
     public float obstacleWeight { get { return _obstacleWeight; } }
 
+    [SerializeField] private Vector2 limit;
+
     public flockingUnit[] allBirds { get; set; }
     
 
@@ -75,6 +77,9 @@ public class Flocking : MonoBehaviour
         for(int i = 0; i < allBirds.Length; i++)
         {
             allBirds[i].moveBirds();
+
+            allBirds[i].transform.position = new Vector3(allBirds[i].transform.position.x, Mathf.Clamp(allBirds[i].transform.position.y, limit.x, limit.y), allBirds[i].transform.position.z);
+
         }
     }
 

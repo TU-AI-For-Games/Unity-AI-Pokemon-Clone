@@ -46,8 +46,8 @@ public class BattleUI : MonoBehaviour
     private void Update()
     {
         // TODO: THINK OF A BETTER WAY TO DO THIS... It's 1am I want to go to sleep :'(
-        PocketMonster.Stats playerMon = BattleManager.Instance.GetPlayerPokemon().GetStats();
-        PocketMonster.Stats otherMon = BattleManager.Instance.GetOtherPokemon().GetStats();
+        Stats playerMon = BattleManager.Instance.GetPlayerPokemon().GetStats();
+        Stats otherMon = BattleManager.Instance.GetOtherPokemon().GetStats();
         m_playerHpSlider.value = playerMon.HP / (float)playerMon.BaseHP;
         m_otherHpSlider.value = otherMon.HP / (float)otherMon.BaseHP;
     }

@@ -126,7 +126,7 @@ public class BattleManager : Singleton<BattleManager>
         PocketMonster firstMon;
         PocketMonster secondMon;
 
-        if (m_playerPokemon.GetStats().Speed < m_otherPokemon.GetStats().Speed)
+        if (m_playerPokemon.GetStats().GetSpeed() < m_otherPokemon.GetStats().GetSpeed())
         {
             firstMon = m_otherPokemon;
             secondMon = m_playerPokemon;
@@ -169,24 +169,38 @@ public class BattleManager : Singleton<BattleManager>
             return;
         }
 
-        Move.Outcome outcome;
+        Move.Outcome outcome = Move.Outcome.Hit;
         Move.Effectiveness effectiveness = Move.Effectiveness.Neutral;
 
-        if (target.GetStats().HP > 0)
+        Move chosenMove = attacker.GetChosenMove();
+
+        bool statChange = false;
+
+        if (target.GetStats().HP <= 0)
         {
-            outcome = Attack(attacker.GetChosenMove(), attacker, target, out effectiveness);
+            // Allow the user to use a stat move if the target has fainted and they are using the move on themself
+            if (chosenMove.MoveEffect != Move.Effect.Damage && chosenMove.MoveEffect != Move.Effect.Status && chosenMove.AffectedStatChange != Move.StatChangeAffected.Target)
+            {
+                statChange = HandleStatChange(chosenMove, attacker, target);
+            }
+            else
+            {
+                // Miss the target if it has fainted!
+                outcome = Move.Outcome.Miss;
+            }
         }
         else
         {
-            // Miss the target if it has fainted!
-            outcome = Move.Outcome.Miss;
+            outcome = DealDamage(chosenMove, attacker, target, out effectiveness);
+
+            statChange = HandleStatChange(chosenMove, attacker, target);
         }
 
         m_battleMessages.Enqueue(
             GenerateOutcomeString(
                     attacker.Name,
                     target.Name,
-                    attacker.GetChosenMove().Name,
+                    chosenMove.Name,
                     outcome
             )
             );
@@ -194,6 +208,11 @@ public class BattleManager : Singleton<BattleManager>
         if (effectiveness != Move.Effectiveness.Neutral)
         {
             m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
+        }
+
+        if(statChange)
+        {
+            // Enqueue the message saying the stat and whether it increased or decreased
         }
     }
 
@@ -221,6 +240,46 @@ public class BattleManager : Singleton<BattleManager>
             {
                 // TODO: Make the trainer AI pick another pokemon to battle
             }
+        }
+    }
+
+    private bool HandleStatChange(Move move, PocketMonster attacker, PocketMonster target)
+    {
+        PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
+
+        switch (move.MoveEffect)
+        {
+            case Move.Effect.Heal:
+                break;
+            case Move.Effect.IncreaseAttack:
+                affectedMon.GetStats().IncreaseAttack();
+                break;
+            case Move.Effect.DecreaseAttack:
+                affectedMon.GetStats().DecreaseAttack();
+                break;
+            case Move.Effect.IncreaseAccuracy:
+                // TODO: Accuracy
+                break;
+            case Move.Effect.DecreaseAccuracy:
+                // TODO: Accuracy
+                break;
+            case Move.Effect.IncreaseDefense:
+                affectedMon.GetStats().IncreaseDefense();
+                break;
+            case Move.Effect.DecreaseDefense:
+                affectedMon.GetStats().DecreaseDefense();
+                break;
+            case Move.Effect.IncreaseSpeed:
+                affectedMon.GetStats().IncreaseSpeed();
+                break;
+            case Move.Effect.DecreaseSpeed:
+                affectedMon.GetStats().DecreaseSpeed();
+                break;
+            case Move.Effect.RaiseAllStats:
+                affectedMon.GetStats().IncreaseAttack();
+                affectedMon.GetStats().IncreaseDefense();
+                affectedMon.GetStats().IncreaseSpeed();
+                break;
         }
     }
 
@@ -252,40 +311,6 @@ public class BattleManager : Singleton<BattleManager>
         return null;
     }
 
-    private Move.Outcome Attack(Move move, PocketMonster attacker, PocketMonster target, out Move.Effectiveness effectiveness)
-    {
-        switch (move.MoveEffect)
-        {
-            case Move.Effect.Damage:
-                return DealDamage(move, attacker, target, out effectiveness);
-            case Move.Effect.Heal:
-                break;
-            case Move.Effect.IncreaseAttack:
-                break;
-            case Move.Effect.DecreaseAttack:
-                break;
-            case Move.Effect.IncreaseAccuracy:
-                break;
-            case Move.Effect.DecreaseAccuracy:
-                break;
-            case Move.Effect.IncreaseDefense:
-                break;
-            case Move.Effect.DecreaseDefense:
-                break;
-            case Move.Effect.IncreaseSpeed:
-                break;
-            case Move.Effect.DecreaseSpeed:
-                break;
-            case Move.Effect.Status:
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-
-        effectiveness = Move.Effectiveness.Immune;
-        return Move.Outcome.Miss;
-    }
-
     private Move.Outcome DealDamage(Move move, PocketMonster attacker, PocketMonster target, out Move.Effectiveness effectiveness)
     {
         Move.Outcome outcome = Move.Outcome.Hit;
@@ -310,7 +335,7 @@ public class BattleManager : Singleton<BattleManager>
     private bool IsCriticalHit(PocketMonster mon)
     {
         // In Pokemon, it is a critical hit if the random number generated between 1 and 255 is bigger than base speed / 2 rounded down
-        int baseSpeedOverTwo = mon.GetStats().Speed / 2;
+        int baseSpeedOverTwo = mon.GetStats().GetBaseSpeed() / 2;
 
         int randomNumber = Random.Range(1, 255);
 

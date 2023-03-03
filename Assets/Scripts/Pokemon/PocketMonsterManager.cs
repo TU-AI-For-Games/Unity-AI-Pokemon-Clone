@@ -49,7 +49,7 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
             string pkmnName = data[1];
             PocketMonster.Element type = PocketMonster.StringToType(data[2]);
 
-            PocketMonster.Stats stats = new PocketMonster.Stats(
+            Stats stats = new Stats(
                 int.Parse(data[3]),
                 int.Parse(data[4]),
                 int.Parse(data[5]),

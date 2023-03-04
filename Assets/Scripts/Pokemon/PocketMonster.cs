@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using static Move;
 using Random = UnityEngine.Random;
 
 
@@ -28,6 +30,16 @@ public class PocketMonster
         Water
     }
 
+    public enum StatusType
+    {
+        None,
+        Asleep,
+        Burned,
+        Frozen,
+        Paralyzed,
+        Poisoned
+    }
+
     public Element Type { get; }
 
     public string Name { get; }
@@ -43,6 +55,12 @@ public class PocketMonster
     private GameObject m_model;
 
     private Move m_chosenMoveThisTurn;
+
+    private StatusType m_status = StatusType.None;
+    private int m_statusTurnCount;
+
+    private bool m_isConfused;
+    private int m_confusedTurnCount;
 
     public PocketMonster(PocketMonster monster)
     {
@@ -66,6 +84,85 @@ public class PocketMonster
     public void SetMesh(GameObject model)
     {
         m_model = model;
+    }
+
+    public void HandleStatus()
+    {
+        if (m_status == StatusType.None)
+        {
+            m_statusTurnCount = 0;
+            return;
+        }
+
+        // Info from https://bulbapedia.bulbagarden.net/wiki/Status_condition
+        m_statusTurnCount++;
+
+        if (m_status == StatusType.Asleep)
+        {
+            switch (m_statusTurnCount)
+            {
+                // You wake up after a max of 5 turns
+                case 5:
+                // Or randomly if we've had more than 3 turns asleep
+                case < 3 when Random.Range(1, 8) == m_statusTurnCount:
+                    BattleManager.Instance.OnWakeUp(this);
+                    m_status = StatusType.None;
+                    break;
+            }
+        }
+        else if (m_status == StatusType.Burned)
+        {
+            {
+                // Burn does 1/16 of your total health each turn
+                int damage = m_stats.BaseHP / 16;
+                m_stats.HP -= damage;
+
+                BattleManager.Instance.OnBurnDamage(this);
+            }
+        }
+        else if (m_status == StatusType.Frozen)
+        {
+            // There's a 10% chance of thawing out each turn
+            int random = Random.Range(0, 100);
+            if (random < 10)
+            {
+                m_status = StatusType.None;
+                BattleManager.Instance.OnThaw(this);
+            }
+        }
+        else if (m_status == StatusType.Poisoned)
+        {
+            {
+                // Poison takes 1/8 of the health each turn
+                int damage = m_stats.BaseHP / 8;
+                m_stats.HP -= damage;
+
+                BattleManager.Instance.OnPoisonDamage(this);
+            }
+        }
+
+        CheckIfFainted();
+
+        if (!m_isConfused)
+        {
+            return;
+        }
+
+        m_confusedTurnCount++;
+
+        if (m_confusedTurnCount >= 3 || m_confusedTurnCount == Random.Range(1, 4))
+        {
+            BattleManager.Instance.OnSnapOut(this);
+            m_isConfused = false;
+        }
+    }
+
+    private void CheckIfFainted()
+    {
+        if (m_stats.HP <= 0)
+        {
+            BattleManager.Instance.OnFaint(this);
+        }
     }
 
     public static Element StringToType(string type)
@@ -202,11 +299,105 @@ public class PocketMonster
 
         m_stats.HP -= (int)(damageSoFar * random);
 
+        if (m_stats.HP <= 0 || move.Status == StatusEffect.None)
+        {
+            return true;
+        }
+
+        // If we are still alive and there is a status condition, apply it here
+        if (m_status == StatusType.None)
+        {
+            int randomChance = Random.Range(0, 100);
+            if (randomChance < move.StatusEffectChance)
+            {
+                ApplyStatus(move.Status);
+            }
+        }
+
+        if (!m_isConfused && move.Status == Move.StatusEffect.Confuse)
+        {
+            m_isConfused = true;
+        }
+
         return true;
+    }
+
+    private void ApplyStatus(StatusEffect effect)
+    {
+        if (effect == StatusEffect.Burn)
+        {
+            m_status = StatusType.Burned;
+        }
+        else if (effect == StatusEffect.Freeze)
+        {
+            m_status = StatusType.Frozen;
+        }
+        else if (effect == StatusEffect.Paralyze)
+        {
+            m_status = StatusType.Paralyzed;
+        }
+        else if (effect == StatusEffect.Poison)
+        {
+            m_status = StatusType.Poisoned;
+        }
+        else if (effect == StatusEffect.Sleep)
+        {
+            m_status = StatusType.Asleep;
+        }
+        else if (effect == StatusEffect.TriAttack)
+        {
+            StatusType[] options =
+            {
+                StatusType.Burned, StatusType.Frozen, StatusType.Paralyzed
+            };
+
+            m_status = options[Random.Range(0, options.Length)];
+        }
+
+        InformBattleManagerOfStatus();
+    }
+
+    private void InformBattleManagerOfStatus()
+    {
+        switch (m_status)
+        {
+            case StatusType.Asleep:
+                BattleManager.Instance.OnAsleep(this);
+                break;
+            case StatusType.Burned:
+                BattleManager.Instance.OnBurn(this);
+                break;
+            case StatusType.Frozen:
+                BattleManager.Instance.OnFreeze(this);
+                break;
+            case StatusType.Paralyzed:
+                BattleManager.Instance.OnParalyze(this);
+                break;
+            case StatusType.Poisoned:
+                BattleManager.Instance.OnPoison(this);
+                break;
+        }
     }
 
     public void ChooseRandomMove()
     {
         m_chosenMoveThisTurn = m_moves[Random.Range(0, 4)];
+    }
+
+    public StatusType GetStatusEffect()
+    {
+        return m_status;
+    }
+
+    public bool IsConfused()
+    {
+        return m_isConfused;
+    }
+
+    public void DealConfusionDamage()
+    {
+        // Deal 1/8 of total health
+        int damage = m_stats.BaseHP / 8;
+        m_stats.HP -= damage;
     }
 }

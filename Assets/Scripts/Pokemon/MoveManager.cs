@@ -29,6 +29,7 @@ public class MoveManager : Singleton<MoveManager>
 
             // Reordered to be in the same order as the Move() constructor... I know it should probably consistent with the CSV but hey - Tom
             string moveName = csvContent[1];
+
             string description = csvContent[2];
 
             PocketMonster.Element type = PocketMonster.StringToType(csvContent[3]);
@@ -131,6 +132,7 @@ public class MoveManager : Singleton<MoveManager>
             Move.Effect.IncreaseSpeed => "SPD+",
             Move.Effect.DecreaseSpeed => "SPD-",
             Move.Effect.Status => "STATUS",
+            Move.Effect.RaiseAllStats => "ALL+",
             _ => throw new ArgumentOutOfRangeException(nameof(effect), effect, null)
         };
     }

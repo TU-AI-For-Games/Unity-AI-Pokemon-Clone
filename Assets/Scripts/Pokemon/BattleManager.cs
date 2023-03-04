@@ -143,15 +143,18 @@ public class BattleManager : Singleton<BattleManager>
 
         if (CheckIfFainted(secondMon))
         {
-            OnFaint(secondMon, secondMon == m_playerPokemon);
+            OnFaint(secondMon);
         }
 
         HandleMove(secondMon, firstMon);
 
         if (CheckIfFainted(firstMon))
         {
-            OnFaint(firstMon, firstMon == m_playerPokemon);
+            OnFaint(firstMon);
         }
+
+        firstMon.HandleStatus();
+        secondMon.HandleStatus();
 
         m_battleHUD.ShowBattleInfoUI();
     }
@@ -169,6 +172,18 @@ public class BattleManager : Singleton<BattleManager>
             return;
         }
 
+        if (attacker.GetStatusEffect() == PocketMonster.StatusType.Asleep)
+        {
+            m_battleMessages.Enqueue($"{attacker} is asleep...");
+
+            attacker.HandleStatus();
+
+            if (attacker.GetStatusEffect() == PocketMonster.StatusType.Asleep)
+            {
+                return;
+            }
+        }
+
         Move.Outcome outcome = Move.Outcome.Hit;
         Move.Effectiveness effectiveness = Move.Effectiveness.Neutral;
 
@@ -176,59 +191,84 @@ public class BattleManager : Singleton<BattleManager>
 
         bool statChange = false;
 
-        if (target.GetStats().HP <= 0)
+        bool paralyzedThisTurn = attacker.GetStatusEffect() == PocketMonster.StatusType.Paralyzed && Random.Range(0, 100) < 25;
+
+        if (paralyzedThisTurn)
         {
-            // Allow the user to use a stat move if the target has fainted and they are using the move on themself
-            if (chosenMove.MoveEffect != Move.Effect.Damage && chosenMove.MoveEffect != Move.Effect.Status && chosenMove.AffectedStatChange != Move.StatChangeAffected.Target)
-            {
-                statChange = HandleStatChange(chosenMove, attacker, target);
-            }
-            else
-            {
-                // Miss the target if it has fainted!
-                outcome = Move.Outcome.Miss;
-            }
+            m_battleMessages.Enqueue($"{attacker.Name} was paralyzed and couldn't move!");
         }
         else
         {
-            outcome = DealDamage(chosenMove, attacker, target, out effectiveness);
+            if (target.GetStats().HP <= 0)
+            {
+                // Allow the user to use a stat move if the target has fainted and they are using the move on themself
+                if (chosenMove.MoveEffect is not (Move.Effect.Damage or Move.Effect.Status) &&
+                    chosenMove.AffectedStatChange == Move.StatChangeAffected.User)
+                {
+                    statChange = HandleStatChange(chosenMove, attacker, target);
+                }
+                else
+                {
+                    // Miss the target if it has fainted!
+                    outcome = Move.Outcome.Miss;
+                }
+            }
+            else
+            {
+                // If we're confused, there's a 50% chance of us dealing damage to ourselves 
+                if (attacker.IsConfused() && Random.Range(0, 100) < 50)
+                {
+                    m_battleMessages.Enqueue($"{attacker.Name} hurt itself in its confusion!");
+                    attacker.DealConfusionDamage();
+                }
+                else
+                {
+                    outcome = DealDamage(chosenMove, attacker, target, out effectiveness);
 
-            statChange = HandleStatChange(chosenMove, attacker, target);
-        }
+                    statChange = HandleStatChange(chosenMove, attacker, target);
+                }
+            }
 
-        m_battleMessages.Enqueue(
-            GenerateOutcomeString(
+
+            m_battleMessages.Enqueue(
+                GenerateOutcomeString(
                     attacker.Name,
                     target.Name,
                     chosenMove.Name,
                     outcome
-            )
+                )
             );
 
-        if (effectiveness != Move.Effectiveness.Neutral)
-        {
-            m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
+            if (effectiveness != Move.Effectiveness.Neutral)
+            {
+                m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
+            }
+
+            if (statChange)
+            {
+                // Enqueue the message saying the stat and whether it increased or decreased
+                m_battleMessages.Enqueue(GenerateStatChangeString(
+                        chosenMove,
+                        attacker,
+                        target
+                    )
+                );
+            }
         }
 
-        if (statChange)
+        if (attacker.GetStatusEffect() != PocketMonster.StatusType.Asleep)
         {
-            // Enqueue the message saying the stat and whether it increased or decreased
-            m_battleMessages.Enqueue(GenerateStatChangeString(
-                    chosenMove,
-                    attacker, 
-                    target
-                )
-                );
+            attacker.HandleStatus();
         }
     }
 
-    private void OnFaint(PocketMonster pokemon, bool isPlayerMon)
+    public void OnFaint(PocketMonster pokemon)
     {
         m_battleMessages.Enqueue($"{pokemon.Name} fainted...");
 
         Debug.Log($"{pokemon.Name.ToUpper()} FAINTED");
 
-        if (isPlayerMon)
+        if (pokemon == m_playerPokemon)
         {
             // TODO: Make the player select another pokemon to battle
             Debug.Log("PLAYER MON FAINTED!");
@@ -251,45 +291,49 @@ public class BattleManager : Singleton<BattleManager>
 
     private bool HandleStatChange(Move move, PocketMonster attacker, PocketMonster target)
     {
-        if (move.AffectedStatChange != Move.StatChangeAffected.None)
+        if (move.AffectedStatChange == Move.StatChangeAffected.None)
         {
-            PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
+            return false;
+        }
 
-            int RandomChance = Random.Range(0, 100);
+        PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
 
-            if (move.StatChangeChance > RandomChance)
-            {
-                switch (move.MoveEffect)
+        int randomChance = Random.Range(0, 100);
+
+        if (move.StatChangeChance < randomChance)
+        {
+            return false;
+        }
+
+        // If we have passed the probability, then we want to apply the stat change
+        switch (move.MoveEffect)
+        {
+            case Move.Effect.Heal:
+                break;
+            case Move.Effect.IncreaseAttack:
+                return affectedMon.GetStats().IncreaseAttack();
+            case Move.Effect.DecreaseAttack:
+                return affectedMon.GetStats().DecreaseAttack();
+            case Move.Effect.IncreaseAccuracy:
+                // TODO: Accuracy
+                break;
+            case Move.Effect.DecreaseAccuracy:
+                // TODO: Accuracy
+                break;
+            case Move.Effect.IncreaseDefense:
+                return affectedMon.GetStats().IncreaseDefense();
+            case Move.Effect.DecreaseDefense:
+                return affectedMon.GetStats().DecreaseDefense();
+            case Move.Effect.IncreaseSpeed:
+                return affectedMon.GetStats().IncreaseSpeed();
+            case Move.Effect.DecreaseSpeed:
+                return affectedMon.GetStats().DecreaseSpeed();
+            case Move.Effect.RaiseAllStats:
                 {
-                    case Move.Effect.Heal:
-                        break;
-                    case Move.Effect.IncreaseAttack:
-                        return affectedMon.GetStats().IncreaseAttack();
-                    case Move.Effect.DecreaseAttack:
-                        return affectedMon.GetStats().DecreaseAttack();
-                    case Move.Effect.IncreaseAccuracy:
-                        // TODO: Accuracy
-                        break;
-                    case Move.Effect.DecreaseAccuracy:
-                        // TODO: Accuracy
-                        break;
-                    case Move.Effect.IncreaseDefense:
-                        return affectedMon.GetStats().IncreaseDefense();
-                    case Move.Effect.DecreaseDefense:
-                        return affectedMon.GetStats().DecreaseDefense();
-                    case Move.Effect.IncreaseSpeed:
-                        return affectedMon.GetStats().IncreaseSpeed();
-                    case Move.Effect.DecreaseSpeed:
-                        return affectedMon.GetStats().DecreaseSpeed();
-                    case Move.Effect.RaiseAllStats:
-                        {
-                            bool statChanged = affectedMon.GetStats().IncreaseAttack();
-                            statChanged = affectedMon.GetStats().IncreaseDefense();
-                            statChanged = affectedMon.GetStats().IncreaseSpeed();
-                            return statChanged;
-                        }
+                    return affectedMon.GetStats().IncreaseAttack() ||
+                           affectedMon.GetStats().IncreaseDefense() ||
+                           affectedMon.GetStats().IncreaseSpeed(); ;
                 }
-            }
         }
 
         return false;
@@ -356,14 +400,13 @@ public class BattleManager : Singleton<BattleManager>
 
     public float GetTypeAdvantageMultiplier(PocketMonster.Element moveType, PocketMonster.Element targetType)
     {
-        // If the types aren't in the table, the multiplier is 1
-        if (!m_typeMatchupTable[moveType].ContainsKey(targetType))
+        if (m_typeMatchupTable[moveType].ContainsKey(targetType))
         {
-            return 1f;
+            return m_typeMatchupTable[moveType][targetType];
         }
 
-        // Else, we wanna just return the value from the table
-        return m_typeMatchupTable[moveType][targetType];
+        // If the types aren't in the table, the multiplier is 1
+        return 1f;
     }
 
     protected override void InternalInit()
@@ -488,5 +531,55 @@ public class BattleManager : Singleton<BattleManager>
             SetBattleState(BattleState.SelectMove);
             m_battleHUD.ShowChoiceUI();
         }
+    }
+
+    public void OnWakeUp(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} woke up!");
+    }
+
+    public void OnThaw(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} thawed out!");
+    }
+
+    public void OnBurnDamage(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} was hurt by its burn!");
+    }
+
+    public void OnPoisonDamage(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} was hurt by its poison!");
+    }
+
+    public void OnSnapOut(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} snapped out of its confusion!");
+    }
+
+    public void OnPoison(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} was badly poisoned!");
+    }
+
+    public void OnAsleep(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} fell asleep!");
+    }
+
+    public void OnBurn(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} was burned!");
+    }
+
+    public void OnFreeze(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} froze solid!");
+    }
+
+    public void OnParalyze(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} was paralyzed!");
     }
 }

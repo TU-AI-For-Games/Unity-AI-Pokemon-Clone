@@ -105,7 +105,7 @@ public class PocketMonster
                 case 5:
                 // Or randomly if we've had more than 3 turns asleep
                 case < 3 when Random.Range(1, 8) == m_statusTurnCount:
-                    BattleManager.Instance.OnWakeUp(this);
+                    BattleManager.Instance.OnEndStatusMessage(this, m_status);
                     m_status = StatusType.None;
                     break;
             }
@@ -117,7 +117,7 @@ public class PocketMonster
                 int damage = m_stats.BaseHP / 16;
                 m_stats.HP -= damage;
 
-                BattleManager.Instance.OnBurnDamage(this);
+                BattleManager.Instance.OnEndStatusMessage(this, m_status);
             }
         }
         else if (m_status == StatusType.Frozen)
@@ -126,8 +126,8 @@ public class PocketMonster
             int random = Random.Range(0, 100);
             if (random < 10)
             {
+                BattleManager.Instance.OnEndStatusMessage(this, m_status);
                 m_status = StatusType.None;
-                BattleManager.Instance.OnThaw(this);
             }
         }
         else if (m_status == StatusType.Poisoned)
@@ -137,7 +137,7 @@ public class PocketMonster
                 int damage = m_stats.BaseHP / 8;
                 m_stats.HP -= damage;
 
-                BattleManager.Instance.OnPoisonDamage(this);
+                BattleManager.Instance.OnEndStatusMessage(this, m_status);
             }
         }
 
@@ -354,29 +354,7 @@ public class PocketMonster
             m_status = options[Random.Range(0, options.Length)];
         }
 
-        InformBattleManagerOfStatus();
-    }
-
-    private void InformBattleManagerOfStatus()
-    {
-        switch (m_status)
-        {
-            case StatusType.Asleep:
-                BattleManager.Instance.OnAsleep(this);
-                break;
-            case StatusType.Burned:
-                BattleManager.Instance.OnBurn(this);
-                break;
-            case StatusType.Frozen:
-                BattleManager.Instance.OnFreeze(this);
-                break;
-            case StatusType.Paralyzed:
-                BattleManager.Instance.OnParalyze(this);
-                break;
-            case StatusType.Poisoned:
-                BattleManager.Instance.OnPoison(this);
-                break;
-        }
+        BattleManager.Instance.OnApplyStatusMessage(this, m_status);
     }
 
     public void ChooseRandomMove()

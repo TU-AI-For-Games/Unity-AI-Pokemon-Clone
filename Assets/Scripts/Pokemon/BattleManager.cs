@@ -533,53 +533,51 @@ public class BattleManager : Singleton<BattleManager>
         }
     }
 
-    public void OnWakeUp(PocketMonster mon)
+    public void OnEndStatusMessage(PocketMonster mon, PocketMonster.StatusType status)
     {
-        m_battleMessages.Enqueue($"{mon.Name} woke up!");
+        switch (status)
+        {
+            case PocketMonster.StatusType.Asleep:
+                m_battleMessages.Enqueue($"{mon.Name} woke up!");
+                break;
+            case PocketMonster.StatusType.Burned:
+                m_battleMessages.Enqueue($"{mon.Name} was hurt by its burn!");
+                break;
+            case PocketMonster.StatusType.Frozen:
+                m_battleMessages.Enqueue($"{mon.Name} thawed out!");
+                break;
+            case PocketMonster.StatusType.Paralyzed:
+                break;
+            case PocketMonster.StatusType.Poisoned:
+                m_battleMessages.Enqueue($"{mon.Name} was hurt by its poison!");
+                break;
+        }
     }
 
-    public void OnThaw(PocketMonster mon)
+    public void OnApplyStatusMessage(PocketMonster mon, PocketMonster.StatusType status)
     {
-        m_battleMessages.Enqueue($"{mon.Name} thawed out!");
-    }
-
-    public void OnBurnDamage(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} was hurt by its burn!");
-    }
-
-    public void OnPoisonDamage(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} was hurt by its poison!");
+        switch (status)
+        {
+            case PocketMonster.StatusType.Asleep:
+                m_battleMessages.Enqueue($"{mon.Name} fell asleep!");
+                break;
+            case PocketMonster.StatusType.Burned:
+                m_battleMessages.Enqueue($"{mon.Name} was burned!");
+                break;
+            case PocketMonster.StatusType.Frozen:
+                m_battleMessages.Enqueue($"{mon.Name} is frozen solid!");
+                break;
+            case PocketMonster.StatusType.Paralyzed:
+                m_battleMessages.Enqueue($"{mon.Name} was paralyzed!");
+                break;
+            case PocketMonster.StatusType.Poisoned:
+                m_battleMessages.Enqueue($"{mon.Name} was badly poisoned!");
+                break;
+        }
     }
 
     public void OnSnapOut(PocketMonster mon)
     {
         m_battleMessages.Enqueue($"{mon.Name} snapped out of its confusion!");
-    }
-
-    public void OnPoison(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} was badly poisoned!");
-    }
-
-    public void OnAsleep(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} fell asleep!");
-    }
-
-    public void OnBurn(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} was burned!");
-    }
-
-    public void OnFreeze(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} froze solid!");
-    }
-
-    public void OnParalyze(PocketMonster mon)
-    {
-        m_battleMessages.Enqueue($"{mon.Name} was paralyzed!");
     }
 }

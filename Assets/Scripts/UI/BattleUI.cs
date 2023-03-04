@@ -179,8 +179,12 @@ public class BattleUI : MonoBehaviour
     {
         HideMoveUI();
         m_battleInfo.SetActive(true);
-        ShowNextBattleInfoText();
         m_displayedAllMessages = false;
+
+        if (m_battleInfoText.text == "")
+        {
+            ShowNextBattleInfoText();
+        }
     }
 
     public void HideBattleInfoUI()
@@ -202,6 +206,11 @@ public class BattleUI : MonoBehaviour
         BattleManager.Instance.SetBattleState(BattleManager.BattleState.Attack);
     }
 
+    private void ResetBattleInfoText()
+    {
+        m_battleInfoText.text = "";
+    }
+
     public void OnBattleInfoPressed()
     {
         if (ShowNextBattleInfoText())
@@ -213,6 +222,7 @@ public class BattleUI : MonoBehaviour
             m_displayedAllMessages = true;
 
             HideBattleInfoUI();
+            ResetBattleInfoText();
 
             // Go back to selecting the move
             BattleManager.Instance.NextTurn();

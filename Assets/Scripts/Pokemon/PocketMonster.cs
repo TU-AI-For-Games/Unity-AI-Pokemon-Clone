@@ -228,12 +228,6 @@ public class PocketMonster
         return m_stats;
     }
 
-    // Whenever a pokemon is switched in or a battle starts, the accuracy is set to 1
-    public void ResetAccuracy()
-    {
-        m_stats.Accuracy = 1f;
-    }
-
     public Move[] GetMoves()
     {
         return m_moves;

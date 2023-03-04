@@ -272,9 +272,6 @@ public class BattleManager : Singleton<BattleManager>
 
         if (pokemon == m_playerPokemon)
         {
-            // TODO: Make the player select another pokemon to battle
-            Debug.Log("PLAYER MON FAINTED!");
-
             SetBattleState(BattleState.PlayerFainted);
         }
         else
@@ -317,11 +314,9 @@ public class BattleManager : Singleton<BattleManager>
             case Move.Effect.DecreaseAttack:
                 return affectedMon.GetStats().DecreaseAttack();
             case Move.Effect.IncreaseAccuracy:
-                // TODO: Accuracy
-                break;
+                return affectedMon.GetStats().IncreaseAccuracy();
             case Move.Effect.DecreaseAccuracy:
-                // TODO: Accuracy
-                break;
+                return affectedMon.GetStats().DecreaseAccuracy();
             case Move.Effect.IncreaseDefense:
                 return affectedMon.GetStats().IncreaseDefense();
             case Move.Effect.DecreaseDefense:
@@ -350,13 +345,11 @@ public class BattleManager : Singleton<BattleManager>
     {
         GameManager.Instance.SpawnPlayerPokemon();
         m_playerPokemon = pokemon;
-        m_playerPokemon.ResetAccuracy();
     }
 
     public void SetOtherPokemon(PocketMonster pokemon)
     {
         m_otherPokemon = pokemon;
-        m_otherPokemon.ResetAccuracy();
     }
 
     public string ConsumeNextMessage()

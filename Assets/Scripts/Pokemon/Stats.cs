@@ -101,7 +101,17 @@ public class Stats
     public bool DecreaseSpeed()
     {
         return DecreaseStat(ref m_speedModifier);
-    }    
+    }
+
+    public bool IncreaseAccuracy()
+    {
+        return IncreaseStat(ref Accuracy);
+    }
+
+    public bool DecreaseAccuracy()
+    {
+        return DecreaseStat(ref Accuracy);
+    }
 
     private int GetModifiedStat(int baseStat, float modifier)
     {
@@ -121,7 +131,7 @@ public class Stats
 
     private bool DecreaseStat(ref float modifier)
     {
-        if(modifier > -2f)
+        if (modifier > -2f)
         {
             modifier -= 0.5f;
             return true;

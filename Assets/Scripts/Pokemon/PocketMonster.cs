@@ -374,4 +374,10 @@ public class PocketMonster
     {
         return m_stats.HP < 0;
     }
+
+    public void ResetStats()
+    {
+        m_stats.ResetStats();
+        m_isConfused = false;
+    }
 }

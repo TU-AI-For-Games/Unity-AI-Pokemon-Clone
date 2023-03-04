@@ -345,11 +345,13 @@ public class BattleManager : Singleton<BattleManager>
     {
         GameManager.Instance.SpawnPlayerPokemon();
         m_playerPokemon = pokemon;
+        m_playerPokemon.ResetStats();
     }
 
     public void SetOtherPokemon(PocketMonster pokemon)
     {
         m_otherPokemon = pokemon;
+        m_playerPokemon.ResetStats();
     }
 
     public string ConsumeNextMessage()

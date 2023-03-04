@@ -152,4 +152,11 @@ public class Stats
         return (int)Math.Floor(((baseStat + iv) * 2 + MathF.Sqrt(ev) / 4) * level / 100) + 5;
     }
 
+    public void ResetStats()
+    {
+        m_attackModifier = 0f;
+        m_defenseModifier = 0f;
+        m_speedModifier = 0f;
+        Accuracy = 1f;
+    }
 }

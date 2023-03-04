@@ -160,15 +160,10 @@ public class BattleManager : Singleton<BattleManager>
         HandleMove(attacker, target);
 
         // If the target died this turn, then we want to add that message to the queue
-        if (CheckIfFainted(target))
+        if (target.HasFainted())
         {
             OnFaint(target);
         }
-    }
-
-    private bool CheckIfFainted(PocketMonster pokemon)
-    {
-        return pokemon.GetStats().HP < 0;
     }
 
     private void HandleMove(PocketMonster attacker, PocketMonster target)

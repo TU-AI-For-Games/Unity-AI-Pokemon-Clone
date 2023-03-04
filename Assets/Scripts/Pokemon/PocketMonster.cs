@@ -375,4 +375,9 @@ public class PocketMonster
         int damage = m_stats.BaseHP / 8;
         m_stats.HP -= damage;
     }
+
+    public bool HasFainted()
+    {
+        return m_stats.HP < 0;
+    }
 }

@@ -127,6 +127,10 @@ public class BattleUI : MonoBehaviour
     public void ShowBattleInfoUI()
     {
         HideMoveUI();
+
+        // Hide the pokemon choice menu just in case
+        m_choiceUI.SetActive(false);
+
         m_battleInfo.SetActive(true);
         m_displayedAllMessages = false;
 
@@ -247,7 +251,8 @@ public class BattleUI : MonoBehaviour
 
         BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
 
-        BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
+        // Tell the BattleManager that the player switched out
+        BattleManager.Instance.PlayerSwitchedOut();
 
         OnChoosePkmnBack();
     }

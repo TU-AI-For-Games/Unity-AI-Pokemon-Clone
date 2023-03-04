@@ -41,6 +41,7 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_inBattle = false;
     private bool m_aiChosenThisTurn = false;
     private bool m_battleEnded = false;
+    private bool m_playerSwitchedOutThisTurn;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +57,8 @@ public class BattleManager : Singleton<BattleManager>
         {
             case BattleState.SelectMove:
                 {
+                    m_playerSwitchedOutThisTurn = false;
+
                     // TODO: For now, the AI is just choosing a random move, of course this will be more sophisticated when Jay has done the decision making
                     if (!m_aiChosenThisTurn && m_currentBattleType == BattleType.WildPkmn)
                     {
@@ -137,26 +140,32 @@ public class BattleManager : Singleton<BattleManager>
             secondMon = m_otherPokemon;
         }
 
-        HandleMove(firstMon, secondMon);
-
-        // If the target died this turn, then we want to add that message to the queue
-
-        if (CheckIfFainted(secondMon))
+        // If the player switched out, then they shouldn't be able to move
+        if (!(m_playerSwitchedOutThisTurn && firstMon == m_playerPokemon))
         {
-            OnFaint(secondMon);
+            TakeTurn(firstMon, secondMon);
         }
 
-        HandleMove(secondMon, firstMon);
-
-        if (CheckIfFainted(firstMon))
+        if (!(m_playerSwitchedOutThisTurn && secondMon == m_playerPokemon))
         {
-            OnFaint(firstMon);
+            TakeTurn(secondMon, firstMon);
         }
 
         firstMon.HandleStatus();
         secondMon.HandleStatus();
 
         m_battleHUD.ShowBattleInfoUI();
+    }
+
+    private void TakeTurn(PocketMonster attacker, PocketMonster target)
+    {
+        HandleMove(attacker, target);
+
+        // If the target died this turn, then we want to add that message to the queue
+        if (CheckIfFainted(target))
+        {
+            OnFaint(target);
+        }
     }
 
     private bool CheckIfFainted(PocketMonster pokemon)
@@ -579,5 +588,18 @@ public class BattleManager : Singleton<BattleManager>
     public void OnSnapOut(PocketMonster mon)
     {
         m_battleMessages.Enqueue($"{mon.Name} snapped out of its confusion!");
+    }
+
+    public void PlayerSwitchedOut()
+    {
+        if (m_battleState == BattleState.PlayerFainted)
+        {
+            SetBattleState(BattleState.SelectMove);
+        }
+        else
+        {
+            m_playerSwitchedOutThisTurn = true;
+            SetBattleState(BattleState.Attack);
+        }
     }
 }

@@ -38,6 +38,9 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_battleInfoText;
     private bool m_displayedAllMessages = false;
 
+    [Header("Switch Pokemon UI")]
+    [SerializeField] private List<Button> m_pokemonButtons;
+
     private void Awake()
     {
         OnPlayerSwitchPokemon();
@@ -252,24 +255,41 @@ public class BattleUI : MonoBehaviour
     {
         if (m_player.HasUsablePokemon())
         {
-            // TODO: For now, just randomly choose a pokemon
-            do
-            {
-                int randomIndex = Random.Range(0, 6);
-                Debug.Log("Choosing a random mon!");
-                m_player.SetActivePokemonIndex(randomIndex);
-
-            } while (m_player.GetActivePokemon().GetStats().HP <= 0);
-
-            BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
-
-            BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
-
-            ShowChoiceUI();
+            SetChoosePkmnMenuUI();
+            m_monsterUI.SetActive(true);
         }
         else
         {
             GameManager.Instance.EndBattle(true);
         }
+    }
+
+    private void SetChoosePkmnMenuUI()
+    {
+        PocketMonster[] playerMon = m_player.GetPokemon();
+
+        for (int i = 0; i < 6; ++i)
+        {
+            PocketMonster currentMon = playerMon[i];
+            m_pokemonButtons[i].GetComponent<Image>().color = m_typeColours[(int)currentMon.Type];
+            m_pokemonButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentMon.Name;
+        }
+    }
+
+    public void OnChoosePokemon(int index)
+    {
+        m_player.SetActivePokemonIndex(index);
+
+        BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
+
+        BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
+
+        OnChoosePkmnBack();
+    }
+
+    public void OnChoosePkmnBack()
+    {
+        m_monsterUI.SetActive(false);
+        m_choiceUI.SetActive(true);
     }
 }

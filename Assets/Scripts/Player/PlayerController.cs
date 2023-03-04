@@ -82,4 +82,9 @@ public class PlayerController : MonoBehaviour
             pokemon => pokemon.GetStats().HP > 0
         );
     }
+
+    public PocketMonster[] GetPokemon()
+    {
+        return m_pocketMonsters;
+    }
 }

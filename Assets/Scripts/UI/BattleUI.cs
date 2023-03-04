@@ -68,8 +68,7 @@ public class BattleUI : MonoBehaviour
 
         for (int i = 0; i < activeMonMoves.Length; ++i)
         {
-            m_moveButtons[i].GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[i].Type];
-            m_moveButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = activeMonMoves[i].Name;
+            SetButtonColourText(m_moveButtons[i], m_typeColours[(int)activeMonMoves[i].Type], activeMonMoves[i].Name);
         }
 
         m_playerPkmnName.text = activeMon.Name;
@@ -218,13 +217,32 @@ public class BattleUI : MonoBehaviour
         for (int i = 0; i < 6; ++i)
         {
             PocketMonster currentMon = playerMon[i];
-            m_pokemonButtons[i].GetComponent<Image>().color = m_typeColours[(int)currentMon.Type];
-            m_pokemonButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentMon.Name;
+
+            if (currentMon.GetStats().HP <= 0)
+            {
+                SetButtonColourText(m_pokemonButtons[i], Color.gray, currentMon.Name + " (FAINTED)");
+            }
+            else
+            {
+                SetButtonColourText(m_pokemonButtons[i], m_typeColours[(int)currentMon.Type], currentMon.Name);
+            }
         }
+    }
+
+    public static void SetButtonColourText(Button button, Color colour, string text)
+    {
+        button.GetComponent<Image>().color = colour;
+        button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
     }
 
     public void OnChoosePokemon(int index)
     {
+        // Don't choose a fainted mon!
+        if (m_player.GetPokemon()[index].GetStats().HP <= 0)
+        {
+            return;
+        }
+
         m_player.SetActivePokemonIndex(index);
 
         BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());

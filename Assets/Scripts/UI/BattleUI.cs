@@ -24,14 +24,7 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private GameObject m_moveInfo;
     [SerializeField] private TextMeshProUGUI m_moveDescription;
     [SerializeField] private GameObject m_moveUI;
-    [SerializeField] private Button m_move1Button;
-    [SerializeField] private TextMeshProUGUI m_move1Text;
-    [SerializeField] private Button m_move2Button;
-    [SerializeField] private TextMeshProUGUI m_move2Text;
-    [SerializeField] private Button m_move3Button;
-    [SerializeField] private TextMeshProUGUI m_move3Text;
-    [SerializeField] private Button m_move4Button;
-    [SerializeField] private TextMeshProUGUI m_move4Text;
+    [SerializeField] private List<Button> m_moveButtons;
 
     [Header("Battle info UI")]
     [SerializeField] private GameObject m_battleInfo;
@@ -73,16 +66,11 @@ public class BattleUI : MonoBehaviour
         PocketMonster activeMon = m_player.GetActivePokemon();
         Move[] activeMonMoves = activeMon.GetMoves();
 
-        // TODO: There's DEFINITELY a much better way of doing this... Oh well, this will work for now...
-        m_move1Text.text = activeMonMoves[0].Name;
-        m_move2Text.text = activeMonMoves[1].Name;
-        m_move3Text.text = activeMonMoves[2].Name;
-        m_move4Text.text = activeMonMoves[3].Name;
-
-        m_move1Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[0].Type];
-        m_move2Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[1].Type];
-        m_move3Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[2].Type];
-        m_move4Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[3].Type];
+        for (int i = 0; i < activeMonMoves.Length; ++i)
+        {
+            m_moveButtons[i].GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[i].Type];
+            m_moveButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = activeMonMoves[i].Name;
+        }
 
         m_playerPkmnName.text = activeMon.Name;
 
@@ -111,48 +99,7 @@ public class BattleUI : MonoBehaviour
         m_moveInfo.SetActive(false);
     }
 
-    public void OnMove1Pressed()
-    {
-        SetPlayerChoice(0);
-    }
-
-
-    public void OnMove1Hover()
-    {
-        OnHover(0);
-    }
-
-    public void OnMove2Pressed()
-    {
-        SetPlayerChoice(1);
-    }
-
-    public void OnMove2Hover()
-    {
-        OnHover(1);
-    }
-
-    public void OnMove3Pressed()
-    {
-        SetPlayerChoice(2);
-    }
-
-    public void OnMove3Hover()
-    {
-        OnHover(2);
-    }
-
-    public void OnMove4Pressed()
-    {
-        SetPlayerChoice(3);
-    }
-
-    public void OnMove4Hover()
-    {
-        OnHover(3);
-    }
-
-    private void OnHover(int index)
+    public void OnMoveHover(int index)
     {
         m_moveInfo.SetActive(true);
         SetMoveDescription(m_player.GetActivePokemon().GetMoves()[index]);
@@ -200,7 +147,7 @@ public class BattleUI : MonoBehaviour
         m_battleInfoText.text = text;
     }
 
-    private void SetPlayerChoice(int index)
+    public void OnMoveButtonPressed(int index)
     {
         PocketMonster playerMon = m_player.GetActivePokemon();
         playerMon.SetChosenMove(playerMon.GetMoves()[index]);

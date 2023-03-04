@@ -1838,12 +1838,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1669892747}
         m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-        m_MethodName: OnMove4Pressed
-        m_Mode: 1
+        m_MethodName: OnMoveButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1905,12 +1905,12 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1669892747}
           m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-          m_MethodName: OnMove4Hover
-          m_Mode: 1
+          m_MethodName: OnMoveHover
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 3
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2948,12 +2948,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1669892747}
         m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-        m_MethodName: OnMove3Pressed
-        m_Mode: 1
+        m_MethodName: OnMoveButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3015,12 +3015,12 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1669892747}
           m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-          m_MethodName: OnMove3Hover
-          m_Mode: 1
+          m_MethodName: OnMoveHover
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -5170,8 +5170,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1669892747}
         m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-        m_MethodName: OnMove1Pressed
-        m_Mode: 1
+        m_MethodName: OnMoveButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5237,8 +5237,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1669892747}
           m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-          m_MethodName: OnMove1Hover
-          m_Mode: 1
+          m_MethodName: OnMoveHover
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5652,12 +5652,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1669892747}
         m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-        m_MethodName: OnMove2Pressed
-        m_Mode: 1
+        m_MethodName: OnMoveButtonPressed
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5719,12 +5719,12 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1669892747}
           m_TargetAssemblyTypeName: BattleUI, Assembly-CSharp
-          m_MethodName: OnMove2Hover
-          m_Mode: 1
+          m_MethodName: OnMoveHover
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -6167,14 +6167,11 @@ MonoBehaviour:
   m_moveInfo: {fileID: 1746935653}
   m_moveDescription: {fileID: 1723913092}
   m_moveUI: {fileID: 1534839925}
-  m_move1Button: {fileID: 1417006144}
-  m_move1Text: {fileID: 642365048}
-  m_move2Button: {fileID: 1553797576}
-  m_move2Text: {fileID: 1370314736}
-  m_move3Button: {fileID: 722151587}
-  m_move3Text: {fileID: 109025843}
-  m_move4Button: {fileID: 422744558}
-  m_move4Text: {fileID: 1038673546}
+  m_moveButtons:
+  - {fileID: 1417006144}
+  - {fileID: 1553797576}
+  - {fileID: 722151587}
+  - {fileID: 422744558}
   m_battleInfo: {fileID: 340487524}
   m_battleInfoText: {fileID: 1918251507}
   m_pokemonButtons:

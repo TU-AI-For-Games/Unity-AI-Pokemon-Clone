@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class PokemonTest : MonoBehaviour
 {

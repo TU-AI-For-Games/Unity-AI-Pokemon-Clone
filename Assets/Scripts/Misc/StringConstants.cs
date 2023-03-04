@@ -1,7 +1,4 @@
-﻿using System;
-
-
-public static class StringConstants
+﻿public static class StringConstants
 {
     #region INPUT_NAMES
     public static string FORWARD = "Vertical";

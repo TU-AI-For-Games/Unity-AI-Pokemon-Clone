@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -32,6 +33,8 @@ public class BattleUI : MonoBehaviour
 
     [Header("Switch Pokemon UI")]
     [SerializeField] private List<Button> m_pokemonButtons;
+    [SerializeField] private TextMeshProUGUI m_pokemonStatText;
+    [SerializeField] private GameObject m_pokemonStatTextBox;
 
     private void Awake()
     {
@@ -254,6 +257,64 @@ public class BattleUI : MonoBehaviour
         BattleManager.Instance.PlayerSwitchedOut();
 
         OnChoosePkmnBack();
+    }
+
+    public void OnHoverChoosePokemon(int index)
+    {
+        PocketMonster playerMon = m_player.GetPokemon()[index];
+
+        m_pokemonStatText.text = $"<b><u>{playerMon.Name}</u></b>\n" +
+                          $"Type: <color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.Type])}>{PocketMonster.TypeToString(playerMon.Type)}</color>\n" +
+                          $"HP: {playerMon.GetStats().HP}\n" +
+                          $"Attack: {playerMon.GetStats().GetAttack()}\n" +
+                          $"Defense: {playerMon.GetStats().GetDefense()}\n" +
+                          $"Speed: {playerMon.GetStats().GetSpeed()}\n" +
+                          "<b><u>Moves:</u></b>\n" +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[0].Type])}>{playerMon.GetMoves()[0].Name}</color>, " +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[1].Type])}>{playerMon.GetMoves()[1].Name}</color>, " +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[2].Type])}>{playerMon.GetMoves()[2].Name}</color>, " +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[3].Type])}>{playerMon.GetMoves()[3].Name}</color>";
+
+        if (playerMon.GetStatusEffect() != PocketMonster.StatusType.None)
+        {
+            string hexColour = "";
+            string condition = "";
+
+            if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Asleep)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Normal]);
+                condition = "SLP";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Burned)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Fire]);
+                condition = "BRN";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Frozen)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Ice]);
+                condition = "FRZ";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Paralyzed)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Electric]);
+                condition = "PAR";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Poisoned)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Poison]);
+                condition = "PSN";
+            }
+
+            m_pokemonStatText.text += $"\nStatus: <color=#{hexColour}>{condition}</color>";
+        }
+
+        m_pokemonStatTextBox.SetActive(true);
+    }
+
+    public void OnHoverExitChoosePokemon()
+    {
+        m_pokemonStatTextBox.SetActive(false);
     }
 
     public void OnChoosePkmnBack()

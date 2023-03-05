@@ -351,7 +351,7 @@ public class BattleManager : Singleton<BattleManager>
     public void SetOtherPokemon(PocketMonster pokemon)
     {
         m_otherPokemon = pokemon;
-        m_playerPokemon.ResetStats();
+        pokemon.ResetStats();
     }
 
     public string ConsumeNextMessage()

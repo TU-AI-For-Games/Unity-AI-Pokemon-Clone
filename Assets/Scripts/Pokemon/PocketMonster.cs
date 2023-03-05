@@ -266,7 +266,7 @@ public class PocketMonster
         // Assuming every pokemon is level 50 for now for ease of use...
         int level = 50;
         int levelCritical = (2 * level * criticalMod / 5) + 2;
-        float attackDefRatio = attacker.GetStats().GetAttack() / (float)m_stats.GetDefense();
+        float attackDefRatio = attacker.GetAttack() / (float)m_stats.GetDefense();
         float fraction = (levelCritical * move.Damage * attackDefRatio / 50) + 2;
 
         float sameTypeAttackBonus = move.Type == attacker.Type ? 1.5f : 1f;
@@ -379,5 +379,29 @@ public class PocketMonster
     {
         m_stats.ResetStats();
         m_isConfused = false;
+    }
+
+    public int GetAttack()
+    {
+        int attack = m_stats.GetAttackStatBeforeBurn();
+
+        if (m_status == StatusType.Burned)
+        {
+            attack /= 2;
+        }
+
+        return attack;
+    }
+
+    public int GetSpeed()
+    {
+        int speed = m_stats.GetSpeedStatBeforeParalyze();
+
+        if (m_status == StatusType.Paralyzed)
+        {
+            speed /= 2;
+        }
+
+        return speed;
     }
 }

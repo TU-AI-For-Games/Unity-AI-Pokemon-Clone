@@ -53,11 +53,6 @@ public class Stats
         Debug.Log($"HP: {HP}\tATK: {m_baseAttack}\tDEF: {m_baseDefense}\tSPD: {m_baseSpeed}");
     }
 
-    public int GetAttack()
-    {
-        return GetModifiedStat(m_baseAttack, m_attackModifier);
-    }
-
     public bool IncreaseAttack()
     {
         return IncreaseStat(ref m_attackModifier);
@@ -81,11 +76,6 @@ public class Stats
     public bool DecreaseDefense()
     {
         return DecreaseStat(ref m_defenseModifier);
-    }
-
-    public int GetSpeed()
-    {
-        return GetModifiedStat(m_baseSpeed, m_speedModifier);
     }
 
     public int GetBaseSpeed()
@@ -158,5 +148,15 @@ public class Stats
         m_defenseModifier = 0f;
         m_speedModifier = 0f;
         Accuracy = 1f;
+    }
+
+    public int GetAttackStatBeforeBurn()
+    {
+        return GetModifiedStat(m_baseAttack, m_attackModifier);
+    }
+
+    public int GetSpeedStatBeforeParalyze()
+    {
+        return GetModifiedStat(m_baseSpeed, m_speedModifier);
     }
 }

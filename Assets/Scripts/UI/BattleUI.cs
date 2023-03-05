@@ -266,9 +266,9 @@ public class BattleUI : MonoBehaviour
         m_pokemonStatText.text = $"<b><u>{playerMon.Name}</u></b>\n" +
                           $"Type: <color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.Type])}>{PocketMonster.TypeToString(playerMon.Type)}</color>\n" +
                           $"HP: {playerMon.GetStats().HP}\n" +
-                          $"Attack: {playerMon.GetStats().GetAttack()}\n" +
+                          $"Attack: {playerMon.GetStats().GetAttackStatBeforeBurn()}\n" +
                           $"Defense: {playerMon.GetStats().GetDefense()}\n" +
-                          $"Speed: {playerMon.GetStats().GetSpeed()}\n" +
+                          $"Speed: {playerMon.GetStats().GetSpeedStatBeforeParalyze()}\n" +
                           "<b><u>Moves:</u></b>\n" +
                           $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[0].Type])}>{playerMon.GetMoves()[0].Name}</color>, " +
                           $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[1].Type])}>{playerMon.GetMoves()[1].Name}</color>, " +

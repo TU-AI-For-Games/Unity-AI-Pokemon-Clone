@@ -127,7 +127,7 @@ public class BattleManager : Singleton<BattleManager>
         PocketMonster firstMon;
         PocketMonster secondMon;
 
-        if (m_playerPokemon.GetStats().GetSpeed() < m_otherPokemon.GetStats().GetSpeed())
+        if (m_playerPokemon.GetSpeed() < m_otherPokemon.GetSpeed())
         {
             firstMon = m_otherPokemon;
             secondMon = m_playerPokemon;

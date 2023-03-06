@@ -69,6 +69,19 @@ public class MoveManager : Singleton<MoveManager>
         return m_moves[moveID];
     }
 
+    public int GetMoveID(Move move)
+    {
+        foreach (KeyValuePair<int, Move> pair in m_moves)
+        {
+            if (move == pair.Value)
+            {
+                return pair.Key;
+            }
+        }
+
+        return -1;
+    }
+
     private int PercentToInt(string percentString)
     {
         if (percentString is null or "\r" or "\n")

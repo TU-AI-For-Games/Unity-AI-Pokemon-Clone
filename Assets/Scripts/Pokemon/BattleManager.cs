@@ -1,3 +1,5 @@
+#define RECORD_PLAYER_ACTIONS
+
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -127,6 +129,9 @@ public class BattleManager : Singleton<BattleManager>
         m_aiChosenThisTurn = false;
         m_inBattle = true;
         m_battleEnded = false;
+#if RECORD_PLAYER_ACTIONS
+        RecordActions.Instance.OnStartBattle();
+#endif
     }
 
     private void AttackState()

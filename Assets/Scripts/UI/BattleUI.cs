@@ -11,8 +11,6 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private List<Color> m_typeColours;
 
     [SerializeField] private GameObject m_choiceUI;
-    [SerializeField] private GameObject m_monsterUI;
-    [SerializeField] private GameObject m_bagUI;
 
     [Header("HP UI")]
     [SerializeField] private TextMeshProUGUI m_playerPkmnName;
@@ -32,9 +30,14 @@ public class BattleUI : MonoBehaviour
     private bool m_displayedAllMessages = false;
 
     [Header("Switch Pokemon UI")]
+    [SerializeField] private GameObject m_monsterUI;
     [SerializeField] private List<Button> m_pokemonButtons;
     [SerializeField] private TextMeshProUGUI m_pokemonStatText;
     [SerializeField] private GameObject m_pokemonStatTextBox;
+
+    [Header("Item menu UI")]
+    [SerializeField] private GameObject m_bagUI;
+
 
     private void Awake()
     {
@@ -322,4 +325,17 @@ public class BattleUI : MonoBehaviour
         m_monsterUI.SetActive(false);
         m_choiceUI.SetActive(true);
     }
+
+    public void OnItemButton()
+    {
+        m_choiceUI.SetActive(false);
+        m_bagUI.SetActive(true);
+    }
+
+    public void OnItemButtonBack()
+    {
+        m_bagUI.SetActive(false);
+        m_choiceUI.SetActive(true);
+    }
+
 }

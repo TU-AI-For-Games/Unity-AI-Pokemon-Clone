@@ -404,4 +404,14 @@ public class PocketMonster
 
         return speed;
     }
+
+    public void HealHP()
+    {
+        m_stats.HP = m_stats.BaseHP;
+    }
+
+    public void HealStatus()
+    {
+        m_status = StatusType.None;
+    }
 }

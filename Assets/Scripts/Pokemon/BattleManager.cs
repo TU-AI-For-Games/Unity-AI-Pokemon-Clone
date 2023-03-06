@@ -24,6 +24,12 @@ public class BattleManager : Singleton<BattleManager>
         End
     }
 
+    public enum Item
+    {
+        HealHP,
+        HealStatus
+    }
+
     private BattleState m_battleState;
 
     public enum BattleType
@@ -40,6 +46,7 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_aiChosenThisTurn = false;
     private bool m_battleEnded = false;
     private bool m_playerSwitchedOutThisTurn;
+    private bool m_playerUsedItem;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +63,7 @@ public class BattleManager : Singleton<BattleManager>
             case BattleState.SelectMove:
                 {
                     m_playerSwitchedOutThisTurn = false;
+                    m_playerUsedItem = false;
 
                     // TODO: For now, the AI is just choosing a random move, of course this will be more sophisticated when Jay has done the decision making
                     if (!m_aiChosenThisTurn && m_currentBattleType == BattleType.WildPkmn)
@@ -69,7 +77,7 @@ public class BattleManager : Singleton<BattleManager>
             case BattleState.Attack:
                 {
                     // We haven't attacked yet if there are no messages in the queue
-                    if (m_battleMessages.Count == 0)
+                    if (m_battleMessages.Count == 0 || m_playerUsedItem)
                     {
                         AttackState();
                         if (m_battleState != BattleState.PlayerFainted)
@@ -138,13 +146,21 @@ public class BattleManager : Singleton<BattleManager>
             secondMon = m_otherPokemon;
         }
 
-        // If the player switched out, then they shouldn't be able to move
-        if (!(m_playerSwitchedOutThisTurn && firstMon == m_playerPokemon))
+        bool firstMonIsPlayer = firstMon == m_playerPokemon;
+        bool firstMonSwitchedOut = firstMonIsPlayer && m_playerSwitchedOutThisTurn;
+        bool firstMonUsedItem = firstMonIsPlayer && m_playerUsedItem;
+
+        // If the player switched out, or used an item then they shouldn't be able to move
+        if (!firstMonSwitchedOut && !firstMonUsedItem)
         {
             TakeTurn(firstMon, secondMon);
         }
 
-        if (!(m_playerSwitchedOutThisTurn && secondMon == m_playerPokemon))
+        bool secondMonIsPlayer = secondMon == m_playerPokemon;
+        bool secondMonSwitchedOut = secondMonIsPlayer && m_playerSwitchedOutThisTurn;
+        bool secondMonUsedItem = secondMonIsPlayer && m_playerUsedItem;
+
+        if (!secondMonSwitchedOut && !secondMonUsedItem)
         {
             TakeTurn(secondMon, firstMon);
         }
@@ -589,5 +605,55 @@ public class BattleManager : Singleton<BattleManager>
             m_playerSwitchedOutThisTurn = true;
             SetBattleState(BattleState.Attack);
         }
+    }
+
+    public void UseItem(Item item, PocketMonster mon)
+    {
+        // TODO: Handle trainers using items too
+        if (mon == m_playerPokemon)
+        {
+            m_playerUsedItem = true;
+        }
+
+        if (item == Item.HealHP)
+        {
+            OnUseHealMessage(Mathf.Max(0, mon.GetStats().BaseHP - mon.GetStats().HP), mon);
+            m_playerPokemon.HealHP();
+        }
+        else if (item == Item.HealStatus)
+        {
+            OnUseHealStatusMessage(mon.GetStatusEffect(), mon);
+            mon.HealStatus();
+        }
+
+        SetBattleState(BattleState.Attack);
+    }
+
+    private void OnUseHealMessage(int pointsHealed, PocketMonster mon)
+    {
+        if (mon == m_playerPokemon)
+        {
+            m_battleMessages.Enqueue("Player used Max Potion");
+        }
+        else
+        {
+            // TODO: Grab the other trainer's name
+        }
+
+        m_battleMessages.Enqueue($"{mon.Name} was healed by <b>{pointsHealed}</b> hit point(s)");
+    }
+
+    private void OnUseHealStatusMessage(PocketMonster.StatusType status, PocketMonster mon)
+    {
+        if (mon == m_playerPokemon)
+        {
+            m_battleMessages.Enqueue("Player used Full Heal");
+        }
+        else
+        {
+            // TODO: Grab the other trainer's name
+        }
+
+        OnEndStatusMessage(mon, mon.GetStatusEffect());
     }
 }

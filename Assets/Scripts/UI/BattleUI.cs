@@ -338,4 +338,13 @@ public class BattleUI : MonoBehaviour
         m_choiceUI.SetActive(true);
     }
 
+    public void OnItemButtonPressed(int item)
+    {
+        BattleManager.Instance.UseItem(
+            (BattleManager.Item)item,
+            m_player.GetActivePokemon()
+        );
+
+        OnItemButtonBack();
+    }
 }

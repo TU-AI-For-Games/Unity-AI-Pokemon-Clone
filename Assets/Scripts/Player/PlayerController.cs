@@ -1,3 +1,4 @@
+#define RECORD_PLAYER_ACTIONS
 using System.Linq;
 using UnityEngine;
 
@@ -61,6 +62,10 @@ public class PlayerController : MonoBehaviour
 
     public void SetActivePokemonIndex(int index)
     {
+#if RECORD_PLAYER_ACTIONS
+        RecordActions.Instance.PreviousPokemonID = m_pocketMonsters[m_activePokemonIndex].ID;
+#endif
+
         m_activePokemonIndex = index;
     }
 

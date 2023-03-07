@@ -12,6 +12,8 @@ public class RecordActions : Singleton<RecordActions>
 
     private bool m_isRecording;
 
+    public int PreviousPokemonID;
+
     private readonly string[] m_csvHeaders = new[]
     {
         "Chosen Action (Attack/Switch/Heal)",
@@ -21,6 +23,8 @@ public class RecordActions : Singleton<RecordActions>
         "Target HP",
         "Player Element",
         "Target Element",
+        "Previous Pkmn ID",
+        "Previous Pkmn Element",
         "Chosen Move ID",
         "Move Element",
         "STAB?",
@@ -62,6 +66,8 @@ public class RecordActions : Singleton<RecordActions>
     {
         m_actions.Clear();
 
+        PreviousPokemonID = 0;
+
         DateTime now = DateTime.Now;
         m_fileName = $"battle_{now.Day}_{now.Month}_{now.Year}_{now.TimeOfDay.Hours}{now.TimeOfDay.Minutes}{now.TimeOfDay.Seconds}";
 
@@ -90,6 +96,15 @@ public class RecordActions : Singleton<RecordActions>
 
         string playerElement = ((int)playerPokemon.Type).ToString();
         string targetElement = ((int)targetPokemon.Type).ToString();
+
+        string previousPokemonID = "";
+        string previousPokemonElement = "";
+
+        if (chosenAction == PlayerAction.Switch)
+        {
+            previousPokemonID = PreviousPokemonID.ToString();
+            previousPokemonElement = ((int)PocketMonsterManager.Instance.GetPocketMonster(PreviousPokemonID).Type).ToString();
+        }
 
         // move may be null if the player switched in!
         Move move = playerPokemon.GetChosenMove();
@@ -167,6 +182,8 @@ public class RecordActions : Singleton<RecordActions>
                         $"{targetHP}," +
                         $"{playerElement}," +
                         $"{targetElement}," +
+                        $"{previousPokemonID}," +
+                        $"{previousPokemonElement}," +
                         $"{chosenMoveID}," +
                         $"{chosenMoveElement}," +
                         $"{isStab}," +

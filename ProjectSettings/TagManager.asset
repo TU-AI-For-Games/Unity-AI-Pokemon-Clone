@@ -4,15 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Walkable
+  - WildPokemon
+  - PokeCentre
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Unwalkable
+  - 
   - Water
   - UI
-  - Walkable
+  - 
   - 
   - 
   - 

@@ -8,6 +8,8 @@
     #region GAMEOBJECT_TAGS
     public static string WILD_POKEMON_TAG = "WildPokemon";
     public static string PLAYER_TAG = "Player";
+    public static string POKEMON_CENTRE_TAG = "PokeCentre";
+
     #endregion
 }
 

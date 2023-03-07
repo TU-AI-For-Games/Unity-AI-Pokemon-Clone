@@ -77,6 +77,21 @@ public class PlayerController : MonoBehaviour
             // The trigger collider is on a child of the pokemon, passing the parent
             GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, other.transform.parent.gameObject);
         }
+
+        if (other.CompareTag(StringConstants.POKEMON_CENTRE_TAG))
+        {
+            HealPokemon();
+        }
+    }
+
+    private void HealPokemon()
+    {
+        foreach (PocketMonster pocketMonster in m_pocketMonsters)
+        {
+            pocketMonster.GetStats().HP = pocketMonster.GetStats().BaseHP;
+            pocketMonster.HealStatus();
+            pocketMonster.ResetStats();
+        }
     }
 
     public bool HasUsablePokemon()

@@ -50,6 +50,11 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_playerSwitchedOutThisTurn;
     private bool m_playerUsedItem;
 
+#if RECORD_PLAYER_ACTIONS
+    private int m_playerHpBefore;
+    private int m_targetHpBefore;
+#endif
+
     // Start is called before the first frame update
     void Start()
     {
@@ -151,6 +156,20 @@ public class BattleManager : Singleton<BattleManager>
             secondMon = m_otherPokemon;
         }
 
+#if RECORD_PLAYER_ACTIONS
+        if (m_playerSwitchedOutThisTurn)
+        {
+            RecordActions.Instance.RecordAction(RecordActions.PlayerAction.Switch, m_playerPokemon, m_otherPokemon, m_playerPokemon.GetStats().HP, m_otherPokemon.GetStats().HP, false, Move.Outcome.Miss, false, false);
+        }
+        else if (m_playerUsedItem)
+        {
+            RecordActions.Instance.RecordAction(RecordActions.PlayerAction.Heal, m_playerPokemon, m_otherPokemon, m_playerPokemon.GetStats().HP, m_otherPokemon.GetStats().HP, false, Move.Outcome.Miss, false, false);
+        }
+
+        m_playerHpBefore = m_playerPokemon.GetStats().HP;
+        m_targetHpBefore = m_otherPokemon.GetStats().HP;
+#endif
+
         bool firstMonIsPlayer = firstMon == m_playerPokemon;
         bool firstMonSwitchedOut = firstMonIsPlayer && m_playerSwitchedOutThisTurn;
         bool firstMonUsedItem = firstMonIsPlayer && m_playerUsedItem;
@@ -216,6 +235,10 @@ public class BattleManager : Singleton<BattleManager>
 
         bool paralyzedThisTurn = attacker.GetStatusEffect() == PocketMonster.StatusType.Paralyzed && Random.Range(0, 100) < 25;
 
+#if RECORD_PLAYER_ACTIONS
+        PocketMonster.StatusType targetStatusBefore = target.GetStatusEffect();
+#endif
+
         if (paralyzedThisTurn)
         {
             m_battleMessages.Enqueue($"{attacker.Name} was paralyzed and couldn't move!");
@@ -251,6 +274,23 @@ public class BattleManager : Singleton<BattleManager>
                     statChange = HandleStatChange(chosenMove, attacker, target);
                 }
             }
+
+#if RECORD_PLAYER_ACTIONS
+            if (attacker == m_playerPokemon)
+            {
+                RecordActions.Instance.RecordAction(
+                    RecordActions.PlayerAction.Attack,
+                    attacker,
+                    target,
+                    m_playerHpBefore,
+                    m_targetHpBefore,
+                    attacker.GetChosenMove().MoveEffect == Move.Effect.Status && (target.GetStatusEffect() != targetStatusBefore),
+                    outcome,
+                    statChange,
+                    target.HasFainted()
+                    );
+            }
+#endif
 
 
             m_battleMessages.Enqueue(

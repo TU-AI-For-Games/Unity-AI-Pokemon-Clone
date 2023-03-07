@@ -1,3 +1,4 @@
+#define RECORD_PLAYER_ACTIONS
 using System;
 using UnityEngine;
 
@@ -135,6 +136,10 @@ public class GameManager : Singleton<GameManager>
         }
 
         BattleManager.Instance.SetBattleType(BattleManager.BattleType.None);
+
+#if RECORD_PLAYER_ACTIONS
+        RecordActions.Instance.OnEndBattle();
+#endif
     }
 
     protected override void InternalInit()

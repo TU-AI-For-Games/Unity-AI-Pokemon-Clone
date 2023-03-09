@@ -1,0 +1,11 @@
+Game:          Pokémon OR/AS
+Subject:       Evergreen Tree
+Copyright:     Nintendo, Game Freak, Creatures Inc.
+Model Ripper:  Fallenleader (RSRazr)
+Notes:         Model exported with many options in hopes of better compatibility.
+               This means that I exproted it not knowing what the f**k I was doing! XD
+               Textures included. They are properly UV Mapped, simply import them to the model's material
+	       if your program doesn't automatically load it. For Unity users, use cutout instead of transparency
+	       with the standard shader.
+
+Thanks to:     Chirz for making one of the textures transparent due to the original preventing approval.

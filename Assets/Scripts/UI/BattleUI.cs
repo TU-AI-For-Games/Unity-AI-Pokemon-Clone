@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,8 +11,6 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private List<Color> m_typeColours;
 
     [SerializeField] private GameObject m_choiceUI;
-    [SerializeField] private GameObject m_monsterUI;
-    [SerializeField] private GameObject m_bagUI;
 
     [Header("HP UI")]
     [SerializeField] private TextMeshProUGUI m_playerPkmnName;
@@ -24,19 +22,22 @@ public class BattleUI : MonoBehaviour
     [SerializeField] private GameObject m_moveInfo;
     [SerializeField] private TextMeshProUGUI m_moveDescription;
     [SerializeField] private GameObject m_moveUI;
-    [SerializeField] private Button m_move1Button;
-    [SerializeField] private TextMeshProUGUI m_move1Text;
-    [SerializeField] private Button m_move2Button;
-    [SerializeField] private TextMeshProUGUI m_move2Text;
-    [SerializeField] private Button m_move3Button;
-    [SerializeField] private TextMeshProUGUI m_move3Text;
-    [SerializeField] private Button m_move4Button;
-    [SerializeField] private TextMeshProUGUI m_move4Text;
+    [SerializeField] private List<Button> m_moveButtons;
 
     [Header("Battle info UI")]
     [SerializeField] private GameObject m_battleInfo;
     [SerializeField] private TextMeshProUGUI m_battleInfoText;
     private bool m_displayedAllMessages = false;
+
+    [Header("Switch Pokemon UI")]
+    [SerializeField] private GameObject m_monsterUI;
+    [SerializeField] private List<Button> m_pokemonButtons;
+    [SerializeField] private TextMeshProUGUI m_pokemonStatText;
+    [SerializeField] private GameObject m_pokemonStatTextBox;
+
+    [Header("Item menu UI")]
+    [SerializeField] private GameObject m_bagUI;
+
 
     private void Awake()
     {
@@ -70,16 +71,10 @@ public class BattleUI : MonoBehaviour
         PocketMonster activeMon = m_player.GetActivePokemon();
         Move[] activeMonMoves = activeMon.GetMoves();
 
-        // TODO: There's DEFINITELY a much better way of doing this... Oh well, this will work for now...
-        m_move1Text.text = activeMonMoves[0].Name;
-        m_move2Text.text = activeMonMoves[1].Name;
-        m_move3Text.text = activeMonMoves[2].Name;
-        m_move4Text.text = activeMonMoves[3].Name;
-
-        m_move1Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[0].Type];
-        m_move2Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[1].Type];
-        m_move3Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[2].Type];
-        m_move4Button.GetComponent<Image>().color = m_typeColours[(int)activeMonMoves[3].Type];
+        for (int i = 0; i < activeMonMoves.Length; ++i)
+        {
+            SetButtonColourText(m_moveButtons[i], m_typeColours[(int)activeMonMoves[i].Type], activeMonMoves[i].Name);
+        }
 
         m_playerPkmnName.text = activeMon.Name;
 
@@ -108,48 +103,7 @@ public class BattleUI : MonoBehaviour
         m_moveInfo.SetActive(false);
     }
 
-    public void OnMove1Pressed()
-    {
-        SetPlayerChoice(0);
-    }
-
-
-    public void OnMove1Hover()
-    {
-        OnHover(0);
-    }
-
-    public void OnMove2Pressed()
-    {
-        SetPlayerChoice(1);
-    }
-
-    public void OnMove2Hover()
-    {
-        OnHover(1);
-    }
-
-    public void OnMove3Pressed()
-    {
-        SetPlayerChoice(2);
-    }
-
-    public void OnMove3Hover()
-    {
-        OnHover(2);
-    }
-
-    public void OnMove4Pressed()
-    {
-        SetPlayerChoice(3);
-    }
-
-    public void OnMove4Hover()
-    {
-        OnHover(3);
-    }
-
-    private void OnHover(int index)
+    public void OnMoveHover(int index)
     {
         m_moveInfo.SetActive(true);
         SetMoveDescription(m_player.GetActivePokemon().GetMoves()[index]);
@@ -178,9 +132,17 @@ public class BattleUI : MonoBehaviour
     public void ShowBattleInfoUI()
     {
         HideMoveUI();
+
+        // Hide the pokemon choice menu just in case
+        m_choiceUI.SetActive(false);
+
         m_battleInfo.SetActive(true);
-        ShowNextBattleInfoText();
         m_displayedAllMessages = false;
+
+        if (m_battleInfoText.text == "")
+        {
+            ShowNextBattleInfoText();
+        }
     }
 
     public void HideBattleInfoUI()
@@ -193,13 +155,18 @@ public class BattleUI : MonoBehaviour
         m_battleInfoText.text = text;
     }
 
-    private void SetPlayerChoice(int index)
+    public void OnMoveButtonPressed(int index)
     {
         PocketMonster playerMon = m_player.GetActivePokemon();
         playerMon.SetChosenMove(playerMon.GetMoves()[index]);
 
         // Once the player has selected their move, we want to inform the battle manager to start the attack cycle
         BattleManager.Instance.SetBattleState(BattleManager.BattleState.Attack);
+    }
+
+    private void ResetBattleInfoText()
+    {
+        m_battleInfoText.text = "";
     }
 
     public void OnBattleInfoPressed()
@@ -213,6 +180,7 @@ public class BattleUI : MonoBehaviour
             m_displayedAllMessages = true;
 
             HideBattleInfoUI();
+            ResetBattleInfoText();
 
             // Go back to selecting the move
             BattleManager.Instance.NextTurn();
@@ -242,24 +210,141 @@ public class BattleUI : MonoBehaviour
     {
         if (m_player.HasUsablePokemon())
         {
-            // TODO: For now, just randomly choose a pokemon
-            do
-            {
-                int randomIndex = Random.Range(0, 6);
-                Debug.Log("Choosing a random mon!");
-                m_player.SetActivePokemonIndex(randomIndex);
-
-            } while (m_player.GetActivePokemon().GetStats().HP <= 0);
-
-            BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
-
-            BattleManager.Instance.SetBattleState(BattleManager.BattleState.SelectMove);
-
-            ShowChoiceUI();
+            SetChoosePkmnMenuUI();
+            m_monsterUI.SetActive(true);
         }
         else
         {
             GameManager.Instance.EndBattle(true);
         }
+    }
+
+    private void SetChoosePkmnMenuUI()
+    {
+        PocketMonster[] playerMon = m_player.GetPokemon();
+
+        for (int i = 0; i < 6; ++i)
+        {
+            PocketMonster currentMon = playerMon[i];
+
+            if (currentMon.GetStats().HP <= 0)
+            {
+                SetButtonColourText(m_pokemonButtons[i], Color.gray, currentMon.Name + " (FAINTED)");
+            }
+            else
+            {
+                SetButtonColourText(m_pokemonButtons[i], m_typeColours[(int)currentMon.Type], currentMon.Name);
+            }
+        }
+    }
+
+    public static void SetButtonColourText(Button button, Color colour, string text)
+    {
+        button.GetComponent<Image>().color = colour;
+        button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
+    }
+
+    public void OnChoosePokemon(int index)
+    {
+        // Don't choose a fainted mon!
+        if (m_player.GetPokemon()[index].GetStats().HP <= 0)
+        {
+            return;
+        }
+
+        m_player.SetActivePokemonIndex(index);
+
+        BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
+
+        // Tell the BattleManager that the player switched out
+        BattleManager.Instance.PlayerSwitchedOut();
+
+        OnChoosePkmnBack();
+    }
+
+    public void OnHoverChoosePokemon(int index)
+    {
+        PocketMonster playerMon = m_player.GetPokemon()[index];
+
+        m_pokemonStatText.text = $"<b><u>{playerMon.Name}</u></b>\n" +
+                          $"Type: <color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.Type])}>{PocketMonster.TypeToString(playerMon.Type)}</color>\n" +
+                          $"HP: {MathF.Max(0, playerMon.GetStats().HP)}\n" +
+                          $"Attack: {playerMon.GetStats().GetAttackStatBeforeBurn()}\n" +
+                          $"Defense: {playerMon.GetStats().GetDefense()}\n" +
+                          $"Speed: {playerMon.GetStats().GetSpeedStatBeforeParalyze()}\n" +
+                          "<b><u>Moves:</u></b>\n" +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[0].Type])}>{playerMon.GetMoves()[0].Name}</color>, " +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[1].Type])}>{playerMon.GetMoves()[1].Name}</color>, " +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[2].Type])}>{playerMon.GetMoves()[2].Name}</color>, " +
+                          $"<color=#{ColorUtility.ToHtmlStringRGB(m_typeColours[(int)playerMon.GetMoves()[3].Type])}>{playerMon.GetMoves()[3].Name}</color>";
+
+        if (playerMon.GetStatusEffect() != PocketMonster.StatusType.None)
+        {
+            string hexColour = "";
+            string condition = "";
+
+            if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Asleep)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Normal]);
+                condition = "SLP";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Burned)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Fire]);
+                condition = "BRN";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Frozen)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Ice]);
+                condition = "FRZ";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Paralyzed)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Electric]);
+                condition = "PAR";
+            }
+            else if (playerMon.GetStatusEffect() == PocketMonster.StatusType.Poisoned)
+            {
+                hexColour = ColorUtility.ToHtmlStringRGB(m_typeColours[(int)PocketMonster.Element.Poison]);
+                condition = "PSN";
+            }
+
+            m_pokemonStatText.text += $"\nStatus: <color=#{hexColour}>{condition}</color>";
+        }
+
+        m_pokemonStatTextBox.SetActive(true);
+    }
+
+    public void OnHoverExitChoosePokemon()
+    {
+        m_pokemonStatTextBox.SetActive(false);
+    }
+
+    public void OnChoosePkmnBack()
+    {
+        m_monsterUI.SetActive(false);
+        m_choiceUI.SetActive(true);
+    }
+
+    public void OnItemButton()
+    {
+        m_choiceUI.SetActive(false);
+        m_bagUI.SetActive(true);
+    }
+
+    public void OnItemButtonBack()
+    {
+        m_bagUI.SetActive(false);
+        m_choiceUI.SetActive(true);
+    }
+
+    public void OnItemButtonPressed(int item)
+    {
+        BattleManager.Instance.UseItem(
+            (BattleManager.Item)item,
+            m_player.GetActivePokemon()
+        );
+
+        OnItemButtonBack();
     }
 }

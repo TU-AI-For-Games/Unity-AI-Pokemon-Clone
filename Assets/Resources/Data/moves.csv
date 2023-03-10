@@ -31,7 +31,7 @@ ID,Name,Effect,Type,Kind,Power,Accuracy,Status Effect,Status Chance,Stat Change 
 53,Flamethrower,Has a 10% chance to burn the target.,Fire,Status,95,100%,BURN,10%,,
 55,Water Gun,Deals damage with no additional effect.,Water,Special,40,100%,,,,
 56,Hydro Pump,Deals damage with no additional effect.,Water,Special,120,80%,,,,
-57,Surf,Power doubles against a target who is in the middle of using Dive.,Water,Status,95,100%,,,,
+57,Surf,Power doubles against a target who is in the middle of using Dive.,Water,Physical,95,100%,,,,
 58,Ice Beam,Has a 10% chance to freeze the target.,Ice,Status,95,100%,FREEZE,10%,,
 59,Blizzard,Has a 10% chance to freeze the target. During Hail this move will never miss under normal circumstances and has a 30% chance to hit through a target's Protect or Detect.,Ice,Status,120,70%,FREEZE,10%,,
 60,Psybeam,Has a 10% chance to confuse the target.,Psychic,Status,65,100%,CONFUSE,10%,,
@@ -42,7 +42,7 @@ ID,Name,Effect,Type,Kind,Power,Accuracy,Status Effect,Status Chance,Stat Change 
 66,Submission,The user receives 1/4 recoil damage.,Fighting,Physical,80,80%,,,,
 70,Strength,Deals damage with no additional effect.,Normal,Physical,80,100%,,,,
 73,Leech Seed,The user steals 1/8 of the target's max HP until the target is switched out is KO'ed or uses Rapid Spin; does not work against Grass-type Pokemon or Pokemon behind Substitutes.,Grass,hp+,0,90%,,,,
-74,Growth,Raises the user's Attack and Special Attack by 1 stage. If the weather is Sun Growth raises Attack and SpAttk two stages each. ,Normal,a+,0,,,,U,100%
+74,Growth,"Raises the user's Attack and Special Attack by 1 stage. If the weather is Sun Growth raises Attack and SpAttk two stages each. ",Normal,a+,0,,,,U,100%
 75,Razor Leaf,Has a high critical hit ratio.,Grass,Physical,55,95%,,,,
 76,SolarBeam,The user prepares on turn one becoming uncontrollable and then attacks on turn two. During Sunny Day this move fires immediately; during Rain Dance Sandstorm and Hail this move has half power.,Grass,Special,120,100%,,,,
 77,PoisonPowder,Poisons the target.,Poison,Status,0,75%,POISON,100%,,
@@ -89,7 +89,7 @@ ID,Name,Effect,Type,Kind,Power,Accuracy,Status Effect,Status Chance,Stat Change 
 183,Mach Punch,Usually goes first.,Fighting,Physical,40,100%,,,,
 184,Scary Face,Lowers the target's Speed by 2 stages.,Normal,s-,0,90%,,,T,100%
 185,Faint Attack,Ignores Evasion and Accuracy modifiers and never misses except against Protect Detect or a target in the middle of Dig Fly Dive or Bounce.,Dark,Physical,60,101%,,,,
-188,Sludge Bomb,Has a 30% chance to poison the target.,Poison,Special,90,100%,POISON,30%,,
+188,Sludge Bomb,Has a 30% chance to poison the target.,Poison,Status,90,100%,POISON,30%,,
 189,Mud-Slap,Has a 30% chance to lower the target's Accuracy by 1 stage.,Ground,Special,20,100%,,,,
 192,Zap Cannon,Paralyzes the target.,Electric,Status,120,50%,PARALYZE,100%,,
 196,Icy Wind,Lowers the target's Speed by 1 stage.,Ice,s-,55,95%,,,T,100%

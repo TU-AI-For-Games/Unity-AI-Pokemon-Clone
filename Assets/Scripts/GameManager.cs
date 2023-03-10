@@ -1,6 +1,5 @@
+#define RECORD_PLAYER_ACTIONS
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -137,6 +136,10 @@ public class GameManager : Singleton<GameManager>
         }
 
         BattleManager.Instance.SetBattleType(BattleManager.BattleType.None);
+
+#if RECORD_PLAYER_ACTIONS
+        RecordActions.Instance.OnEndBattle();
+#endif
     }
 
     public PlayerController GetPlayerController()

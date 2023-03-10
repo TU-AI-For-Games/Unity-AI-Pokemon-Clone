@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,6 +28,7 @@ public class MoveManager : Singleton<MoveManager>
 
             // Reordered to be in the same order as the Move() constructor... I know it should probably consistent with the CSV but hey - Tom
             string moveName = csvContent[1];
+
             string description = csvContent[2];
 
             PocketMonster.Element type = PocketMonster.StringToType(csvContent[3]);
@@ -67,6 +67,19 @@ public class MoveManager : Singleton<MoveManager>
     public Move GetMove(int moveID)
     {
         return m_moves[moveID];
+    }
+
+    public int GetMoveID(Move move)
+    {
+        foreach (KeyValuePair<int, Move> pair in m_moves)
+        {
+            if (move == pair.Value)
+            {
+                return pair.Key;
+            }
+        }
+
+        return -1;
     }
 
     private int PercentToInt(string percentString)
@@ -131,6 +144,7 @@ public class MoveManager : Singleton<MoveManager>
             Move.Effect.IncreaseSpeed => "SPD+",
             Move.Effect.DecreaseSpeed => "SPD-",
             Move.Effect.Status => "STATUS",
+            Move.Effect.RaiseAllStats => "ALL+",
             _ => throw new ArgumentOutOfRangeException(nameof(effect), effect, null)
         };
     }

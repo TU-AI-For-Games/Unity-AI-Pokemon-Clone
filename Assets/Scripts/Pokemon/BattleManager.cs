@@ -1,8 +1,8 @@
+#define RECORD_PLAYER_ACTIONS
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
 
 public class BattleManager : Singleton<BattleManager>
@@ -26,6 +26,12 @@ public class BattleManager : Singleton<BattleManager>
         End
     }
 
+    public enum Item
+    {
+        HealHP,
+        HealStatus
+    }
+
     private BattleState m_battleState;
 
     public enum BattleType
@@ -41,6 +47,13 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_inBattle = false;
     private bool m_aiChosenThisTurn = false;
     private bool m_battleEnded = false;
+    private bool m_playerSwitchedOutThisTurn;
+    private bool m_playerUsedItem;
+
+#if RECORD_PLAYER_ACTIONS
+    private int m_playerHpBefore;
+    private int m_targetHpBefore;
+#endif
 
     public List<Color> TypeColours;
 
@@ -58,6 +71,9 @@ public class BattleManager : Singleton<BattleManager>
         {
             case BattleState.SelectMove:
                 {
+                    m_playerSwitchedOutThisTurn = false;
+                    m_playerUsedItem = false;
+
                     // TODO: For now, the AI is just choosing a random move, of course this will be more sophisticated when Jay has done the decision making
                     if (!m_aiChosenThisTurn && m_currentBattleType == BattleType.WildPkmn)
                     {
@@ -70,7 +86,7 @@ public class BattleManager : Singleton<BattleManager>
             case BattleState.Attack:
                 {
                     // We haven't attacked yet if there are no messages in the queue
-                    if (m_battleMessages.Count == 0)
+                    if (m_battleMessages.Count == 0 || m_playerUsedItem)
                     {
                         AttackState();
                         if (m_battleState != BattleState.PlayerFainted)
@@ -120,6 +136,9 @@ public class BattleManager : Singleton<BattleManager>
         m_aiChosenThisTurn = false;
         m_inBattle = true;
         m_battleEnded = false;
+#if RECORD_PLAYER_ACTIONS
+        RecordActions.Instance.OnStartBattle();
+#endif
     }
 
     private void AttackState()
@@ -128,7 +147,7 @@ public class BattleManager : Singleton<BattleManager>
         PocketMonster firstMon;
         PocketMonster secondMon;
 
-        if (m_playerPokemon.GetStats().GetSpeed() < m_otherPokemon.GetStats().GetSpeed())
+        if (m_playerPokemon.GetSpeed() < m_otherPokemon.GetSpeed())
         {
             firstMon = m_otherPokemon;
             secondMon = m_playerPokemon;
@@ -139,28 +158,54 @@ public class BattleManager : Singleton<BattleManager>
             secondMon = m_otherPokemon;
         }
 
-        HandleMove(firstMon, secondMon);
-
-        // If the target died this turn, then we want to add that message to the queue
-
-        if (CheckIfFainted(secondMon))
+#if RECORD_PLAYER_ACTIONS
+        if (m_playerSwitchedOutThisTurn)
         {
-            OnFaint(secondMon, secondMon == m_playerPokemon);
+            RecordActions.Instance.RecordAction(RecordActions.PlayerAction.Switch, m_playerPokemon, m_otherPokemon, m_playerPokemon.GetStats().HP, m_otherPokemon.GetStats().HP, false, Move.Outcome.Miss, false, false);
+        }
+        else if (m_playerUsedItem)
+        {
+            RecordActions.Instance.RecordAction(RecordActions.PlayerAction.Heal, m_playerPokemon, m_otherPokemon, m_playerPokemon.GetStats().HP, m_otherPokemon.GetStats().HP, false, Move.Outcome.Miss, false, false);
         }
 
-        HandleMove(secondMon, firstMon);
+        m_playerHpBefore = m_playerPokemon.GetStats().HP;
+        m_targetHpBefore = m_otherPokemon.GetStats().HP;
+#endif
 
-        if (CheckIfFainted(firstMon))
+        bool firstMonIsPlayer = firstMon == m_playerPokemon;
+        bool firstMonSwitchedOut = firstMonIsPlayer && m_playerSwitchedOutThisTurn;
+        bool firstMonUsedItem = firstMonIsPlayer && m_playerUsedItem;
+
+        // If the player switched out, or used an item then they shouldn't be able to move
+        if (!firstMonSwitchedOut && !firstMonUsedItem)
         {
-            OnFaint(firstMon, firstMon == m_playerPokemon);
+            TakeTurn(firstMon, secondMon);
         }
+
+        bool secondMonIsPlayer = secondMon == m_playerPokemon;
+        bool secondMonSwitchedOut = secondMonIsPlayer && m_playerSwitchedOutThisTurn;
+        bool secondMonUsedItem = secondMonIsPlayer && m_playerUsedItem;
+
+        if (!secondMonSwitchedOut && !secondMonUsedItem)
+        {
+            TakeTurn(secondMon, firstMon);
+        }
+
+        firstMon.HandleStatus();
+        secondMon.HandleStatus();
 
         m_battleHUD.ShowBattleInfoUI();
     }
 
-    private bool CheckIfFainted(PocketMonster pokemon)
+    private void TakeTurn(PocketMonster attacker, PocketMonster target)
     {
-        return pokemon.GetStats().HP < 0;
+        HandleMove(attacker, target);
+
+        // If the target died this turn, then we want to add that message to the queue
+        if (target.HasFainted())
+        {
+            OnFaint(target);
+        }
     }
 
     private void HandleMove(PocketMonster attacker, PocketMonster target)
@@ -171,6 +216,18 @@ public class BattleManager : Singleton<BattleManager>
             return;
         }
 
+        if (attacker.GetStatusEffect() == PocketMonster.StatusType.Asleep)
+        {
+            m_battleMessages.Enqueue($"{attacker} is asleep...");
+
+            attacker.HandleStatus();
+
+            if (attacker.GetStatusEffect() == PocketMonster.StatusType.Asleep)
+            {
+                return;
+            }
+        }
+
         Move.Outcome outcome = Move.Outcome.Hit;
         Move.Effectiveness effectiveness = Move.Effectiveness.Neutral;
 
@@ -178,63 +235,106 @@ public class BattleManager : Singleton<BattleManager>
 
         bool statChange = false;
 
-        if (target.GetStats().HP <= 0)
+        bool paralyzedThisTurn = attacker.GetStatusEffect() == PocketMonster.StatusType.Paralyzed && Random.Range(0, 100) < 25;
+
+#if RECORD_PLAYER_ACTIONS
+        PocketMonster.StatusType targetStatusBefore = target.GetStatusEffect();
+#endif
+
+        if (paralyzedThisTurn)
         {
-            // Allow the user to use a stat move if the target has fainted and they are using the move on themself
-            if (chosenMove.MoveEffect != Move.Effect.Damage && chosenMove.MoveEffect != Move.Effect.Status && chosenMove.AffectedStatChange != Move.StatChangeAffected.Target)
-            {
-                statChange = HandleStatChange(chosenMove, attacker, target);
-            }
-            else
-            {
-                // Miss the target if it has fainted!
-                outcome = Move.Outcome.Miss;
-            }
+            m_battleMessages.Enqueue($"{attacker.Name} was paralyzed and couldn't move!");
         }
         else
         {
-            outcome = DealDamage(chosenMove, attacker, target, out effectiveness);
+            if (target.GetStats().HP <= 0)
+            {
+                // Allow the user to use a stat move if the target has fainted and they are using the move on themself
+                if (chosenMove.MoveEffect is not (Move.Effect.Damage or Move.Effect.Status) &&
+                    chosenMove.AffectedStatChange == Move.StatChangeAffected.User)
+                {
+                    statChange = HandleStatChange(chosenMove, attacker, target);
+                }
+                else
+                {
+                    // Miss the target if it has fainted!
+                    outcome = Move.Outcome.Miss;
+                }
+            }
+            else
+            {
+                // If we're confused, there's a 50% chance of us dealing damage to ourselves 
+                if (attacker.IsConfused() && Random.Range(0, 100) < 50)
+                {
+                    m_battleMessages.Enqueue($"{attacker.Name} hurt itself in its confusion!");
+                    attacker.DealConfusionDamage();
+                }
+                else
+                {
+                    outcome = DealDamage(chosenMove, attacker, target, out effectiveness);
 
-            statChange = HandleStatChange(chosenMove, attacker, target);
-        }
+                    statChange = HandleStatChange(chosenMove, attacker, target);
+                }
+            }
 
-        m_battleMessages.Enqueue(
-            GenerateOutcomeString(
+#if RECORD_PLAYER_ACTIONS
+            if (attacker == m_playerPokemon)
+            {
+                RecordActions.Instance.RecordAction(
+                    RecordActions.PlayerAction.Attack,
+                    attacker,
+                    target,
+                    m_playerHpBefore,
+                    m_targetHpBefore,
+                    attacker.GetChosenMove().MoveEffect == Move.Effect.Status && (target.GetStatusEffect() != targetStatusBefore),
+                    outcome,
+                    statChange,
+                    target.HasFainted()
+                    );
+            }
+#endif
+
+
+            m_battleMessages.Enqueue(
+                GenerateOutcomeString(
                     attacker.Name,
                     target.Name,
                     chosenMove.Name,
                     outcome
-            )
+                )
             );
 
-        if (effectiveness != Move.Effectiveness.Neutral)
-        {
-            m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
+            if (effectiveness != Move.Effectiveness.Neutral)
+            {
+                m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
+            }
+
+            if (statChange)
+            {
+                // Enqueue the message saying the stat and whether it increased or decreased
+                m_battleMessages.Enqueue(GenerateStatChangeString(
+                        chosenMove,
+                        attacker,
+                        target
+                    )
+                );
+            }
         }
 
-        if (statChange)
+        if (attacker.GetStatusEffect() != PocketMonster.StatusType.Asleep)
         {
-            // Enqueue the message saying the stat and whether it increased or decreased
-            m_battleMessages.Enqueue(GenerateStatChangeString(
-                    chosenMove,
-                    attacker, 
-                    target
-                )
-                );
+            attacker.HandleStatus();
         }
     }
 
-    private void OnFaint(PocketMonster pokemon, bool isPlayerMon)
+    public void OnFaint(PocketMonster pokemon)
     {
         m_battleMessages.Enqueue($"{pokemon.Name} fainted...");
 
         Debug.Log($"{pokemon.Name.ToUpper()} FAINTED");
 
-        if (isPlayerMon)
+        if (pokemon == m_playerPokemon)
         {
-            // TODO: Make the player select another pokemon to battle
-            Debug.Log("PLAYER MON FAINTED!");
-
             SetBattleState(BattleState.PlayerFainted);
         }
         else
@@ -253,45 +353,47 @@ public class BattleManager : Singleton<BattleManager>
 
     private bool HandleStatChange(Move move, PocketMonster attacker, PocketMonster target)
     {
-        if (move.AffectedStatChange != Move.StatChangeAffected.None)
+        if (move.AffectedStatChange == Move.StatChangeAffected.None)
         {
-            PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
+            return false;
+        }
 
-            int RandomChance = Random.Range(0, 100);
+        PocketMonster affectedMon = move.AffectedStatChange == Move.StatChangeAffected.User ? attacker : target;
 
-            if (move.StatChangeChance > RandomChance)
-            {
-                switch (move.MoveEffect)
+        int randomChance = Random.Range(0, 100);
+
+        if (move.StatChangeChance < randomChance)
+        {
+            return false;
+        }
+
+        // If we have passed the probability, then we want to apply the stat change
+        switch (move.MoveEffect)
+        {
+            case Move.Effect.Heal:
+                break;
+            case Move.Effect.IncreaseAttack:
+                return affectedMon.GetStats().IncreaseAttack();
+            case Move.Effect.DecreaseAttack:
+                return affectedMon.GetStats().DecreaseAttack();
+            case Move.Effect.IncreaseAccuracy:
+                return affectedMon.GetStats().IncreaseAccuracy();
+            case Move.Effect.DecreaseAccuracy:
+                return affectedMon.GetStats().DecreaseAccuracy();
+            case Move.Effect.IncreaseDefense:
+                return affectedMon.GetStats().IncreaseDefense();
+            case Move.Effect.DecreaseDefense:
+                return affectedMon.GetStats().DecreaseDefense();
+            case Move.Effect.IncreaseSpeed:
+                return affectedMon.GetStats().IncreaseSpeed();
+            case Move.Effect.DecreaseSpeed:
+                return affectedMon.GetStats().DecreaseSpeed();
+            case Move.Effect.RaiseAllStats:
                 {
-                    case Move.Effect.Heal:
-                        break;
-                    case Move.Effect.IncreaseAttack:
-                        return affectedMon.GetStats().IncreaseAttack();
-                    case Move.Effect.DecreaseAttack:
-                        return affectedMon.GetStats().DecreaseAttack();
-                    case Move.Effect.IncreaseAccuracy:
-                        // TODO: Accuracy
-                        break;
-                    case Move.Effect.DecreaseAccuracy:
-                        // TODO: Accuracy
-                        break;
-                    case Move.Effect.IncreaseDefense:
-                        return affectedMon.GetStats().IncreaseDefense();
-                    case Move.Effect.DecreaseDefense:
-                        return affectedMon.GetStats().DecreaseDefense();
-                    case Move.Effect.IncreaseSpeed:
-                        return affectedMon.GetStats().IncreaseSpeed();
-                    case Move.Effect.DecreaseSpeed:
-                        return affectedMon.GetStats().DecreaseSpeed();
-                    case Move.Effect.RaiseAllStats:
-                        {
-                            bool statChanged = affectedMon.GetStats().IncreaseAttack();
-                            statChanged = affectedMon.GetStats().IncreaseDefense();
-                            statChanged = affectedMon.GetStats().IncreaseSpeed();
-                            return statChanged;
-                        }
+                    return affectedMon.GetStats().IncreaseAttack() ||
+                           affectedMon.GetStats().IncreaseDefense() ||
+                           affectedMon.GetStats().IncreaseSpeed(); ;
                 }
-            }
         }
 
         return false;
@@ -306,13 +408,13 @@ public class BattleManager : Singleton<BattleManager>
     {
         GameManager.Instance.SpawnPlayerPokemon();
         m_playerPokemon = pokemon;
-        m_playerPokemon.ResetAccuracy();
+        m_playerPokemon.ResetStats();
     }
 
     public void SetOtherPokemon(PocketMonster pokemon)
     {
         m_otherPokemon = pokemon;
-        m_otherPokemon.ResetAccuracy();
+        pokemon.ResetStats();
     }
 
     public string ConsumeNextMessage()
@@ -358,14 +460,13 @@ public class BattleManager : Singleton<BattleManager>
 
     public float GetTypeAdvantageMultiplier(PocketMonster.Element moveType, PocketMonster.Element targetType)
     {
-        // If the types aren't in the table, the multiplier is 1
-        if (!m_typeMatchupTable[moveType].ContainsKey(targetType))
+        if (m_typeMatchupTable[moveType].ContainsKey(targetType))
         {
-            return 1f;
+            return m_typeMatchupTable[moveType][targetType];
         }
 
-        // Else, we wanna just return the value from the table
-        return m_typeMatchupTable[moveType][targetType];
+        // If the types aren't in the table, the multiplier is 1
+        return 1f;
     }
 
     protected override void InternalInit()
@@ -490,5 +591,116 @@ public class BattleManager : Singleton<BattleManager>
             SetBattleState(BattleState.SelectMove);
             m_battleHUD.ShowChoiceUI();
         }
+    }
+
+    public void OnEndStatusMessage(PocketMonster mon, PocketMonster.StatusType status)
+    {
+        switch (status)
+        {
+            case PocketMonster.StatusType.Asleep:
+                m_battleMessages.Enqueue($"{mon.Name} woke up!");
+                break;
+            case PocketMonster.StatusType.Burned:
+                m_battleMessages.Enqueue($"{mon.Name} was hurt by its burn!");
+                break;
+            case PocketMonster.StatusType.Frozen:
+                m_battleMessages.Enqueue($"{mon.Name} thawed out!");
+                break;
+            case PocketMonster.StatusType.Paralyzed:
+                break;
+            case PocketMonster.StatusType.Poisoned:
+                m_battleMessages.Enqueue($"{mon.Name} was hurt by its poison!");
+                break;
+        }
+    }
+
+    public void OnApplyStatusMessage(PocketMonster mon, PocketMonster.StatusType status)
+    {
+        switch (status)
+        {
+            case PocketMonster.StatusType.Asleep:
+                m_battleMessages.Enqueue($"{mon.Name} fell asleep!");
+                break;
+            case PocketMonster.StatusType.Burned:
+                m_battleMessages.Enqueue($"{mon.Name} was burned!");
+                break;
+            case PocketMonster.StatusType.Frozen:
+                m_battleMessages.Enqueue($"{mon.Name} is frozen solid!");
+                break;
+            case PocketMonster.StatusType.Paralyzed:
+                m_battleMessages.Enqueue($"{mon.Name} was paralyzed!");
+                break;
+            case PocketMonster.StatusType.Poisoned:
+                m_battleMessages.Enqueue($"{mon.Name} was badly poisoned!");
+                break;
+        }
+    }
+
+    public void OnSnapOut(PocketMonster mon)
+    {
+        m_battleMessages.Enqueue($"{mon.Name} snapped out of its confusion!");
+    }
+
+    public void PlayerSwitchedOut()
+    {
+        if (m_battleState == BattleState.PlayerFainted)
+        {
+            SetBattleState(BattleState.SelectMove);
+        }
+        else
+        {
+            m_playerSwitchedOutThisTurn = true;
+            SetBattleState(BattleState.Attack);
+        }
+    }
+
+    public void UseItem(Item item, PocketMonster mon)
+    {
+        // TODO: Handle trainers using items too
+        if (mon == m_playerPokemon)
+        {
+            m_playerUsedItem = true;
+        }
+
+        if (item == Item.HealHP)
+        {
+            OnUseHealMessage(Mathf.Max(0, mon.GetStats().BaseHP - mon.GetStats().HP), mon);
+            m_playerPokemon.HealHP();
+        }
+        else if (item == Item.HealStatus)
+        {
+            OnUseHealStatusMessage(mon.GetStatusEffect(), mon);
+            mon.HealStatus();
+        }
+
+        SetBattleState(BattleState.Attack);
+    }
+
+    private void OnUseHealMessage(int pointsHealed, PocketMonster mon)
+    {
+        if (mon == m_playerPokemon)
+        {
+            m_battleMessages.Enqueue("Player used Max Potion");
+        }
+        else
+        {
+            // TODO: Grab the other trainer's name
+        }
+
+        m_battleMessages.Enqueue($"{mon.Name} was healed by <b>{pointsHealed}</b> hit point(s)");
+    }
+
+    private void OnUseHealStatusMessage(PocketMonster.StatusType status, PocketMonster mon)
+    {
+        if (mon == m_playerPokemon)
+        {
+            m_battleMessages.Enqueue("Player used Full Heal");
+        }
+        else
+        {
+            // TODO: Grab the other trainer's name
+        }
+
+        OnEndStatusMessage(mon, mon.GetStatusEffect());
     }
 }

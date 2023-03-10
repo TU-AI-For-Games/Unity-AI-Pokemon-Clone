@@ -21,7 +21,7 @@ public class HPBarScript : MonoBehaviour
         if (m_pokemon == null)
             return;
 
-        m_hpText.text = $"<size=36><color=#3C3C3C>{m_pokemon.GetStats().HP}</size></color>" +
+        m_hpText.text = $"<size=36><color=#3C3C3C>{MathF.Max(0, m_pokemon.GetStats().HP)}</size></color>" +
                         "<size=20><color=#ABABAB>/150</size></color>";
 
 

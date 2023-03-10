@@ -72,24 +72,22 @@ public class BattleUIScript : MonoBehaviour
 
     public void SetScreen(Screens screen)
     {
+        HideAll();
 
         switch (screen)
         {
             case Screens.Menu:
                 {
                     m_ChoiceUI.gameObject.SetActive(true);
-                    m_MovesUI.gameObject.SetActive(false);
                 }
                 break;
             case Screens.Attack:
                 {
-                    m_ChoiceUI.gameObject.SetActive(false);
                     m_MovesUI.gameObject.SetActive(true);
                 }
                 break;
             case Screens.BattleInfo:
                 {
-                    m_MovesUI.gameObject.SetActive(false);
                     m_battleInfo.SetActive(true);
                     ShowNextBattleInfoText();
                     m_displayedAllMessages = false;
@@ -97,14 +95,12 @@ public class BattleUIScript : MonoBehaviour
                 break;
             case Screens.ChoosePokemon:
                 {
-                    m_ChoiceUI.gameObject.SetActive(false);
                     m_switchPokemonUi.SetActive(true);
                 }
                 break;
             default:
                 {
                     m_ChoiceUI.gameObject.SetActive(true);
-                    m_MovesUI.gameObject.SetActive(false);
                 }
                 break;
         }
@@ -154,5 +150,15 @@ public class BattleUIScript : MonoBehaviour
     public bool DisplayedAllMessages()
     {
         return m_displayedAllMessages;
+    }
+
+    private void HideAll()
+    {
+        m_ChoiceUI.gameObject.SetActive(false);
+        m_MovesUI.gameObject.SetActive(false);
+
+        m_switchPokemonUi.gameObject.SetActive(false); ;
+
+        m_battleInfo.gameObject.SetActive(false); ;
     }
 }

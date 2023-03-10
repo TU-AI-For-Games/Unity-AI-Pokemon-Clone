@@ -4025,7 +4025,7 @@ MonoBehaviour:
   m_MovesUI: {fileID: 1082882440}
   m_PlayerHealthBar: {fileID: 4721870321209334351}
   m_EnemyHealthBar: {fileID: 2003239698}
-  m_switchPokemonUi: {fileID: 0}
+  m_switchPokemonUi: {fileID: 2037065023}
   m_battleInfo: {fileID: 484499396}
   m_battleInfoText: {fileID: 466904675}
 --- !u!1 &931273335
@@ -4170,6 +4170,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 900766249}
     m_Modifications:
+    - target: {fileID: 4379475648657204987, guid: 8b924d243e772cf4185fc5a4af60311b, type: 3}
+      propertyPath: m_battleUiScript
+      value: 
+      objectReference: {fileID: 900766250}
     - target: {fileID: 8433049197015216950, guid: 8b924d243e772cf4185fc5a4af60311b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -5321,8 +5325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d991d1320c1f3ca4ab805188bfec95ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveName: {fileID: 0}
-  Button: {fileID: 1188707724}
 --- !u!114 &1188707722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9302,6 +9304,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2033486154}
   m_CullTransparentMesh: 1
+--- !u!1 &2037065023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8433049197106995682, guid: 8b924d243e772cf4185fc5a4af60311b, type: 3}
+  m_PrefabInstance: {fileID: 962636655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2059405612
 GameObject:
   m_ObjectHideFlags: 0

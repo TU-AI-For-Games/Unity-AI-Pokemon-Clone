@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class ChoiceUIScript : MonoBehaviour
 {
-    public GameObject m_attack;
-    public GameObject m_pokemon;
-    public GameObject m_bag;
-    public GameObject m_escape;
-
     private BattleUIScript m_battleUi;
 
     public void OnAttackPressed()
@@ -18,12 +13,12 @@ public class ChoiceUIScript : MonoBehaviour
 
     public void OnPokemonPressed()
     {
-
+        m_battleUi.GoToChoosePkmn();
     }
 
     public void OnBagPressed()
     {
-
+        m_battleUi.GoToBag();
     }
 
     public void OnRunAwayPressed()

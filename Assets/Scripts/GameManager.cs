@@ -12,7 +12,7 @@ public class GameManager : Singleton<GameManager>
 
     [Header("Battle Settings")]
     [SerializeField] private Camera m_battleCamera;
-    [SerializeField] private BattleUI m_battleHUD;
+    [SerializeField] private BattleUIScript m_battleHUD;
     [SerializeField] private Transform m_battlePlayerPosition;
     [SerializeField] private Transform m_battlePlayerPkmnPosition;
     [SerializeField] private Transform m_battleTrainerPosition;

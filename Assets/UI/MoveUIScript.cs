@@ -10,15 +10,17 @@ public class MoveUIScript : MonoBehaviour
     [Header("Move UI")]
     [SerializeField] private GameObject m_moveInfo;
     [SerializeField] private TextMeshProUGUI m_moveDescription;
-    [SerializeField] private GameObject m_moveUI;
 
     [SerializeField] private List<MoveButtonContainer> moveButtons;
 
+    [Serializable]
     private class MoveButtonContainer
     {
         public Button MoveButton;
         public TextMeshProUGUI MoveText;
     }
+
+    [SerializeField] private BattleUIScript m_battleUiScript;
 
     public void OnMoveHover(int moveNumber)
     {
@@ -26,11 +28,8 @@ public class MoveUIScript : MonoBehaviour
 
         Move move = GameManager.Instance.GetPlayerController().GetActivePokemon().GetMoves()[moveNumber];
 
+        // TODO: Colour text with richtext to emphasise typing, damage type and whether it's a status move or not!
         m_moveDescription.text = $"{move.Description}\nEFFECT: {MoveManager.EffectToString(move.MoveEffect)}\nDAMAGE: {move.Damage}\nACCURACY: {move.Accuracy}%\nTYPE: {PocketMonster.TypeToString(move.Type)}";
-    }
-
-    public void SetBattleUI(BattleUIScript battleUIScript)
-    {
     }
 
     public void OnMoveHoverExit()
@@ -45,6 +44,11 @@ public class MoveUIScript : MonoBehaviour
 
         // Once the player has selected their move, we want to inform the battle manager to start the attack cycle
         BattleManager.Instance.SetBattleState(BattleManager.BattleState.Attack);
+    }
+
+    public void OnBackPressed()
+    {
+        m_battleUiScript.SetScreen(BattleUIScript.Screens.Menu);
     }
 
     public void SetMovesText(Move[] activeMonMoves)

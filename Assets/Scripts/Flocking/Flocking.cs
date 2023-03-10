@@ -63,7 +63,7 @@ public class Flocking : MonoBehaviour
     [SerializeField] private Vector2 limit;
 
     public flockingUnit[] allBirds { get; set; }
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -99,6 +99,4 @@ public class Flocking : MonoBehaviour
 
         }
     }
-
-    
 }

@@ -16,7 +16,12 @@ public class flockingUnit : MonoBehaviour
     private Flocking assignedFlock;
     private Vector3 currentVelocity;
     private Vector3 currentObstacleAvoidVec;
+    
     [SerializeField] private float speed;
+
+    private GameObject birb;
+    private GameObject rat;
+    bool isBird;
 
     public Transform birdTransform { get; set; }
 
@@ -35,6 +40,12 @@ public class flockingUnit : MonoBehaviour
         this.speed = speed;
     }
 
+    private void findPrefab()
+    {
+        birb = GameObject.Find("Assets/Prefabs/Pidgey");
+        rat = GameObject.Find("Assets/Prefabs/Rat");
+    }
+
     public void moveBirds()
     {
         findNeighbours();
@@ -51,6 +62,8 @@ public class flockingUnit : MonoBehaviour
         moveVec = moveVec.normalized * speed;
         birdTransform.forward = moveVec;
         birdTransform.position += moveVec * Time.deltaTime;
+        //use an IF statement to check if it is birb or rat
+        birdTransform.rotation = new Quaternion(0, birdTransform.rotation.y, 0, birdTransform.rotation.w);
     }
 
     private void findNeighbours()
@@ -218,6 +231,13 @@ public class flockingUnit : MonoBehaviour
     {
         return Vector3.Angle(birdTransform.forward, position - birdTransform.position) <= angleFOV;
     }
+
+    
+    /*private bool isBird()
+    {
+        if (birb )
+        return birdTransform.position.sqrMagnitude > angleFOV;
+    }*/
 }
 
 

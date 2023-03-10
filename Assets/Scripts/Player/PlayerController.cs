@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+#define RECORD_PLAYER_ACTIONS
 using System.Linq;
 using UnityEngine;
 
@@ -77,6 +76,10 @@ public class PlayerController : MonoBehaviour
 
     public void SetActivePokemonIndex(int index)
     {
+#if RECORD_PLAYER_ACTIONS
+        RecordActions.Instance.PreviousPokemonID = m_pocketMonsters[m_activePokemonIndex].ID;
+#endif
+
         m_activePokemonIndex = index;
     }
 
@@ -88,6 +91,21 @@ public class PlayerController : MonoBehaviour
             // The trigger collider is on a child of the pokemon, passing the parent
             GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, other.transform.parent.gameObject);
         }
+
+        if (other.CompareTag(StringConstants.POKEMON_CENTRE_TAG))
+        {
+            HealPokemon();
+        }
+    }
+
+    private void HealPokemon()
+    {
+        foreach (PocketMonster pocketMonster in m_pocketMonsters)
+        {
+            pocketMonster.GetStats().HP = pocketMonster.GetStats().BaseHP;
+            pocketMonster.HealStatus();
+            pocketMonster.ResetStats();
+        }
     }
 
     public bool HasUsablePokemon()
@@ -95,5 +113,10 @@ public class PlayerController : MonoBehaviour
         return m_pocketMonsters.Any(
             pokemon => pokemon.GetStats().HP > 0
         );
+    }
+
+    public PocketMonster[] GetPokemon()
+    {
+        return m_pocketMonsters;
     }
 }

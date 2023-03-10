@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.5.0" xmlns="http://www.collada.org/2008/03/COLLADASchema">
+	<asset>
+		<contributor>
+			<authoring_tool>BrawlBox</authoring_tool>
+		</contributor>
+		<created>2013-12-19T02:43:29Z</created>
+		<modified>2013-12-19T02:43:29Z</modified>
+		<unit meter="0.01" name="centimeter" />
+		<up_axis>Y_UP</up_axis>
+	</asset>
+	<library_images>
+		<image id="moniter02-image" name="moniter02">
+			<init_from>
+				<ref>moniter02.png</ref>
+			</init_from>
+		</image>
+		<image id="moniterback01-image" name="moniterback01">
+			<init_from>
+				<ref>moniterback01.png</ref>
+			</init_from>
+		</image>
+		<image id="MoniterDummy01-image" name="MoniterDummy01">
+			<init_from>
+				<ref>MoniterDummy01.png</ref>
+			</init_from>
+		</image>
+	</library_images>
+	<library_materials>
+		<material id="MoniterDummy1">
+			<instance_effect url="#MoniterDummy1-fx" />
+		</material>
+		<material id="MoniterDummy1_1">
+			<instance_effect url="#MoniterDummy1_1-fx" />
+		</material>
+		<material id="moniter2">
+			<instance_effect url="#moniter2-fx" />
+		</material>
+		<material id="moniterback1">
+			<instance_effect url="#moniterback1-fx" />
+		</material>
+	</library_materials>
+	<library_effects>
+		<effect id="MoniterDummy1-fx" name="MoniterDummy1">
+			<profile_COMMON>
+				<newparam sid="MoniterDummy01-surface">
+					<surface type="2D">
+						<init_from>
+							<ref>MoniterDummy01-image</ref>
+						</init_from>
+					</surface>
+				</newparam>
+				<newparam sid="MoniterDummy01-sampler">
+					<sampler2D>
+						<source>MoniterDummy01-surface</source>
+						<instance_image url="#MoniterDummy01-image" />
+						<wrap_s>WRAP</wrap_s>
+						<wrap_t>WRAP</wrap_t>
+						<minfilter>LINEAR</minfilter>
+						<magfilter>LINEAR</magfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="COMMON">
+					<phong>
+						<diffuse>
+							<texture texture="MoniterDummy01-sampler" texcoord="TEXCOORD0" />
+						</diffuse>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="MoniterDummy1_1-fx" name="MoniterDummy1_1">
+			<profile_COMMON>
+				<newparam sid="MoniterDummy01-surface">
+					<surface type="2D">
+						<init_from>
+							<ref>MoniterDummy01-image</ref>
+						</init_from>
+					</surface>
+				</newparam>
+				<newparam sid="MoniterDummy01-sampler">
+					<sampler2D>
+						<source>MoniterDummy01-surface</source>
+						<instance_image url="#MoniterDummy01-image" />
+						<wrap_s>WRAP</wrap_s>
+						<wrap_t>WRAP</wrap_t>
+						<minfilter>LINEAR</minfilter>
+						<magfilter>LINEAR</magfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="COMMON">
+					<phong>
+						<diffuse>
+							<texture texture="MoniterDummy01-sampler" texcoord="TEXCOORD0" />
+						</diffuse>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="moniter2-fx" name="moniter2">
+			<profile_COMMON>
+				<newparam sid="moniter02-surface">
+					<surface type="2D">
+						<init_from>
+							<ref>moniter02-image</ref>
+						</init_from>
+					</surface>
+				</newparam>
+				<newparam sid="moniter02-sampler">
+					<sampler2D>
+						<source>moniter02-surface</source>
+						<instance_image url="#moniter02-image" />
+						<wrap_s>WRAP</wrap_s>
+						<wrap_t>WRAP</wrap_t>
+						<minfilter>LINEAR</minfilter>
+						<magfilter>LINEAR</magfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="COMMON">
+					<phong>
+						<diffuse>
+							<texture texture="moniter02-sampler" texcoord="TEXCOORD0" />
+						</diffuse>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="moniterback1-fx" name="moniterback1">
+			<profile_COMMON>
+				<newparam sid="moniterback01-surface">
+					<surface type="2D">
+						<init_from>
+							<ref>moniterback01-image</ref>
+						</init_from>
+					</surface>
+				</newparam>
+				<newparam sid="moniterback01-sampler">
+					<sampler2D>
+						<source>moniterback01-surface</source>
+						<instance_image url="#moniterback01-image" />
+						<wrap_s>WRAP</wrap_s>
+						<wrap_t>WRAP</wrap_t>
+						<minfilter>LINEAR</minfilter>
+						<magfilter>LINEAR</magfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="COMMON">
+					<phong>
+						<diffuse>
+							<texture texture="moniterback01-sampler" texcoord="TEXCOORD0" />
+						</diffuse>
+					</phong>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_geometries>
+		<geometry id="polygon0-ID" name="polygon0">
+			<mesh>
+				<source id="polygon0-ID_Positions">
+					<float_array id="polygon0-ID_PosArr" count="12">123.8947 -7.696581 -953.6855 -123.8948 -7.696581 -953.6855 123.8947 125.0309 -953.6856 -123.8948 125.0309 -953.6856</float_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_PosArr" count="4" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon0-ID_Normals">
+					<float_array id="polygon0-ID_NormArr" count="3">0 -5.819405E-06 7.39648</float_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_NormArr" count="1" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon0-ID_Colors0">
+					<float_array id="polygon0-ID_ColorArr0" count="4">0.5019608 0.5019608 0.5019608 0.6980392</float_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_ColorArr0" count="1" stride="4">
+							<param name="R" type="float" />
+							<param name="G" type="float" />
+							<param name="B" type="float" />
+							<param name="A" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon0-ID_UVs0">
+					<float_array id="polygon0-ID_UVArr0" count="8">1 0 0 0 1 1 0 1</float_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_UVArr0" count="4" stride="2">
+							<param name="S" type="float" />
+							<param name="T" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="polygon0-ID_Vertices">
+					<input semantic="POSITION" source="#polygon0-ID_Positions" />
+				</vertices>
+				<triangles material="MoniterDummy1-ID" count="2">
+					<input semantic="VERTEX" source="#polygon0-ID_Vertices" offset="0" />
+					<input semantic="NORMAL" source="#polygon0-ID_Normals" offset="1" />
+					<input semantic="COLOR" source="#polygon0-ID_Colors0" set="0" offset="2" />
+					<input semantic="TEXCOORD" source="#polygon0-ID_UVs0" set="0" offset="3" />
+					<p>2 0 0 2 1 0 0 1 0 0 0 0 3 0 0 3 1 0 0 1 2 0 0 2</p>
+				</triangles>
+			</mesh>
+		</geometry>
+		<geometry id="polygon1-ID" name="polygon1">
+			<mesh>
+				<source id="polygon1-ID_Positions">
+					<float_array id="polygon1-ID_PosArr" count="12">123.8947 -7.696581 -950.8856 -123.8948 -7.696581 -950.8856 123.8947 125.0309 -950.8855 -123.8948 125.0309 -950.8855</float_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_PosArr" count="4" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon1-ID_Normals">
+					<float_array id="polygon1-ID_NormArr" count="3">0 -5.819405E-06 7.39648</float_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_NormArr" count="1" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon1-ID_Colors0">
+					<float_array id="polygon1-ID_ColorArr0" count="4">0.5019608 0.5019608 0.5019608 0.5019608</float_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_ColorArr0" count="1" stride="4">
+							<param name="R" type="float" />
+							<param name="G" type="float" />
+							<param name="B" type="float" />
+							<param name="A" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon1-ID_UVs0">
+					<float_array id="polygon1-ID_UVArr0" count="8">2 -1 -1 -1 2 2 -1 2</float_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_UVArr0" count="4" stride="2">
+							<param name="S" type="float" />
+							<param name="T" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="polygon1-ID_Vertices">
+					<input semantic="POSITION" source="#polygon1-ID_Positions" />
+				</vertices>
+				<triangles material="moniter2-ID" count="2">
+					<input semantic="VERTEX" source="#polygon1-ID_Vertices" offset="0" />
+					<input semantic="NORMAL" source="#polygon1-ID_Normals" offset="1" />
+					<input semantic="COLOR" source="#polygon1-ID_Colors0" set="0" offset="2" />
+					<input semantic="TEXCOORD" source="#polygon1-ID_UVs0" set="0" offset="3" />
+					<p>2 0 0 2 1 0 0 1 0 0 0 0 3 0 0 3 1 0 0 1 2 0 0 2</p>
+				</triangles>
+			</mesh>
+		</geometry>
+		<geometry id="polygon2-ID" name="polygon2">
+			<mesh>
+				<source id="polygon2-ID_Positions">
+					<float_array id="polygon2-ID_PosArr" count="48">-124.0609 125.0289 -953.6637 -124.0609 80.72144 -953.6637 -41.35366 125.0289 -953.6637 -41.35366 80.72144 -953.6637 41.35366 125.0289 -953.6637 41.35366 80.72144 -953.6637 124.0609 125.0289 -953.6637 124.0609 80.72144 -953.6637 -124.0609 36.41394 -953.6638 -41.35366 36.41394 -953.6638 41.35366 36.41394 -953.6638 124.0609 36.41394 -953.6638 -124.0609 -7.893555 -953.6638 -41.35366 -7.893555 -953.6638 41.35366 -7.893555 -953.6638 124.0609 -7.893555 -953.6638</float_array>
+					<technique_common>
+						<accessor source="#polygon2-ID_PosArr" count="16" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon2-ID_Normals">
+					<float_array id="polygon2-ID_NormArr" count="3">0 0 -1</float_array>
+					<technique_common>
+						<accessor source="#polygon2-ID_NormArr" count="1" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon2-ID_UVs0">
+					<float_array id="polygon2-ID_UVArr0" count="32">-1 2 -1 1 0 2 0 1 1 2 1 1 2 2 2 1 -1 0 0 0 1 0 2 0 -1 -1 0 -1 1 -1 2 -1</float_array>
+					<technique_common>
+						<accessor source="#polygon2-ID_UVArr0" count="16" stride="2">
+							<param name="S" type="float" />
+							<param name="T" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="polygon2-ID_Vertices">
+					<input semantic="POSITION" source="#polygon2-ID_Positions" />
+				</vertices>
+				<triangles material="MoniterDummy1_1-ID" count="18">
+					<input semantic="VERTEX" source="#polygon2-ID_Vertices" offset="0" />
+					<input semantic="NORMAL" source="#polygon2-ID_Normals" offset="1" />
+					<input semantic="TEXCOORD" source="#polygon2-ID_UVs0" set="0" offset="2" />
+					<p>2 0 2 1 0 1 0 0 0 3 0 3 1 0 1 2 0 2 4 0 4 3 0 3 2 0 2 5 0 5 3 0 3 4 0 4 6 0 6 5 0 5 4 0 4 7 0 7 5 0 5 6 0 6 3 0 3 8 0 8 1 0 1 9 0 9 8 0 8 3 0 3 5 0 5 9 0 9 3 0 3 10 0 10 9 0 9 5 0 5 7 0 7 10 0 10 5 0 5 11 0 11 10 0 10 7 0 7 9 0 9 12 0 12 8 0 8 13 0 13 12 0 12 9 0 9 10 0 10 13 0 13 9 0 9 14 0 14 13 0 13 10 0 10 11 0 11 14 0 14 10 0 10 15 0 15 14 0 14 11 0 11</p>
+				</triangles>
+			</mesh>
+		</geometry>
+		<geometry id="polygon3-ID" name="polygon3">
+			<mesh>
+				<source id="polygon3-ID_Positions">
+					<float_array id="polygon3-ID_PosArr" count="12">123.8947 -7.696581 -954.8855 -123.8948 -7.696581 -954.8855 123.8947 125.0309 -954.8856 -123.8948 125.0309 -954.8856</float_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_PosArr" count="4" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon3-ID_Normals">
+					<float_array id="polygon3-ID_NormArr" count="3">0 -5.819405E-06 7.39648</float_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_NormArr" count="1" stride="3">
+							<param name="X" type="float" />
+							<param name="Y" type="float" />
+							<param name="Z" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon3-ID_Colors0">
+					<float_array id="polygon3-ID_ColorArr0" count="4">0.5019608 0.5019608 0.5019608 0.6980392</float_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_ColorArr0" count="1" stride="4">
+							<param name="R" type="float" />
+							<param name="G" type="float" />
+							<param name="B" type="float" />
+							<param name="A" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon3-ID_UVs0">
+					<float_array id="polygon3-ID_UVArr0" count="8">1 0 0 0 1 1 0 1</float_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_UVArr0" count="4" stride="2">
+							<param name="S" type="float" />
+							<param name="T" type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="polygon3-ID_Vertices">
+					<input semantic="POSITION" source="#polygon3-ID_Positions" />
+				</vertices>
+				<triangles material="moniterback1-ID" count="2">
+					<input semantic="VERTEX" source="#polygon3-ID_Vertices" offset="0" />
+					<input semantic="NORMAL" source="#polygon3-ID_Normals" offset="1" />
+					<input semantic="COLOR" source="#polygon3-ID_Colors0" set="0" offset="2" />
+					<input semantic="TEXCOORD" source="#polygon3-ID_UVs0" set="0" offset="3" />
+					<p>2 0 0 2 1 0 0 1 0 0 0 0 3 0 0 3 1 0 0 1 2 0 0 2</p>
+				</triangles>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_controllers>
+		<controller id="polygon0-ID_Controller">
+			<skin source="#polygon0-ID">
+				<bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+				<source id="polygon0-ID_Joints">
+					<Name_array id="polygon0-ID_JointArr" count="5">StgStadium00AuroraVision-ID AuroraVision-ID AuroraVision2-ID AuroraVisionBack-ID AuroraVisionFont-ID</Name_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_JointArr" count="5">
+							<param name="JOINT" type="Name" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon0-ID_Matrices">
+					<float_array id="polygon0-ID_MatArr" count="80">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.494 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.1155 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.6563 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.1 0 0 0 0 0.1 3.315762E-07 -5.079684 0 -3.315762E-07 0.1 95.34003 0 0 0 1</float_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_MatArr" count="5" stride="16">
+							<param type="float4x4" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon0-ID_Weights">
+					<float_array id="polygon0-ID_WeightArr" count="1">1</float_array>
+					<technique_common>
+						<accessor source="#polygon0-ID_WeightArr" count="1">
+							<param type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<joints>
+					<input semantic="JOINT" source="#polygon0-ID_Joints" />
+					<input semantic="INV_BIND_MATRIX" source="#polygon0-ID_Matrices" />
+				</joints>
+				<vertex_weights count="4">
+					<input semantic="JOINT" offset="0" source="#polygon0-ID_Joints" />
+					<input semantic="WEIGHT" offset="1" source="#polygon0-ID_Weights" />
+					<vcount>1 1 1 1</vcount>
+					<v>1 0 1 0 1 0 1 0</v>
+				</vertex_weights>
+			</skin>
+		</controller>
+		<controller id="polygon1-ID_Controller">
+			<skin source="#polygon1-ID">
+				<bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+				<source id="polygon1-ID_Joints">
+					<Name_array id="polygon1-ID_JointArr" count="5">StgStadium00AuroraVision-ID AuroraVision-ID AuroraVision2-ID AuroraVisionBack-ID AuroraVisionFont-ID</Name_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_JointArr" count="5">
+							<param name="JOINT" type="Name" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon1-ID_Matrices">
+					<float_array id="polygon1-ID_MatArr" count="80">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.494 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.1155 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.6563 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.1 0 0 0 0 0.1 3.315762E-07 -5.079684 0 -3.315762E-07 0.1 95.34003 0 0 0 1</float_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_MatArr" count="5" stride="16">
+							<param type="float4x4" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon1-ID_Weights">
+					<float_array id="polygon1-ID_WeightArr" count="1">1</float_array>
+					<technique_common>
+						<accessor source="#polygon1-ID_WeightArr" count="1">
+							<param type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<joints>
+					<input semantic="JOINT" source="#polygon1-ID_Joints" />
+					<input semantic="INV_BIND_MATRIX" source="#polygon1-ID_Matrices" />
+				</joints>
+				<vertex_weights count="4">
+					<input semantic="JOINT" offset="0" source="#polygon1-ID_Joints" />
+					<input semantic="WEIGHT" offset="1" source="#polygon1-ID_Weights" />
+					<vcount>1 1 1 1</vcount>
+					<v>2 0 2 0 2 0 2 0</v>
+				</vertex_weights>
+			</skin>
+		</controller>
+		<controller id="polygon2-ID_Controller">
+			<skin source="#polygon2-ID">
+				<bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+				<source id="polygon2-ID_Joints">
+					<Name_array id="polygon2-ID_JointArr" count="5">StgStadium00AuroraVision-ID AuroraVision-ID AuroraVision2-ID AuroraVisionBack-ID AuroraVisionFont-ID</Name_array>
+					<technique_common>
+						<accessor source="#polygon2-ID_JointArr" count="5">
+							<param name="JOINT" type="Name" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon2-ID_Matrices">
+					<float_array id="polygon2-ID_MatArr" count="80">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.494 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.1155 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.6563 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.1 0 0 0 0 0.1 3.315762E-07 -5.079684 0 -3.315762E-07 0.1 95.34003 0 0 0 1</float_array>
+					<technique_common>
+						<accessor source="#polygon2-ID_MatArr" count="5" stride="16">
+							<param type="float4x4" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon2-ID_Weights">
+					<float_array id="polygon2-ID_WeightArr" count="1">1</float_array>
+					<technique_common>
+						<accessor source="#polygon2-ID_WeightArr" count="1">
+							<param type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<joints>
+					<input semantic="JOINT" source="#polygon2-ID_Joints" />
+					<input semantic="INV_BIND_MATRIX" source="#polygon2-ID_Matrices" />
+				</joints>
+				<vertex_weights count="16">
+					<input semantic="JOINT" offset="0" source="#polygon2-ID_Joints" />
+					<input semantic="WEIGHT" offset="1" source="#polygon2-ID_Weights" />
+					<vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</vcount>
+					<v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</v>
+				</vertex_weights>
+			</skin>
+		</controller>
+		<controller id="polygon3-ID_Controller">
+			<skin source="#polygon3-ID">
+				<bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+				<source id="polygon3-ID_Joints">
+					<Name_array id="polygon3-ID_JointArr" count="5">StgStadium00AuroraVision-ID AuroraVision-ID AuroraVision2-ID AuroraVisionBack-ID AuroraVisionFont-ID</Name_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_JointArr" count="5">
+							<param name="JOINT" type="Name" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon3-ID_Matrices">
+					<float_array id="polygon3-ID_MatArr" count="80">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.494 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.1155 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.2343457 0 0 0 0 -1.012552E-07 0.1351994 129.6563 0 -0.2624672 -1.965701E-07 13.33315 0 0 0 1 0.1 0 0 0 0 0.1 3.315762E-07 -5.079684 0 -3.315762E-07 0.1 95.34003 0 0 0 1</float_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_MatArr" count="5" stride="16">
+							<param type="float4x4" />
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="polygon3-ID_Weights">
+					<float_array id="polygon3-ID_WeightArr" count="1">1</float_array>
+					<technique_common>
+						<accessor source="#polygon3-ID_WeightArr" count="1">
+							<param type="float" />
+						</accessor>
+					</technique_common>
+				</source>
+				<joints>
+					<input semantic="JOINT" source="#polygon3-ID_Joints" />
+					<input semantic="INV_BIND_MATRIX" source="#polygon3-ID_Matrices" />
+				</joints>
+				<vertex_weights count="4">
+					<input semantic="JOINT" offset="0" source="#polygon3-ID_Joints" />
+					<input semantic="WEIGHT" offset="1" source="#polygon3-ID_Weights" />
+					<vcount>1 1 1 1</vcount>
+					<v>3 0 3 0 3 0 3 0</v>
+				</vertex_weights>
+			</skin>
+		</controller>
+	</library_controllers>
+	<library_visual_scenes>
+		<visual_scene id="RootNodeID" name="RootNode">
+			<node id="StgStadium00AuroraVision-ID" name="StgStadium00AuroraVision" sid="StgStadium00AuroraVision-ID" type="JOINT">
+				<node id="AuroraVision-ID" name="AuroraVision" sid="AuroraVision-ID" type="JOINT">
+					<translate>0 50.8 -957.8</translate>
+					<rotate>1 0 0 90.00005</rotate>
+					<scale>4.2672 7.39648 3.81</scale>
+				</node>
+				<node id="AuroraVision2-ID" name="AuroraVision2" sid="AuroraVision2-ID" type="JOINT">
+					<translate>0 50.8 -955</translate>
+					<rotate>1 0 0 90.00005</rotate>
+					<scale>4.2672 7.39648 3.81</scale>
+				</node>
+				<node id="AuroraVisionBack-ID" name="AuroraVisionBack" sid="AuroraVisionBack-ID" type="JOINT">
+					<translate>0 50.8 -959</translate>
+					<rotate>1 0 0 90.00005</rotate>
+					<scale>4.2672 7.39648 3.81</scale>
+				</node>
+				<node id="AuroraVisionFont-ID" name="AuroraVisionFont" sid="AuroraVisionFont-ID" type="JOINT">
+					<translate>0 50.8 -953.4</translate>
+					<rotate>1 0 0 0.00019</rotate>
+					<scale>10 10 10</scale>
+				</node>
+			</node>
+			<node id="polygon0-ID" name="polygon0" type="NODE">
+				<instance_controller url="#polygon0-ID_Controller">
+					<skeleton>#StgStadium00AuroraVision</skeleton>
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="MoniterDummy1-ID" target="#MoniterDummy1">
+								<bind_vertex_input semantic="TEXCOORD0" input_semantic="TEXCOORD" input_set="0" />
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_controller>
+			</node>
+			<node id="polygon1-ID" name="polygon1" type="NODE">
+				<instance_controller url="#polygon1-ID_Controller">
+					<skeleton>#StgStadium00AuroraVision</skeleton>
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="moniter2-ID" target="#moniter2">
+								<bind_vertex_input semantic="TEXCOORD0" input_semantic="TEXCOORD" input_set="0" />
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_controller>
+			</node>
+			<node id="polygon2-ID" name="polygon2" type="NODE">
+				<instance_controller url="#polygon2-ID_Controller">
+					<skeleton>#StgStadium00AuroraVision</skeleton>
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="MoniterDummy1_1-ID" target="#MoniterDummy1_1">
+								<bind_vertex_input semantic="TEXCOORD0" input_semantic="TEXCOORD" input_set="0" />
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_controller>
+			</node>
+			<node id="polygon3-ID" name="polygon3" type="NODE">
+				<instance_controller url="#polygon3-ID_Controller">
+					<skeleton>#StgStadium00AuroraVision</skeleton>
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="moniterback1-ID" target="#moniterback1">
+								<bind_vertex_input semantic="TEXCOORD0" input_semantic="TEXCOORD" input_set="0" />
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_controller>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+	<scene>
+		<instance_visual_scene url="#RootNodeID" />
+	</scene>
+</COLLADA>

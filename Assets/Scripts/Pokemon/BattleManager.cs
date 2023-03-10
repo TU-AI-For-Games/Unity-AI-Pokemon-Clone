@@ -13,7 +13,7 @@ public class BattleManager : Singleton<BattleManager>
     private PocketMonster m_playerPokemon;
     private PocketMonster m_otherPokemon;
 
-    [SerializeField] private BattleUI m_battleHUD;
+    [SerializeField] private BattleUIScript m_battleHUD;
 
     private Queue<string> m_battleMessages;
 
@@ -111,7 +111,7 @@ public class BattleManager : Singleton<BattleManager>
                 {
                     if (m_battleHUD.DisplayedAllMessages())
                     {
-                        m_battleHUD.ShowChoosePkmnMenu();
+                        m_battleHUD.SetScreen(BattleUIScript.Screens.ChoosePokemon);
                     }
                 }
                 break;
@@ -194,7 +194,7 @@ public class BattleManager : Singleton<BattleManager>
         firstMon.HandleStatus();
         secondMon.HandleStatus();
 
-        m_battleHUD.ShowBattleInfoUI();
+        m_battleHUD.SetScreen(BattleUIScript.Screens.BattleInfo);
     }
 
     private void TakeTurn(PocketMonster attacker, PocketMonster target)
@@ -584,12 +584,12 @@ public class BattleManager : Singleton<BattleManager>
         // Make the player choose a new pokemon if they fainted this turn
         if (m_battleState == BattleState.PlayerFainted)
         {
-            m_battleHUD.ShowChoosePkmnMenu();
+            m_battleHUD.SetScreen(BattleUIScript.Screens.ChoosePokemon);
         }
         else
         {
             SetBattleState(BattleState.SelectMove);
-            m_battleHUD.ShowChoiceUI();
+            m_battleHUD.SetScreen(BattleUIScript.Screens.Menu);
         }
     }
 

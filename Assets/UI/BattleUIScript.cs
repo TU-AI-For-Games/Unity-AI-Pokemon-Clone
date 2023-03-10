@@ -16,6 +16,9 @@ public class BattleUIScript : MonoBehaviour
 
     [SerializeField] private HPBarScript m_EnemyHealthBar;
 
+    // TODO: GameObject for now, create a proper script!
+    [SerializeField] private GameObject m_switchPokemonUi;
+
     [Header("Battle info UI")]
     [SerializeField] private GameObject m_battleInfo;
     [SerializeField] private TextMeshProUGUI m_battleInfoText;
@@ -26,6 +29,7 @@ public class BattleUIScript : MonoBehaviour
         Menu,
         Attack,
         BattleInfo,
+        ChoosePokemon
     }
 
     private void Awake()
@@ -33,7 +37,6 @@ public class BattleUIScript : MonoBehaviour
         GoToMenu();
 
         m_ChoiceUI.SetBattleUI(this);
-        m_MovesUI.SetBattleUI(this);
     }
 
     public void EscapeBattle()
@@ -62,7 +65,12 @@ public class BattleUIScript : MonoBehaviour
         m_PlayerHealthBar.SetPokemon(activeMon);
     }
 
-    private void SetScreen(Screens screen)
+    public void OnOtherSwitchPokemon(PocketMonster mon)
+    {
+        m_EnemyHealthBar.SetPokemon(mon);
+    }
+
+    public void SetScreen(Screens screen)
     {
 
         switch (screen)
@@ -85,6 +93,12 @@ public class BattleUIScript : MonoBehaviour
                     m_battleInfo.SetActive(true);
                     ShowNextBattleInfoText();
                     m_displayedAllMessages = false;
+                }
+                break;
+            case Screens.ChoosePokemon:
+                {
+                    m_ChoiceUI.gameObject.SetActive(false);
+                    m_switchPokemonUi.SetActive(true);
                 }
                 break;
             default:
@@ -121,10 +135,23 @@ public class BattleUIScript : MonoBehaviour
             m_displayedAllMessages = true;
 
             m_battleInfo.gameObject.SetActive(false);
+            SetScreen(Screens.Menu);
 
             // Go back to selecting the move
             BattleManager.Instance.NextTurn();
         }
     }
 
+    public void GoToChoosePkmn()
+    {
+    }
+
+    public void GoToBag()
+    {
+    }
+
+    public bool DisplayedAllMessages()
+    {
+        return m_displayedAllMessages;
+    }
 }

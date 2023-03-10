@@ -439,8 +439,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name_text: {fileID: 4721870320741508427}
-  health_bar: {fileID: 4721870322208305094}
-  hp_amount_text: {fileID: 4721870321215481563}
+  m_healthbarSlider: {fileID: 4721870322208305097}
+  m_hpText: {fileID: 4721870321215481563}
 --- !u!1 &4721870322208305098
 GameObject:
   m_ObjectHideFlags: 0

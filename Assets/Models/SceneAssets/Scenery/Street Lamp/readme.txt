@@ -1,0 +1,1 @@
+The game combines the spec and alpha together, so the spec map might not have the right brightness.

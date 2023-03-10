@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.4.1" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+  <asset>
+    <created>2016-05-30T06:42:28Z</created>
+    <modified>2016-05-30T06:42:28Z</modified>
+  </asset>
+  <library_images>
+    <image id="cmn_officeA00_main_mask_id" name="cmn_officeA00_main_mask">
+      <init_from>./cmn_officeA00_main_mask.png</init_from>
+    </image>
+    <image id="tex_officeA00_main_id" name="tex_officeA00_main">
+      <init_from>./tex_officeA00_main.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="CR00_sobj_office_A_main_mat_id" name="CR00_sobj_office_A_main_mat">
+      <instance_effect url="#eff_CR00_sobj_office_A_main_id" />
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="eff_CR00_sobj_office_A_main_id" name="eff_CR00_sobj_office_A_main">
+      <profile_COMMON>
+        <newparam sid="img_surface">
+          <surface type="2D">
+            <init_from>tex_officeA00_main_id</init_from>
+            <format>PNG</format>
+          </surface>
+        </newparam>
+        <newparam sid="img_sampler">
+          <sampler2D>
+            <source>img_surface</source>
+            <wrap_s>MIRROR</wrap_s>
+            <wrap_t>MIRROR</wrap_t>
+            <minfilter>NEAREST_MIPMAP_NEAREST</minfilter>
+            <magfilter>LINEAR</magfilter>
+            <mipfilter>LINEAR</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="img_technique">
+          <phong>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="img_sampler" texcoord="uv" />
+            </diffuse>
+            <specular>
+              <color>1 1 1 1</color>
+            </specular>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="mesh_0__id" name="mesh_0_">
+      <mesh>
+        <source id="mesh_0__position_id" name="mesh_0__position">
+          <float_array id="mesh_0__position_array_id" count="78">-16.00047 69.45538 16.01058 -16.00047 -2.999989 16.01058 16.00045 -2.999989 16.01058 -16.00047 -2.999989 12.00052 16.00045 69.45538 16.01058 -16.00047 69.45538 12.00052 16.00045 69.45538 12.00052 16.00045 -2.999989 12.00052 -15.1204 19.4241 18.01838 -15.53058 37.19022 16.69827 -15.53058 19.4241 16.69827 -15.1204 37.19022 18.01838 -13.73727 19.4241 18.03496 -13.73727 37.19022 18.03496 -13.29392 19.4241 16.72592 -13.29392 37.19022 16.72592 -14.41723 18.84365 15.98405 -15.1204 19.4241 18.01838 -15.53058 19.4241 16.69827 -13.73727 19.4241 18.03496 -13.29392 19.4241 16.72592 -14.41723 37.77067 15.98405 -15.53058 37.19022 16.69827 -15.1204 37.19022 18.01838 -13.73727 37.19022 18.03496 -13.29392 37.19022 16.72592</float_array>
+          <technique_common>
+            <accessor source="#mesh_0__position_array_id" count="26" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="mesh_0__normal_id" name="mesh_0__normal">
+          <float_array id="mesh_0__normal_array_id" count="78">-0.5773492 0.5773492 0.5773492 -0.7071139 0 0.7071139 0.7071139 0 0.7071139 -0.7071139 0 -0.7071139 0.5773492 0.5773492 0.5773492 -0.5773492 0.5773492 -0.5773492 0.5773492 0.5773492 -0.5773492 0.7071139 0 -0.7071139 0 -0.2176885 0.9760125 -0.928251 0.2176885 0.3016144 -0.928251 -0.2176885 0.3016144 0 0.2176885 0.9760125 0.928251 -0.2176885 0.3016144 0.928251 0.2176885 0.3016144 0.8748436 -0.3319498 -0.352794 0.8748436 0.3319498 -0.352794 0 -1 0 0 -0.2176885 0.9760125 -0.928251 -0.2176885 0.3016144 0.928251 -0.2176885 0.3016144 0.8748436 -0.3319498 -0.352794 0 1 0 -0.928251 0.2176885 0.3016144 0 0.2176885 0.9760125 0.928251 0.2176885 0.3016144 0.8748436 0.3319498 -0.352794</float_array>
+          <technique_common>
+            <accessor source="#mesh_0__normal_array_id" count="26" stride="3">
+              <param name="X" type="float" />
+              <param name="Y" type="float" />
+              <param name="Z" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="mesh_0__uv0_id" name="mesh_0__uv0">
+          <float_array id="mesh_0__uv0_array_id" count="52">0.0005114863 0.7980891 0.0005114863 0.5360376 0.2619053 0.5360376 0.0005114863 0.5360376 0.2619053 0.7980891 0.0005114863 0.7980891 0.2619053 0.7980891 0.2619053 0.5360376 0.5674088 0.001534459 0.5730595 0.09279823 0.5730595 0.001534459 0.5674088 0.09279823 0.5730595 0.001534459 0.5730595 0.09279823 0.5674088 0.001534459 0.5674088 0.09279823 0.4794819 0.001510102 0.5217648 0.01999668 0.5187689 0.003580404 0.5043742 0.02343094 0.4677177 0.02343094 0.4795549 0.001461389 0.4579507 0.01234874 0.4677908 0.02343094 0.5044229 0.02343094 0.5218135 0.01994796</float_array>
+          <technique_common>
+            <accessor source="#mesh_0__uv0_array_id" count="26" stride="2">
+              <param name="S" type="float" />
+              <param name="T" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="mesh_0__vertices_id">
+          <input semantic="POSITION" source="#mesh_0__position_id" />
+        </vertices>
+        <triangles material="CR00_sobj_office_A_main" count="22">
+          <input semantic="VERTEX" source="#mesh_0__vertices_id" offset="0" />
+          <input semantic="NORMAL" source="#mesh_0__normal_id" offset="0" />
+          <input semantic="TEXCOORD" source="#mesh_0__uv0_id" offset="0" set="0" />
+          <p>0 1 2 0 3 1 0 2 4 0 5 3 0 4 5 2 6 4 2 7 6 6 7 3 6 3 5 6 5 4 8 9 10 8 11 9 8 12 11 12 13 11 12 14 13 14 15 13 16 17 18 16 19 17 16 20 19 21 22 23 21 23 24 21 24 25</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers>
+    <controller id="mesh_0__ctrl_id">
+      <skin source="#mesh_0__id">
+        <bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+        <source id="mesh_0__ctrl_joint_names_id">
+          <Name_array id="mesh_0__ctrl_joint_names_array_id" count="1">door</Name_array>
+          <technique_common>
+            <accessor source="#mesh_0__ctrl_joint_names_array_id" count="1" stride="1">
+              <param name="JOINT" type="Name" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="mesh_0__ctrl_inv_bind_poses_id">
+          <float_array id="mesh_0__ctrl_inv_bind_poses_array_id" count="16">1 0 0 -16.0038 0 1 0 0 0 0 1 -16 0 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#mesh_0__ctrl_inv_bind_poses_array_id" count="1" stride="16">
+              <param name="TRANSFORM" type="float4x4" />
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="mesh_0__ctrl_weights_id">
+          <float_array id="mesh_0__ctrl_weights_array_id" count="1">1</float_array>
+          <technique_common>
+            <accessor source="#mesh_0__ctrl_weights_array_id" count="1" stride="1">
+              <param name="WEIGHT" type="float" />
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#mesh_0__ctrl_joint_names_id" />
+          <input semantic="INV_BIND_MATRIX" source="#mesh_0__ctrl_inv_bind_poses_id" />
+        </joints>
+        <vertex_weights count="26">
+          <input semantic="JOINT" source="#mesh_0__ctrl_joint_names_id" offset="0" />
+          <input semantic="WEIGHT" source="#mesh_0__ctrl_weights_id" offset="1" />
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1</vcount>
+          <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</v>
+        </vertex_weights>
+      </skin>
+    </controller>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="vs_sobj_officeA00_door_id" name="vs_sobj_officeA00_door">
+      <node id="door_bone_id" name="door" sid="door" type="JOINT">
+        <matrix>1 0 0 16.0038 0 1 0 0 0 0 1 16 0 0 0 1</matrix>
+      </node>
+      <node id="vsn_mesh_0__id" name="vsn_mesh_0_" type="NODE">
+        <matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_controller url="#mesh_0__ctrl_id">
+          <skeleton>#door_bone_id</skeleton>
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="CR00_sobj_office_A_main" target="#CR00_sobj_office_A_main_mat_id" />
+            </technique_common>
+          </bind_material>
+        </instance_controller>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#vs_sobj_officeA00_door_id" />
+  </scene>
+</COLLADA>

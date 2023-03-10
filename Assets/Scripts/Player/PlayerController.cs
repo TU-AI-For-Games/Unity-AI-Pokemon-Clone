@@ -6,25 +6,26 @@ public class PlayerController : MonoBehaviour
 {
     [Range(0f, 100f)][SerializeField] private float m_speed;
     [Range(0f, 720f)][SerializeField] private float m_rotationSpeed;
+    [Range(0f, 720f)][SerializeField] private float m_cameraSensitivity;
     [SerializeField] private Animator m_animator;
+    [SerializeField] private CharacterController m_controller;
+    [SerializeField] private GameObject m_camera;
 
     public bool CanMove { get; set; }
-
-    private Rigidbody m_rigidBody;
 
     private PocketMonster[] m_pocketMonsters = new PocketMonster[6];
 
     private int m_activePokemonIndex = 0;
 
-    private Vector3 m_lastLocation;
+    private Vector2 m_cameraRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_rigidBody = GetComponent<Rigidbody>();
+        m_controller = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
 
-        
+        Cursor.lockState = CursorLockMode.Locked;
 
         // For now, set up 6 random pokemon
         for (int i = 0; i < 6; ++i)
@@ -46,17 +47,39 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Vector3 velocity = transform.position - m_lastLocation;
+
+        float forward = Input.GetAxisRaw("Vertical");
+        float sideways = Input.GetAxisRaw("Horizontal");
+
+        Vector3 forwardVector = m_camera.transform.forward.normalized * forward;
+        Vector3 sidewaysVector = m_camera.transform.right.normalized * sideways;
+
+        Vector3 gravity = new Vector3(0,-9.81f, 0);
+
+        Vector3 moveDirection = (forwardVector + sidewaysVector).normalized + gravity;
+        Vector3 moveVector = moveDirection * (m_speed * Time.deltaTime);
+        
+        
+        print(moveDirection);
+        print(moveVector);
+        
+        m_controller.Move(moveVector);
+        
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.z));
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
+        
+        m_animator.SetFloat("Speed", m_controller.velocity.magnitude);
+        
+        m_cameraRotation.x += Input.GetAxis("Mouse X") * m_cameraSensitivity;
+        m_cameraRotation.y += Input.GetAxis("Mouse Y") * m_cameraSensitivity;
+
+        m_camera.transform.localRotation = Quaternion.Euler(-m_cameraRotation.y, m_cameraRotation.x, 0);
+        
+
+        // Set camera location to player location
+        m_camera.transform.position = transform.position;
 
 
-        m_animator.SetFloat("Speed", Input.GetAxisRaw(StringConstants.FORWARD) * m_speed);
-        print(velocity.magnitude);
-
-
-        transform.Translate(Vector3.forward * Input.GetAxisRaw(StringConstants.FORWARD) * m_speed * Time.deltaTime);
-        m_lastLocation = transform.position;
-
-        transform.Rotate(Vector3.up * m_rotationSpeed * Time.deltaTime * Input.GetAxisRaw(StringConstants.ROTATE));
     }
 
     public void ShowPokemon(Transform parent)

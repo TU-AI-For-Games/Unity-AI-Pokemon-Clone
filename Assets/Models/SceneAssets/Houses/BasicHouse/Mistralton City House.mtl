@@ -1,0 +1,32 @@
+newmtl h1
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka h1.png
+map_Kd h1.png
+map_d h1.png
+newmtl h2
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka h2.png
+map_Kd h2.png
+map_d h2.png
+newmtl shadow
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka shadow.png
+map_Kd shadow.png
+map_d shadow.png
+newmtl window
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka window.png
+map_Kd window.png
+map_d window.png

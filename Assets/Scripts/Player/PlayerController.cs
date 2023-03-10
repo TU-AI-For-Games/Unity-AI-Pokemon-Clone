@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [Range(0f, 100f)][SerializeField] private float m_speed;
     [Range(0f, 720f)][SerializeField] private float m_rotationSpeed;
+    [SerializeField] private Animator m_animator;
 
     public bool CanMove { get; set; }
 
@@ -16,10 +17,15 @@ public class PlayerController : MonoBehaviour
 
     private int m_activePokemonIndex = 0;
 
+    private Vector3 m_lastLocation;
+
     // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
+        m_animator = GetComponent<Animator>();
+
+        
 
         // For now, set up 6 random pokemon
         for (int i = 0; i < 6; ++i)
@@ -41,7 +47,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        Vector3 velocity = transform.position - m_lastLocation;
+
+
+        m_animator.SetFloat("Speed", Input.GetAxisRaw(StringConstants.FORWARD) * m_speed);
+        print(velocity.magnitude);
+
+
         transform.Translate(Vector3.forward * Input.GetAxisRaw(StringConstants.FORWARD) * m_speed * Time.deltaTime);
+        m_lastLocation = transform.position;
 
         transform.Rotate(Vector3.up * m_rotationSpeed * Time.deltaTime * Input.GetAxisRaw(StringConstants.ROTATE));
     }

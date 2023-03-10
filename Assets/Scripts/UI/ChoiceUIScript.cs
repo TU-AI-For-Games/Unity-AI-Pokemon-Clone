@@ -8,22 +8,21 @@ public class ChoiceUIScript : MonoBehaviour
 
     public void OnAttackPressed()
     {
-        m_battleUi.GoToAttack();
+        m_battleUi.SetScreen(BattleUIScript.Screens.Attack);
     }
 
     public void OnPokemonPressed()
     {
-        m_battleUi.GoToChoosePkmn();
+        m_battleUi.SetScreen(BattleUIScript.Screens.ChoosePokemon);
     }
 
     public void OnBagPressed()
     {
-        m_battleUi.GoToBag();
+        m_battleUi.SetScreen(BattleUIScript.Screens.Bag);
     }
 
     public void OnRunAwayPressed()
     {
-        m_battleUi.EscapeBattle();
     }
 
     public void SetBattleUI(BattleUIScript battleUI)

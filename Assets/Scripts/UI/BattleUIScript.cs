@@ -37,25 +37,9 @@ public class BattleUIScript : MonoBehaviour
 
     private void Awake()
     {
-        GoToMenu();
+        SetScreen(Screens.Menu);
 
         m_ChoiceUI.SetBattleUI(this);
-    }
-
-    public void EscapeBattle()
-    {
-        //TODO: Escape Battle
-        print("Escaped");
-    }
-
-    public void GoToMenu()
-    {
-        SetScreen(Screens.Menu);
-    }
-
-    public void GoToAttack()
-    {
-        SetScreen(Screens.Attack);
     }
 
     public void OnPlayerSwitchPokemon()
@@ -144,16 +128,6 @@ public class BattleUIScript : MonoBehaviour
             // Go back to selecting the move
             BattleManager.Instance.NextTurn();
         }
-    }
-
-    public void GoToChoosePkmn()
-    {
-        SetScreen(Screens.ChoosePokemon);
-    }
-
-    public void GoToBag()
-    {
-        SetScreen(Screens.Bag);
     }
 
     public bool DisplayedAllMessages()

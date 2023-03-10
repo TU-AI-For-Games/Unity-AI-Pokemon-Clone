@@ -16,6 +16,8 @@ public class BattleUIScript : MonoBehaviour
 
     [SerializeField] private HPBarScript m_EnemyHealthBar;
 
+    [SerializeField] private ItemUIScript m_bagUi;
+
     // TODO: GameObject for now, create a proper script!
     [SerializeField] private GameObject m_switchPokemonUi;
 
@@ -29,7 +31,8 @@ public class BattleUIScript : MonoBehaviour
         Menu,
         Attack,
         BattleInfo,
-        ChoosePokemon
+        ChoosePokemon,
+        Bag
     }
 
     private void Awake()
@@ -98,6 +101,11 @@ public class BattleUIScript : MonoBehaviour
                     m_switchPokemonUi.SetActive(true);
                 }
                 break;
+            case Screens.Bag:
+                {
+                    m_bagUi.gameObject.SetActive(true);
+                }
+                break;
             default:
                 {
                     m_ChoiceUI.gameObject.SetActive(true);
@@ -145,6 +153,7 @@ public class BattleUIScript : MonoBehaviour
 
     public void GoToBag()
     {
+        SetScreen(Screens.Bag);
     }
 
     public bool DisplayedAllMessages()

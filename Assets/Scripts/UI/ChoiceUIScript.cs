@@ -23,6 +23,7 @@ public class ChoiceUIScript : MonoBehaviour
 
     public void OnRunAwayPressed()
     {
+        GameManager.Instance.EndBattle(true);
     }
 
     public void SetBattleUI(BattleUIScript battleUI)

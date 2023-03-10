@@ -42,6 +42,8 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_aiChosenThisTurn = false;
     private bool m_battleEnded = false;
 
+    public List<Color> TypeColours;
+
     // Start is called before the first frame update
     void Start()
     {

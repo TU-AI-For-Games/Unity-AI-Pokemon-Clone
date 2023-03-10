@@ -139,6 +139,11 @@ public class GameManager : Singleton<GameManager>
         BattleManager.Instance.SetBattleType(BattleManager.BattleType.None);
     }
 
+    public PlayerController GetPlayerController()
+    {
+        return m_player;
+    }
+
     protected override void InternalInit()
     {
     }

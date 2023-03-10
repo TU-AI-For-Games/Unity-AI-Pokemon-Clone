@@ -144,6 +144,7 @@ public class BattleUIScript : MonoBehaviour
 
     public void GoToChoosePkmn()
     {
+        SetScreen(Screens.ChoosePokemon);
     }
 
     public void GoToBag()

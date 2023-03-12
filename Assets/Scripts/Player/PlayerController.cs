@@ -17,6 +17,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform m_cameraFocus;
     [SerializeField] private CinemachineFreeLook m_freeLookCamera;
 
+    public bool CanMove
+    {
+        get => m_canMove;
+        set
+        {
+            Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
+            m_canMove = value;
+        }
+    }
+
+    private bool m_canMove;
 
     private PocketMonster[] m_pocketMonsters = new PocketMonster[6];
 

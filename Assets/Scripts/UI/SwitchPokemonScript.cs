@@ -15,7 +15,7 @@ public class SwitchPokemonScript : MonoBehaviour
     [SerializeField] private List<Button> m_buttons;
     private bool m_playerFainted;
 
-    private void Awake()
+    private void OnEnable()
     {
         if (GameManager.Instance.GetPlayerController().HasUsablePokemon())
         {

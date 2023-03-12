@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 720f)][SerializeField] private float m_cameraSensitivity;
     [SerializeField] private Animator m_animator;
     [SerializeField] private CharacterController m_controller;
-    [SerializeField] private GameObject m_camera;
 
     public bool CanMove { get; set; }
 
@@ -48,38 +47,24 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        float forward = Input.GetAxisRaw("Vertical");
-        float sideways = Input.GetAxisRaw("Horizontal");
+        float forward = Input.GetAxisRaw(StringConstants.FORWARD);
+        float sideways = Input.GetAxisRaw(StringConstants.ROTATE);
 
-        Vector3 forwardVector = m_camera.transform.forward.normalized * forward;
-        Vector3 sidewaysVector = m_camera.transform.right.normalized * sideways;
+        Vector3 forwardVector = Camera.main.transform.forward.normalized * forward;
+        Vector3 sidewaysVector = Camera.main.transform.right.normalized * sideways;
 
-        Vector3 gravity = new Vector3(0,-9.81f, 0);
+        Vector3 gravity = new Vector3(0, -9.81f, 0);
 
         Vector3 moveDirection = (forwardVector + sidewaysVector).normalized + gravity;
         Vector3 moveVector = moveDirection * (m_speed * Time.deltaTime);
-        
-        
-        print(moveDirection);
-        print(moveVector);
-        
+
+
         m_controller.Move(moveVector);
-        
+
         Quaternion targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
-        
+
         m_animator.SetFloat("Speed", m_controller.velocity.magnitude);
-        
-        m_cameraRotation.x += Input.GetAxis("Mouse X") * m_cameraSensitivity;
-        m_cameraRotation.y += Input.GetAxis("Mouse Y") * m_cameraSensitivity;
-
-        m_camera.transform.localRotation = Quaternion.Euler(-m_cameraRotation.y, m_cameraRotation.x, 0);
-        
-
-        // Set camera location to player location
-        m_camera.transform.position = transform.position;
-
-
     }
 
     public void ShowPokemon(Transform parent)

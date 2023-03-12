@@ -56,6 +56,12 @@ public class SwitchPokemonScript : MonoBehaviour
             return;
         }
 
+        // Don't choose the active mon!
+        if (player.GetActivePokemon() == player.GetPokemon()[index])
+        {
+            return;
+        }
+
         player.SetActivePokemonIndex(index);
 
         BattleManager.Instance.SetPlayerPokemon(player.GetActivePokemon());

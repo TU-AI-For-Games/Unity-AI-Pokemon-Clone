@@ -96,26 +96,19 @@ public class PocketMonster
 
         if (m_status == StatusType.Asleep)
         {
-            switch (m_statusTurnCount)
+            // You wake up after a max of 5 turns or randomly if we've had more than 3 turns asleep
+            if (m_statusTurnCount == 5 || (m_statusTurnCount < 3 && Random.Range(1, 8) == m_statusTurnCount))
             {
-                // You wake up after a max of 5 turns
-                case 5:
-                // Or randomly if we've had more than 3 turns asleep
-                case < 3 when Random.Range(1, 8) == m_statusTurnCount:
-                    BattleManager.Instance.OnEndStatusMessage(this, m_status);
-                    m_status = StatusType.None;
-                    break;
+                m_status = StatusType.None;
             }
         }
         else if (m_status == StatusType.Burned)
         {
-            {
-                // Burn does 1/16 of your total health each turn
-                int damage = m_stats.BaseHP / 16;
-                m_stats.HP -= damage;
+            // Burn does 1/16 of your total health each turn
+            int damage = m_stats.BaseHP / 16;
+            m_stats.HP -= damage;
 
-                BattleManager.Instance.OnEndStatusMessage(this, m_status);
-            }
+            BattleManager.Instance.OnHurtByStatusMessage(this, m_status);
         }
         else if (m_status == StatusType.Frozen)
         {
@@ -123,19 +116,16 @@ public class PocketMonster
             int random = Random.Range(0, 100);
             if (random < 10)
             {
-                BattleManager.Instance.OnEndStatusMessage(this, m_status);
                 m_status = StatusType.None;
             }
         }
         else if (m_status == StatusType.Poisoned)
         {
-            {
-                // Poison takes 1/8 of the health each turn
-                int damage = m_stats.BaseHP / 8;
-                m_stats.HP -= damage;
+            // Poison takes 1/8 of the health each turn
+            int damage = m_stats.BaseHP / 8;
+            m_stats.HP -= damage;
 
-                BattleManager.Instance.OnEndStatusMessage(this, m_status);
-            }
+            BattleManager.Instance.OnHurtByStatusMessage(this, m_status);
         }
 
         CheckIfFainted();
@@ -344,8 +334,6 @@ public class PocketMonster
 
             m_status = options[Random.Range(0, options.Length)];
         }
-
-        BattleManager.Instance.OnApplyStatusMessage(this, m_status);
     }
 
     public void ChooseRandomMove()

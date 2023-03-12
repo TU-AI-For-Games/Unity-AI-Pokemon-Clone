@@ -191,8 +191,21 @@ public class BattleManager : Singleton<BattleManager>
             TakeTurn(secondMon, firstMon);
         }
 
+        PocketMonster.StatusType firstMonStatusBefore = firstMon.GetStatusEffect();
         firstMon.HandleStatus();
+
+        if (firstMon.GetStatusEffect() == PocketMonster.StatusType.None)
+        {
+            OnEndStatusMessage(firstMon, firstMonStatusBefore);
+        }
+
+        PocketMonster.StatusType secondMonStatusBefore = secondMon.GetStatusEffect();
         secondMon.HandleStatus();
+
+        if (secondMon.GetStatusEffect() == PocketMonster.StatusType.None)
+        {
+            OnEndStatusMessage(secondMon, secondMonStatusBefore);
+        }
 
         m_battleHUD.SetScreen(BattleUIScript.Screens.BattleInfo);
     }
@@ -224,6 +237,7 @@ public class BattleManager : Singleton<BattleManager>
 
             if (attacker.GetStatusEffect() == PocketMonster.StatusType.Asleep)
             {
+                OnHurtByStatusMessage(attacker, PocketMonster.StatusType.Asleep);
                 return;
             }
         }
@@ -237,13 +251,11 @@ public class BattleManager : Singleton<BattleManager>
 
         bool paralyzedThisTurn = attacker.GetStatusEffect() == PocketMonster.StatusType.Paralyzed && Random.Range(0, 100) < 25;
 
-#if RECORD_PLAYER_ACTIONS
         PocketMonster.StatusType targetStatusBefore = target.GetStatusEffect();
-#endif
 
-        if (paralyzedThisTurn)
+        if (paralyzedThisTurn || attacker.GetStatusEffect() == PocketMonster.StatusType.Frozen)
         {
-            m_battleMessages.Enqueue($"{attacker.Name} was paralyzed and couldn't move!");
+            OnHurtByStatusMessage(attacker, attacker.GetStatusEffect());
         }
         else
         {
@@ -309,6 +321,11 @@ public class BattleManager : Singleton<BattleManager>
                 m_battleMessages.Enqueue(GenerateEffectivenessString(effectiveness));
             }
 
+            if (target.GetStatusEffect() != targetStatusBefore)
+            {
+                OnApplyStatusMessage(target, target.GetStatusEffect());
+            }
+
             if (statChange)
             {
                 // Enqueue the message saying the stat and whether it increased or decreased
@@ -319,11 +336,6 @@ public class BattleManager : Singleton<BattleManager>
                     )
                 );
             }
-        }
-
-        if (attacker.GetStatusEffect() != PocketMonster.StatusType.Asleep)
-        {
-            attacker.HandleStatus();
         }
     }
 
@@ -600,16 +612,39 @@ public class BattleManager : Singleton<BattleManager>
             case PocketMonster.StatusType.Asleep:
                 m_battleMessages.Enqueue($"{mon.Name} woke up!");
                 break;
-            case PocketMonster.StatusType.Burned:
-                m_battleMessages.Enqueue($"{mon.Name} was hurt by its burn!");
-                break;
             case PocketMonster.StatusType.Frozen:
                 m_battleMessages.Enqueue($"{mon.Name} thawed out!");
                 break;
             case PocketMonster.StatusType.Paralyzed:
+                m_battleMessages.Enqueue($"{mon.Name} was cured of its paralysis!");
+                break;
+            case PocketMonster.StatusType.Burned:
+                m_battleMessages.Enqueue($"{mon.Name} was cured of its burn!");
+                break;
+            case PocketMonster.StatusType.Poisoned:
+                m_battleMessages.Enqueue($"{mon.Name} was cured of its poison!");
+                break;
+        }
+    }
+
+    public void OnHurtByStatusMessage(PocketMonster mon, PocketMonster.StatusType status)
+    {
+        switch (status)
+        {
+            case PocketMonster.StatusType.Burned:
+                m_battleMessages.Enqueue($"{mon.Name} was hurt by its burn!");
                 break;
             case PocketMonster.StatusType.Poisoned:
                 m_battleMessages.Enqueue($"{mon.Name} was hurt by its poison!");
+                break;
+            case PocketMonster.StatusType.Asleep:
+                m_battleMessages.Enqueue($"{mon.Name} is asleep and couldn't move!");
+                break;
+            case PocketMonster.StatusType.Frozen:
+                m_battleMessages.Enqueue($"{mon.Name} is frozen solid!");
+                break;
+            case PocketMonster.StatusType.Paralyzed:
+                m_battleMessages.Enqueue($"{mon.Name} was paralyzed and couldn't move!");
                 break;
         }
     }
@@ -669,7 +704,7 @@ public class BattleManager : Singleton<BattleManager>
         }
         else if (item == Item.HealStatus)
         {
-            OnUseHealStatusMessage(mon.GetStatusEffect(), mon);
+            OnUseHealStatusMessage(mon);
             mon.HealStatus();
         }
 
@@ -690,7 +725,7 @@ public class BattleManager : Singleton<BattleManager>
         m_battleMessages.Enqueue($"{mon.Name} was healed by <b>{pointsHealed}</b> hit point(s)");
     }
 
-    private void OnUseHealStatusMessage(PocketMonster.StatusType status, PocketMonster mon)
+    private void OnUseHealStatusMessage(PocketMonster mon)
     {
         if (mon == m_playerPokemon)
         {

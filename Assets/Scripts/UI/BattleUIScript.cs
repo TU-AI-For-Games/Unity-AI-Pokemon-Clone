@@ -75,9 +75,17 @@ public class BattleUIScript : MonoBehaviour
                 break;
             case Screens.BattleInfo:
                 {
-                    m_battleInfo.SetActive(true);
-                    ShowNextBattleInfoText();
-                    m_displayedAllMessages = false;
+                    if (ShowNextBattleInfoText())
+                    {
+                        m_battleInfo.SetActive(true);
+                    }
+                    else
+                    {
+                        SetScreen(Screens.Menu);
+
+                        // Go back to selecting the move
+                        BattleManager.Instance.NextTurn();
+                    }
                 }
                 break;
             case Screens.ChoosePokemon:
@@ -104,30 +112,18 @@ public class BattleUIScript : MonoBehaviour
 
         if (nextBattleMessage == null)
         {
+            m_displayedAllMessages = true;
             return false;
         }
 
         m_battleInfoText.text = nextBattleMessage;
-
+        m_displayedAllMessages = false;
         return true;
     }
 
     public void OnBattleInfoPressed()
     {
-        if (ShowNextBattleInfoText())
-        {
-            SetScreen(Screens.BattleInfo);
-        }
-        else
-        {
-            m_displayedAllMessages = true;
-
-            m_battleInfo.gameObject.SetActive(false);
-            SetScreen(Screens.Menu);
-
-            // Go back to selecting the move
-            BattleManager.Instance.NextTurn();
-        }
+        SetScreen(Screens.BattleInfo);
     }
 
     public bool DisplayedAllMessages()
@@ -143,5 +139,6 @@ public class BattleUIScript : MonoBehaviour
         m_switchPokemonUi.gameObject.SetActive(false); ;
 
         m_battleInfo.gameObject.SetActive(false); ;
+        m_bagUi.gameObject.SetActive(false);
     }
 }

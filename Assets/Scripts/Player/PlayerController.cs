@@ -96,8 +96,6 @@ public class PlayerController : MonoBehaviour
 
         m_freeLookCamera.PreviousStateIsValid = false;
 
-        Debug.Break();
-
         StartCoroutine(UpdateCameraOneFrameLater());
     }
 

@@ -13,11 +13,12 @@ public class ItemUIScript : MonoBehaviour
             BattleManager.Instance.GetPlayerPokemon()
         );
 
-        OnBackPressed();
+        m_battleUiScript.SetScreen(BattleUIScript.Screens.BattleInfo);
     }
 
     public void OnBackPressed()
     {
         gameObject.SetActive(false);
+        m_battleUiScript.SetScreen(BattleUIScript.Screens.Menu);
     }
 }

@@ -1,5 +1,8 @@
 #define RECORD_PLAYER_ACTIONS
+using System.Collections;
 using System.Linq;
+using Cinemachine;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -7,10 +10,13 @@ public class PlayerController : MonoBehaviour
     [Range(0f, 100f)][SerializeField] private float m_speed;
     [Range(0f, 720f)][SerializeField] private float m_rotationSpeed;
     [Range(0f, 720f)][SerializeField] private float m_cameraSensitivity;
-    [SerializeField] private Animator m_animator;
-    [SerializeField] private CharacterController m_controller;
 
-    public bool CanMove { get; set; }
+    private Animator m_animator;
+    private CharacterController m_controller;
+
+    [SerializeField] private Transform m_cameraFocus;
+    [SerializeField] private CinemachineFreeLook m_freeLookCamera;
+
 
     private PocketMonster[] m_pocketMonsters = new PocketMonster[6];
 
@@ -23,8 +29,6 @@ public class PlayerController : MonoBehaviour
     {
         m_controller = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
-
-        Cursor.lockState = CursorLockMode.Locked;
 
         // For now, set up 6 random pokemon
         for (int i = 0; i < 6; ++i)
@@ -41,7 +45,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!CanMove)
+        if (!CanMove || m_controller.enabled == false)
         {
             return;
         }
@@ -65,6 +69,37 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
 
         m_animator.SetFloat("Speed", m_controller.velocity.magnitude);
+    }
+
+    public void Teleport(Vector3 position, Quaternion rotation)
+    {
+        m_freeLookCamera.Follow = null;
+        m_freeLookCamera.LookAt = null;
+
+        m_freeLookCamera.enabled = false;
+
+        m_controller.enabled = false;
+
+        transform.position = position;
+        transform.rotation = rotation;
+
+        m_freeLookCamera.PreviousStateIsValid = false;
+
+        Debug.Break();
+
+        StartCoroutine(UpdateCameraOneFrameLater());
+    }
+
+    private IEnumerator UpdateCameraOneFrameLater()
+    {
+        yield return null;
+
+        m_freeLookCamera.enabled = true;
+
+        m_freeLookCamera.Follow = m_cameraFocus;
+        m_freeLookCamera.LookAt = m_cameraFocus;
+
+        m_controller.enabled = true;
     }
 
     public void ShowPokemon(Transform parent)

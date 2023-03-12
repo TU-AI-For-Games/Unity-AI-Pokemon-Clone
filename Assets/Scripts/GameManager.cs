@@ -71,8 +71,7 @@ public class GameManager : Singleton<GameManager>
         m_previousPlayerPosition = new(m_player.transform.position.x, m_player.transform.position.y, m_player.transform.position.z);
         m_previousPlayerRotation = new(m_player.transform.rotation.x, m_player.transform.rotation.y, m_player.transform.rotation.z, m_player.transform.rotation.w);
 
-        m_player.transform.position = m_battlePlayerPosition.position;
-        m_player.transform.rotation = m_battlePlayerPosition.rotation;
+        m_player.Teleport(m_battlePlayerPosition.position, m_battlePlayerPosition.rotation);
 
         SpawnPlayerPokemon();
 
@@ -123,8 +122,7 @@ public class GameManager : Singleton<GameManager>
         m_mainCamera.gameObject.SetActive(true);
         m_battleCamera.gameObject.SetActive(false);
 
-        m_player.transform.position = m_previousPlayerPosition;
-        m_player.transform.rotation = m_previousPlayerRotation;
+        m_player.Teleport(m_previousPlayerPosition, m_previousPlayerRotation);
 
         if (BattleManager.Instance.GetBattleType() == BattleManager.BattleType.WildPkmn)
         {

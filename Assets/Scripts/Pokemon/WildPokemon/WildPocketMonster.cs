@@ -13,17 +13,35 @@ public class WildPocketMonster : MonoBehaviour
     private Vector3 m_target;
     private Pathfinding m_navGrid;
 
+    private WildPocketMonsterArea m_parentArea;
 
-    void Update()
+    private void Start()
     {
-        if (m_path == null || m_path.Count == 0)
-        {
-            return;
-        }
-        MoveTowards();
+        m_path = new List<Node>();
+        m_parentArea = transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
+
+        SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
     }
 
-    void MoveTowards()
+    private void Update()
+    {
+        if (m_path == null)
+        {
+            SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
+        }
+
+        // If the path is empty, we've reached the target... Choose a new one
+        if (m_path.Count == 0)
+        {
+            SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
+        }
+        else
+        {
+            MoveTowards();
+        }
+    }
+
+    private void MoveTowards()
     {
         Vector3 nextPoint = m_path[0].GetNodeWorldPosition();
 
@@ -36,13 +54,20 @@ public class WildPocketMonster : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, nextPoint, m_speed * Time.deltaTime);
     }
 
-    void FindPathTo(Vector3 targetPosition)
+    private void FindPathTo(Vector3 targetPosition)
     {
         m_path = m_navGrid.FindPath(transform.position, targetPosition);
     }
 
-    public void SetPathfindingTarget(Vector3 newTarget)
+    public void SetNavGrid(Pathfinding grid)
     {
+        m_navGrid = grid;
+    }
+
+    private void SetPathfindingTarget(Vector3 newTarget)
+    {
+        m_path.Clear();
+
         m_target = newTarget;
         FindPathTo(m_target);
     }

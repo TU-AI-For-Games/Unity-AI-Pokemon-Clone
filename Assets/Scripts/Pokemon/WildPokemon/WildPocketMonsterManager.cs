@@ -15,6 +15,8 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
 
     [SerializeField] private List<WildPocketMonsterArea> m_spawnAreas;
 
+    [SerializeField] private Pathfinding m_navGrid;
+
     protected override void InternalInit()
     {
     }
@@ -61,7 +63,9 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
             Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(pokedexNumber), pokemonWrapper.transform);
 
             // Set up the WildPocketMonster reference
-            pokemonWrapper.GetComponent<WildPocketMonster>().SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber));
+            WildPocketMonster wildMon = pokemonWrapper.GetComponent<WildPocketMonster>();
+            wildMon.SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber));
+            wildMon.SetNavGrid(m_navGrid);
         }
     }
 

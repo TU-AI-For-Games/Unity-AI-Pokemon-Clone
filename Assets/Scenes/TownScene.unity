@@ -962,7 +962,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228189953}
-  m_LocalRotation: {x: 0.07404224, y: 0.34445006, z: -0.09457955, w: 0.9310889}
+  m_LocalRotation: {x: 0.07404224, y: 0.3444501, z: -0.094579555, w: 0.931089}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1301,7 +1301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_maxPokemon
-      value: 60
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_spawnChances.Array.size
@@ -2452,6 +2452,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 451228659}
     - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_navGrid
+      value: 
+      objectReference: {fileID: 1007330055}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
       propertyPath: m_spawnAreas.Array.size
       value: 6
       objectReference: {fileID: 0}
@@ -2562,7 +2566,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_maxPokemon
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_spawnChances.Array.size
@@ -3559,14 +3563,14 @@ MonoBehaviour:
   StraightCost: 10
   DiagonalCost: 14
   MaxWalkableAngle: 45
-  ShowDebug: 0
+  ShowDebug: 1
   ShowPath: 0
   UnWalkableMask:
     serializedVersion: 2
     m_Bits: 16
   WalkableMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 39
   NodeRadius: 10
   GridSize: 50
 --- !u!4 &1007330056
@@ -4163,7 +4167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_maxPokemon
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_spawnChances.Array.size
@@ -5800,7 +5804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_maxPokemon
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_spawnChances.Array.size
@@ -5995,7 +5999,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_maxPokemon
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_spawnChances.Array.size
@@ -6504,7 +6508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1939067161}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.970947, y: -1.2200594, z: -16.986038}
+  m_LocalPosition: {x: -19.970947, y: -1.4200592, z: -16.986038}
   m_LocalScale: {x: 62.358955, y: 1, z: 6.3175}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7098,11 +7102,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.9999895
+      value: 9.999994
       objectReference: {fileID: 0}
     - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 59
+      value: 23.999996
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: DrawDebug
@@ -7110,7 +7114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_maxPokemon
-      value: 40
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_spawnChances.Array.size
@@ -7302,11 +7306,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60.999996
+      value: 38.999996
       objectReference: {fileID: 0}
     - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -38.999996
+      value: -49
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}

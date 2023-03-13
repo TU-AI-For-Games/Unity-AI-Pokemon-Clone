@@ -64,7 +64,7 @@ public class WildPocketMonsterArea : MonoBehaviour
         [Range(0, 100)] public float SpawnChance;
     }
 
-    private Vector3 GenerateRandomPosition()
+    public Vector3 GenerateRandomPosition()
     {
         return new Vector3(
             Random.Range(m_bottomLeft.position.x, m_topRight.position.x),

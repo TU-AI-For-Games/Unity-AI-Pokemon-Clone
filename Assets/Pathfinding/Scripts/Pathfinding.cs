@@ -21,6 +21,7 @@ public class Pathfinding : MonoBehaviour
     [SerializeField]
     public bool showPath = false;
 
+    // GameObjects
     [SerializeField] public GameObject startingObject;
     [SerializeField] public GameObject targetObject;
 
@@ -31,11 +32,16 @@ public class Pathfinding : MonoBehaviour
     [SerializeField]
     public float nodeRadius = 1;
     [SerializeField]
-    private int gridSize = 10;
+    public int gridSize = 10;
 
     private Node[,] _nodes;
 
-    
+
+    private void Awake()
+    {
+        MakeGrid(transform.position);
+    }
+
 
     void MakeGrid(Vector3 location)
     {
@@ -79,15 +85,16 @@ public class Pathfinding : MonoBehaviour
     }
 
 
-    void FindPath(Vector3 startPosition, Vector3 targetPosition)
+    public List<Node> FindPath(Vector3 startPosition, Vector3 targetPosition)
     {
         
+
         // Get the nodes
         var startNode = GetNodeFromPosition(startPosition);
         var endNode = GetNodeFromPosition(targetPosition);
 
         // If one of them is not valid, cancel
-        if (startNode == null || endNode == null) return;
+        if (startNode == null || endNode == null) return null;
         
         // Select the nodes
         startNode.SetSelected(true);
@@ -114,8 +121,7 @@ public class Pathfinding : MonoBehaviour
             // If the path is found, return
             if (currentNode == endNode)
             {
-                RetracePath(startNode,endNode);
-                return;
+                return RetracePath(startNode, endNode);
             }
 
             var neighbors = GetNeighboringNodes(currentNode);
@@ -130,10 +136,12 @@ public class Pathfinding : MonoBehaviour
                 // Check if path to this one is shorter, or not in Open list
                 if (newMovementCostToNeighbor < neighbor.gCost || !openNodes.Contains(neighbor))
                 {
+                    // Calculate the costs for this new node
                     neighbor.gCost = newMovementCostToNeighbor;
                     neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode);
                     neighbor.SetParent(currentNode);
 
+                    // If the openNodes doesn't already contain this node, add it
                     if (!openNodes.Contains(neighbor))
                     {
                         openNodes.Add(neighbor);
@@ -141,9 +149,11 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
+
+        return null;
     }
 
-    void RetracePath(Node startNode, Node endNode)
+    List<Node> RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
 
@@ -157,16 +167,15 @@ public class Pathfinding : MonoBehaviour
         }
 
         path.Reverse();
+
+        return path;
         
         
     }
 
-
     private void Update()
     {
         MakeGrid(transform.position);
-        FindPath(startingObject.transform.position, targetObject.transform.position);
-
     }
 
     private Node MakeNode(Vector3 worldPosition, Vector2Int gridPosition)
@@ -266,8 +275,10 @@ public class Pathfinding : MonoBehaviour
     {
         
         if (_nodes == null) return;
-        
-        
+
+
+        // Draw debug points to show the nodes
+
         foreach (var node in _nodes)
         {
             var radius = node.GetNodeRadius() * 0.9f;
@@ -279,16 +290,6 @@ public class Pathfinding : MonoBehaviour
             {
                 Gizmos.DrawSphere(node.GetNodeWorldPosition(), radius/4);
             }
-
         }
-        
-        
-
-
-      
-
-        // Draw debug points to show the nodes
-
-
     }
 }

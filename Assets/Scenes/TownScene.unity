@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 23581194}
   - component: {fileID: 23581193}
   - component: {fileID: 23581192}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3081,6 +3081,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 83ccf67bd83c74946a2b082d67506dd2, type: 3}
   m_PrefabInstance: {fileID: 1202490544}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1007330054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1007330056}
+  - component: {fileID: 1007330055}
+  m_Layer: 0
+  m_Name: PathfindingNavMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1007330055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007330054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bffb1bb78c35e648b46525a17bb1cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StraightCost: 10
+  DiagonalCost: 14
+  MaxWalkableAngle: 45
+  ShowDebug: 1
+  ShowPath: 0
+  UnWalkableMask:
+    serializedVersion: 2
+    m_Bits: 16
+  WalkableMask:
+    serializedVersion: 2
+    m_Bits: 1
+  NodeRadius: 10
+  GridSize: 50
+--- !u!4 &1007330056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007330054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 239, y: 15, z: 42}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1026999607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5274,7 +5331,7 @@ GameObject:
   - component: {fileID: 1939067164}
   - component: {fileID: 1939067163}
   - component: {fileID: 1939067162}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: RiverWater
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -962,7 +962,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228189953}
-  m_LocalRotation: {x: 0.07404224, y: 0.3444501, z: -0.094579555, w: 0.931089}
+  m_LocalRotation: {x: 0.07404224, y: 0.34445006, z: -0.09457955, w: 0.9310889}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1228,6 +1228,199 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3720814627099247458, guid: f0352b227999ab647b5ef561509bd94a, type: 3}
   m_PrefabInstance: {fileID: 323252097}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &335649769
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1613017158}
+    m_Modifications:
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Name
+      value: Mountain
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 605
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 89.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 429
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: DrawDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_maxPokemon
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].SpawnChance
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].SpawnChance
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].SpawnChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].SpawnChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].SpawnChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].PokedexNumber
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].PokedexNumber
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].PokedexNumber
+      value: 76
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].PokedexNumber
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].PokedexNumber
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].PokedexNumber
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].PokedexNumber
+      value: 138
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].PokedexNumber
+      value: 139
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].PokedexNumber
+      value: 140
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].PokedexNumber
+      value: 141
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].PokedexNumber
+      value: 142
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -423
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+--- !u!4 &335649770 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 335649769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &335649771 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 335649769}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &370365570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2258,8 +2451,261 @@ PrefabInstance:
       propertyPath: m_battleHUD
       value: 
       objectReference: {fileID: 451228659}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.data[0]
+      value: 
+      objectReference: {fileID: 6827952130922058025}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.data[1]
+      value: 
+      objectReference: {fileID: 760151636}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.data[2]
+      value: 
+      objectReference: {fileID: 335649771}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.data[3]
+      value: 
+      objectReference: {fileID: 1792507245}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.data[4]
+      value: 
+      objectReference: {fileID: 1178692804}
+    - target: {fileID: 8173849577703208383, guid: d60008c0aad116e42987db26334801c5, type: 3}
+      propertyPath: m_spawnAreas.Array.data[5]
+      value: 
+      objectReference: {fileID: 1744552364}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60008c0aad116e42987db26334801c5, type: 3}
+--- !u!1001 &760151634
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1613017158}
+    m_Modifications:
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Name
+      value: Intermediate Area
+      objectReference: {fileID: 0}
+    - target: {fileID: 240583703847045388, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 433
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 203
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -27.000006
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 13.999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421139464306730506, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: DrawDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_maxPokemon
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].SpawnChance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].SpawnChance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].SpawnChance
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].SpawnChance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[11].SpawnChance
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[12].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[13].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].PokedexNumber
+      value: 84
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].PokedexNumber
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].PokedexNumber
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].PokedexNumber
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].PokedexNumber
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].PokedexNumber
+      value: 104
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].PokedexNumber
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].PokedexNumber
+      value: 88
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].PokedexNumber
+      value: 98
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].PokedexNumber
+      value: 102
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].PokedexNumber
+      value: 133
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[11].PokedexNumber
+      value: 96
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[12].PokedexNumber
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[13].PokedexNumber
+      value: 58
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 64.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -60.999996
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+--- !u!4 &760151635 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 760151634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &760151636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 760151634}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &760392590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3113,7 +3559,7 @@ MonoBehaviour:
   StraightCost: 10
   DiagonalCost: 14
   MaxWalkableAngle: 45
-  ShowDebug: 1
+  ShowDebug: 0
   ShowPath: 0
   UnWalkableMask:
     serializedVersion: 2
@@ -3644,6 +4090,191 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9c4748b3d7fc5f047ad10205d90b4e17, type: 3}
   m_PrefabInstance: {fileID: 1152775397}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1178692802
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1613017158}
+    m_Modifications:
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Name
+      value: WaterArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 466
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 16.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: DrawDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_maxPokemon
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].SpawnChance
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].SpawnChance
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].SpawnChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].SpawnChance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].SpawnChance
+      value: 95
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].SpawnChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].PokedexNumber
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].PokedexNumber
+      value: 61
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].PokedexNumber
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].PokedexNumber
+      value: 73
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].PokedexNumber
+      value: 86
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].PokedexNumber
+      value: 87
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].PokedexNumber
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].PokedexNumber
+      value: 129
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].PokedexNumber
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].PokedexNumber
+      value: 131
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 54
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -27
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+--- !u!4 &1178692803 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 1178692802}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1178692804 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 1178692802}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1200593338 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 337b8dfc64e42fc4298cd5839717cfd2, type: 3}
@@ -4981,6 +5612,43 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 512ec974f91cbaa40af957c387d4b396, type: 3}
   m_PrefabInstance: {fileID: 1599566569}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1613017157
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613017158}
+  m_Layer: 0
+  m_Name: PokemonSpawnAreas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613017158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1613017157}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6827952130922058024}
+  - {fileID: 760151635}
+  - {fileID: 335649770}
+  - {fileID: 1792507244}
+  - {fileID: 1178692803}
+  - {fileID: 1744552363}
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1668155367
 GameObject:
   m_ObjectHideFlags: 3
@@ -5059,6 +5727,191 @@ Transform:
   m_Father: {fileID: 559348661}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1744552362
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1613017158}
+    m_Modifications:
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Name
+      value: LegendaryArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 284
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 65.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 397
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: DrawDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_maxPokemon
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].SpawnChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].SpawnChance
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].SpawnChance
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].PokedexNumber
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].PokedexNumber
+      value: 149
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].PokedexNumber
+      value: 151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].PokedexNumber
+      value: 144
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].PokedexNumber
+      value: 145
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].PokedexNumber
+      value: 146
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].PokedexNumber
+      value: 59
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].PokedexNumber
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].PokedexNumber
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].PokedexNumber
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -70
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+--- !u!4 &1744552363 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 1744552362}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1744552364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 1744552362}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1756479390 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 03f2fe19c7dfb8f4cb040d64a3b6f984, type: 3}
@@ -5077,6 +5930,247 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3.0980701, y: 1.6100205, z: 1.5856261}
   m_Center: {x: -0.8, y: 0.74166435, z: 0.0029725134}
+--- !u!1001 &1792507243
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1613017158}
+    m_Modifications:
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Name
+      value: AdvancedArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 371
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 18.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 334
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: DrawDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_maxPokemon
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].SpawnChance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].SpawnChance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].SpawnChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].SpawnChance
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].SpawnChance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].SpawnChance
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[11].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[12].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[13].SpawnChance
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[14].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[15].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[16].SpawnChance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[17].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].PokedexNumber
+      value: 105
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].PokedexNumber
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].PokedexNumber
+      value: 114
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].PokedexNumber
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].PokedexNumber
+      value: 53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].PokedexNumber
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].PokedexNumber
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].PokedexNumber
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].PokedexNumber
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].PokedexNumber
+      value: 124
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].PokedexNumber
+      value: 106
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[11].PokedexNumber
+      value: 107
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[12].PokedexNumber
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[13].PokedexNumber
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[14].PokedexNumber
+      value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[15].PokedexNumber
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[16].PokedexNumber
+      value: 115
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[17].PokedexNumber
+      value: 143
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 87
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -94
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+--- !u!4 &1792507244 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 1792507243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1792507245 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 1792507243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1828070155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5939,6 +7033,299 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0352b227999ab647b5ef561509bd94a, type: 3}
+--- !u!1001 &6827952130922058023
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1613017158}
+    m_Modifications:
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_Name
+      value: BasicArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 20952239268998054, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 549
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 21.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 234
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.9999895
+      objectReference: {fileID: 0}
+    - target: {fileID: 4123278154292887466, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 59
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: DrawDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_maxPokemon
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.size
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].SpawnChance
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].SpawnChance
+      value: 85
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].SpawnChance
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].SpawnChance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].SpawnChance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].SpawnChance
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].SpawnChance
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].SpawnChance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[11].SpawnChance
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[12].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[13].SpawnChance
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[14].SpawnChance
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[15].SpawnChance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[16].SpawnChance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[17].SpawnChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[18].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[19].SpawnChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[20].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[21].SpawnChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[22].SpawnChance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[0].PokedexNumber
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[1].PokedexNumber
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[2].PokedexNumber
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[3].PokedexNumber
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[4].PokedexNumber
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[5].PokedexNumber
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[6].PokedexNumber
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[7].PokedexNumber
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[8].PokedexNumber
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[9].PokedexNumber
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[10].PokedexNumber
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[11].PokedexNumber
+      value: 52
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[12].PokedexNumber
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[13].PokedexNumber
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[14].PokedexNumber
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[15].PokedexNumber
+      value: 147
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[16].PokedexNumber
+      value: 66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[17].PokedexNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[18].PokedexNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[19].PokedexNumber
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[20].PokedexNumber
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[21].PokedexNumber
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_spawnChances.Array.data[22].PokedexNumber
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 60.999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399610279025437668, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -38.999996
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+--- !u!4 &6827952130922058024 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2315629962060778313, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 6827952130922058023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6827952130922058025 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090161583938774300, guid: 8aa7fa57a961978499e3e7161d577129, type: 3}
+  m_PrefabInstance: {fileID: 6827952130922058023}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8066277912229416153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3720814627099247458, guid: f0352b227999ab647b5ef561509bd94a, type: 3}

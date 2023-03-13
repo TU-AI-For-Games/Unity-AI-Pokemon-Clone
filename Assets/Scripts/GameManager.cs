@@ -1,17 +1,20 @@
 #define RECORD_PLAYER_ACTIONS
 using System;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using CameraType = Poke.CameraType;
 
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private GameObject m_gameHUD;
 
-    [SerializeField] private Camera m_mainCamera;
-
     [SerializeField] private PlayerController m_player;
 
+    [SerializeField] private PostProcessVolume m_overworldVolume;
+    [SerializeField] private PostProcessVolume m_battleVolume;
+
     [Header("Battle Settings")]
-    [SerializeField] private Camera m_battleCamera;
     [SerializeField] private BattleUIScript m_battleHUD;
     [SerializeField] private Transform m_battlePlayerPosition;
     [SerializeField] private Transform m_battlePlayerPkmnPosition;
@@ -19,6 +22,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private Transform m_battleTrainerPkmnPosition;
     [SerializeField] private Transform m_battleWildPkmnPosition;
 
+    [Header("Cinemachine Cameras")]
+    [SerializeField] private CinemachineVirtualCameraBase m_overworldCamera;
+    [SerializeField] private CinemachineVirtualCameraBase m_battleCamera;
 
     private Vector3 m_previousPlayerPosition;
     private Quaternion m_previousPlayerRotation;
@@ -42,6 +48,8 @@ public class GameManager : Singleton<GameManager>
 
         m_previousPlayerPosition = new Vector3();
         m_previousPlayerRotation = new Quaternion();
+
+        SwitchCamera(CameraType.Overworld);
     }
 
     // Update is called once per frame
@@ -65,8 +73,7 @@ public class GameManager : Singleton<GameManager>
         m_battleHUD.gameObject.SetActive(true);
         m_gameHUD.SetActive(false);
 
-        m_mainCamera.gameObject.SetActive(false);
-        m_battleCamera.gameObject.SetActive(true);
+        SwitchCamera(Poke.CameraType.Battle);
 
         m_previousPlayerPosition = new(m_player.transform.position.x, m_player.transform.position.y, m_player.transform.position.z);
         m_previousPlayerRotation = new(m_player.transform.rotation.x, m_player.transform.rotation.y, m_player.transform.rotation.z, m_player.transform.rotation.w);
@@ -119,8 +126,7 @@ public class GameManager : Singleton<GameManager>
         m_battleHUD.gameObject.SetActive(false);
         m_gameHUD.SetActive(true);
 
-        m_mainCamera.gameObject.SetActive(true);
-        m_battleCamera.gameObject.SetActive(false);
+        SwitchCamera(Poke.CameraType.Overworld);
 
         m_player.Teleport(m_previousPlayerPosition, m_previousPlayerRotation);
 
@@ -140,6 +146,33 @@ public class GameManager : Singleton<GameManager>
 #endif
     }
 
+    private void SwitchCamera(Poke.CameraType cameraType)
+    {
+        m_overworldVolume.gameObject.SetActive(false);
+        m_battleVolume.gameObject.SetActive(false);
+
+        switch (cameraType)
+        {
+            case Poke.CameraType.Battle:
+                m_overworldCamera.Priority = 0;
+                m_battleCamera.Priority = 10;
+
+                m_battleVolume.gameObject.SetActive(true);
+                break;
+            case Poke.CameraType.Overworld:
+                m_overworldCamera.Priority = 10;
+                m_battleCamera.Priority = 0;
+
+                m_overworldCamera.LookAt = m_player.transform;
+                m_overworldCamera.Follow = m_player.transform;
+
+                m_overworldVolume.gameObject.SetActive(true);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(cameraType), cameraType, null);
+        }
+    }
+
     public PlayerController GetPlayerController()
     {
         return m_player;
@@ -147,5 +180,14 @@ public class GameManager : Singleton<GameManager>
 
     protected override void InternalInit()
     {
+    }
+}
+
+namespace Poke
+{
+    public enum CameraType
+    {
+        Battle,
+        Overworld
     }
 }

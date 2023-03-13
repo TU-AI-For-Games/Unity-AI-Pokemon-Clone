@@ -32,6 +32,11 @@ public class WildPocketMonsterArea : MonoBehaviour
         pokemonGameObject.transform.position = GenerateRandomPosition();
     }
 
+    public void RemovePokemon(GameObject pokemonObject)
+    {
+        m_activePokemon.Remove(pokemonObject);
+    }
+
     public int GetNextPokedexNumber()
     {
         int spawnChance = Random.Range(1, 65);

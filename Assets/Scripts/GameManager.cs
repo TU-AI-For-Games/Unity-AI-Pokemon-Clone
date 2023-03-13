@@ -132,7 +132,7 @@ public class GameManager : Singleton<GameManager>
 
         if (BattleManager.Instance.GetBattleType() == BattleManager.BattleType.WildPkmn)
         {
-            Destroy(m_battler);
+            WildPocketMonsterManager.Instance.OnPokemonDeath(m_battler);
         }
         else if (BattleManager.Instance.GetBattleType() == BattleManager.BattleType.Trainer)
         {

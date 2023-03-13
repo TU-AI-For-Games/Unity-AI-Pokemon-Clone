@@ -64,4 +64,11 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
             pokemonWrapper.GetComponent<WildPocketMonster>().SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber));
         }
     }
+
+    public void OnPokemonDeath(GameObject pokemonObject)
+    {
+        // RemovePokemon the gameobject from the area
+        WildPocketMonsterArea area = pokemonObject.transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
+        area.RemovePokemon(pokemonObject);
+    }
 }

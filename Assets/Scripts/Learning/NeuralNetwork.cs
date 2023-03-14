@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Learning;
 using UnityEngine;
-using UnityEngine.Experimental.AI;
 
 public class NeuralNetwork
 {
@@ -24,5 +23,17 @@ public class NeuralNetwork
         {
             m_layers[i] = new Layer(networkShape[i], networkShape[i + 1]);
         }
+    }
+
+    public float[] FeedForward(float[] input)
+    {
+        m_layers[0].FeedForward(input);
+
+        for (int i = 1; i < m_layers.Length; i++)
+        {
+            m_layers[i].FeedForward(m_layers[i - 1].Outputs);
+        }
+
+        return m_layers[^1].Outputs;
     }
 }

@@ -15,9 +15,10 @@ public class Node
     // F cost is the combined cost
     public int fCost => gCost + hCost;
 
-    private float m_radius;
+    private readonly float m_radius;
     private Vector3 m_worldPosition;
-    private Vector2Int m_gridPosition;
+    private readonly Vector2Int m_gridPosition;
+    public int weight;
     private bool m_walkable = true;
     private LayerMask m_unWalkableMask;
     private bool m_selected;
@@ -34,7 +35,7 @@ public class Node
 
     private void CheckWalkable()
     {
-        m_walkable = Physics.CheckSphere(m_worldPosition, 6);
+        m_walkable = !Physics.CheckSphere(m_worldPosition - new Vector3(0,2, 0), m_radius, m_unWalkableMask);
     }
 
     public void SetParent(Node newParent)

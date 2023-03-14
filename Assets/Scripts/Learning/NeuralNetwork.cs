@@ -1,31 +1,28 @@
 using System.Collections.Generic;
 using Learning;
 using UnityEngine;
+using UnityEngine.Experimental.AI;
 
-public class NeuralNetwork : MonoBehaviour
+public class NeuralNetwork
 {
-    [SerializeField][Range(1, 1000)] private int m_numHiddenLayers = 2;
-    private List<Layer> m_hiddenLayers;
-    private Layer m_outputLayer;
+    private int[] m_networkShape;
+    private Layer[] m_layers;
 
-    void Awake()
+
+    public NeuralNetwork(int[] networkShape)
     {
-        m_hiddenLayers = new List<Layer>(m_numHiddenLayers)
-        {
-            new(2, 4)
-        };
+        m_networkShape = new int[networkShape.Length];
 
-        for (int i = 0; i < m_numHiddenLayers - 1; ++i)
+        for (int i = 0; i < networkShape.Length; i++)
         {
-            m_hiddenLayers.Add(new Layer(4, 4));
+            m_networkShape[i] = networkShape[i];
         }
 
-        m_outputLayer = new Layer(4, 2);
-    }
+        m_layers = new Layer[networkShape.Length - 1];
 
-    // Update is called once per frame
-    void Update()
-    {
-
+        for (int i = 0; i < m_layers.Length; ++i)
+        {
+            m_layers[i] = new Layer(networkShape[i], networkShape[i + 1]);
+        }
     }
 }

@@ -4,21 +4,31 @@ namespace Learning
 {
     public class Layer
     {
-        public float[,] Weights;
-        public float[] Biases;
-        public float[] Nodes;
-
-        private int m_numNodes;
         private int m_numInputs;
+        private int m_numOutputs;
 
-        public Layer(int numInputs, int numNodes)
+        private float[] m_inputs;
+        private float[] m_outputs;
+
+        private float[,] m_weights;
+        private float[,] m_weightsDelta;
+
+        private float[] m_gamma;
+        private float[] m_error;
+
+        public Layer(int numInputs, int numOutputs)
         {
             m_numInputs = numInputs;
-            m_numNodes = numNodes;
+            m_numOutputs = numOutputs;
 
-            Weights = new float[numNodes, numInputs];
-            Biases = new float[numNodes];
-            Nodes = new float[numNodes];
+            m_inputs = new float[numInputs];
+            m_outputs = new float[m_numOutputs];
+
+            m_weights = new float[numOutputs, numInputs];
+            m_weightsDelta = new float[numOutputs, numInputs];
+
+            m_gamma = new float[m_numOutputs];
+            m_error = new float[m_numOutputs];
         }
     }
 }

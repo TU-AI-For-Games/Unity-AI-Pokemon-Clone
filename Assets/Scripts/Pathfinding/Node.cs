@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,18 +23,18 @@ public class Node
     private bool m_selected;
     private Node m_parentNode = null;
 
-    public Node(float radius, Vector3 worldPosition, Vector2Int gridPosition, LayerMask unwalkableMask)
+    public Node(float radius, Vector3 worldPosition, Vector2Int gridPosition, LayerMask unWalkableMask)
     {
         m_radius = radius;
         m_worldPosition = worldPosition;
         m_gridPosition = gridPosition;
-        m_unWalkableMask = unwalkableMask;
+        m_unWalkableMask = unWalkableMask;
         CheckWalkable();
     }
 
     private void CheckWalkable()
     {
-        m_walkable = !Physics.CheckSphere(m_worldPosition, m_radius, m_unWalkableMask);
+        m_walkable = Physics.CheckSphere(m_worldPosition, 6);
     }
 
     public void SetParent(Node newParent)

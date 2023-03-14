@@ -29,7 +29,7 @@ public class MoveUIScript : MonoBehaviour
         Move move = GameManager.Instance.GetPlayerController().GetActivePokemon().GetMoves()[moveNumber];
 
         // TODO: Colour text with richtext to emphasise typing, damage type and whether it's a status move or not!
-        m_moveDescription.text = $"{move.Description}\nEFFECT: {MoveManager.EffectToString(move.MoveEffect)}\nDAMAGE: {move.Damage}\nACCURACY: {move.Accuracy}%\nTYPE: {PocketMonster.TypeToString(move.Type)}";
+        m_moveDescription.text = $"{move.Description}\n\nEFFECT: {MoveManager.EffectToString(move.MoveEffect)}\nDAMAGE: {move.Damage}\nACCURACY: {move.Accuracy}%\nTYPE: {PocketMonster.TypeToString(move.Type)}";
     }
 
     public void OnMoveHoverExit()

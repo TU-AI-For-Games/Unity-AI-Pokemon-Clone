@@ -42,8 +42,8 @@ public class Pathfinding : MonoBehaviour
 
 
                 // Trace to find the walkable ground
-                var hit = Physics.Linecast(offset + new Vector3(0, 100, 0), offset + new Vector3(0, -100, 0), out var rayHit, WalkableMask);
-
+                var hit = Physics.Linecast(offset + new Vector3(0, 100, 0), offset + new Vector3(0, -100, 0), out var rayHit);
+                
 
                 m_nodes[x, z] = MakeNode(offset, new Vector2Int(x, z));
 
@@ -274,6 +274,7 @@ public class Pathfinding : MonoBehaviour
             if (ShowDebug || (ShowPath && selected))
             {
                 Gizmos.DrawSphere(node.GetNodeWorldPosition(), radius / 4);
+
             }
         }
     }

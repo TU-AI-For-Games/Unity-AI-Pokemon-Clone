@@ -48,6 +48,32 @@ namespace Learning
             }
         }
 
+        private static float DeriveTanH(float value)
+        {
+            return 1 - value * value;
+        }
+
+        private void BackPropagationOutputLayer(float[] expected)
+        {
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                m_error[i] = Outputs[i] - expected[i];
+            }
+
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                m_gamma[i] = m_error[i] * DeriveTanH(Outputs[i]);
+            }
+
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                for (int j = 0; j < m_numInputs; j++)
+                {
+                    m_weightsDelta[i, j] = m_gamma[i] * m_inputs[j];
+                }
+            }
+        }
+
         private void UpdateWeights()
         {
             for (int i = 0; i < m_numOutputs; i++)

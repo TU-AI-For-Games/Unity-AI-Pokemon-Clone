@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Learning
 {
@@ -17,6 +18,8 @@ namespace Learning
         private float[] m_gamma;
         private float[] m_error;
 
+        private float m_learningRate = 0.0003f;
+
         public Layer(int numInputs, int numOutputs)
         {
             m_numInputs = numInputs;
@@ -30,6 +33,30 @@ namespace Learning
 
             m_gamma = new float[m_numOutputs];
             m_error = new float[m_numOutputs];
+
+            InitialiseWeights();
+        }
+
+        private void InitialiseWeights()
+        {
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                for (int j = 0; j < m_numInputs; j++)
+                {
+                    m_weights[i, j] = Random.Range(-0.5f, 0.5f);
+                }
+            }
+        }
+
+        private void UpdateWeights()
+        {
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                for (int j = 0; j < m_numInputs; j++)
+                {
+                    m_weights[i, j] -= m_weightsDelta[i, j] * m_learningRate;
+                }
+            }
         }
 
         public float[] FeedForward(float[] input)

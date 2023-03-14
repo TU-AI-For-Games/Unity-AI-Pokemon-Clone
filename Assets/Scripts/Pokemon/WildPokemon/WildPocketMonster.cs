@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WildPocketMonster : MonoBehaviour
@@ -31,7 +32,7 @@ public class WildPocketMonster : MonoBehaviour
         }
 
         // If the path is empty, we've reached the target... Choose a new one
-        if (m_path.Count == 0)
+        if (m_path?.Count == 0)
         {
             SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
         }
@@ -43,6 +44,8 @@ public class WildPocketMonster : MonoBehaviour
 
     private void MoveTowards()
     {
+        if (m_path == null || m_path.Count < 1) return;
+        
         Vector3 nextPoint = m_path[0].GetNodeWorldPosition();
 
         // If distance is less than the acceptanceradius
@@ -66,7 +69,7 @@ public class WildPocketMonster : MonoBehaviour
 
     private void SetPathfindingTarget(Vector3 newTarget)
     {
-        m_path.Clear();
+        m_path?.Clear();
 
         m_target = newTarget;
         FindPathTo(m_target);

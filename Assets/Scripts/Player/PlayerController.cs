@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Linq;
 using Cinemachine;
-using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -29,17 +28,22 @@ public class PlayerController : MonoBehaviour
 
     private bool m_canMove;
 
-    private PocketMonster[] m_pocketMonsters = new PocketMonster[6];
+    private readonly PocketMonster[] m_pocketMonsters = new PocketMonster[6];
 
     private int m_activePokemonIndex = 0;
 
     private Vector2 m_cameraRotation;
 
+    private Camera m_mainCamera;
+    private static readonly int Speed = Animator.StringToHash("Speed");
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         m_controller = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
+
+        m_mainCamera = Camera.main;
 
         // For now, set up 6 random pokemon
         for (int i = 0; i < 6; ++i)
@@ -54,7 +58,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!CanMove || m_controller.enabled == false)
         {
@@ -65,8 +69,9 @@ public class PlayerController : MonoBehaviour
         float forward = Input.GetAxisRaw(StringConstants.FORWARD);
         float sideways = Input.GetAxisRaw(StringConstants.ROTATE);
 
-        Vector3 forwardVector = Camera.main.transform.forward.normalized * forward;
-        Vector3 sidewaysVector = Camera.main.transform.right.normalized * sideways;
+        Transform cameraTransform = m_mainCamera.transform;
+        Vector3 forwardVector = cameraTransform.forward.normalized * forward;
+        Vector3 sidewaysVector = cameraTransform.right.normalized * sideways;
 
         Vector3 gravity = new Vector3(0, -9.81f, 0);
 
@@ -75,11 +80,16 @@ public class PlayerController : MonoBehaviour
 
 
         m_controller.Move(moveVector);
+        Vector3 lookDirection = new Vector3(moveDirection.x, 0, moveDirection.z);
+        
+        if (lookDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
+        }
+        
 
-        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.z));
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
-
-        m_animator.SetFloat("Speed", m_controller.velocity.magnitude);
+        m_animator.SetFloat(Speed, m_controller.velocity.magnitude);
     }
 
     public void Teleport(Vector3 position, Quaternion rotation)

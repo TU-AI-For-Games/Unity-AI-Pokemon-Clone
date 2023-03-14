@@ -65,6 +65,28 @@ namespace Learning
                 m_gamma[i] = m_error[i] * DeriveTanH(Outputs[i]);
             }
 
+            UpdateWeightsDelta();
+        }
+
+        private void BackPropagationHiddenLayer(float[] gammaForward, float[,] forwardWeights)
+        {
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                m_gamma[i] = 0;
+
+                for (int j = 0; j < gammaForward.Length; j++)
+                {
+                    m_gamma[j] += gammaForward[j] * forwardWeights[j, i];
+                }
+
+                m_gamma[i] *= DeriveTanH(Outputs[i]);
+            }
+
+            UpdateWeightsDelta();
+        }
+
+        private void UpdateWeightsDelta()
+        {
             for (int i = 0; i < m_numOutputs; i++)
             {
                 for (int j = 0; j < m_numInputs; j++)

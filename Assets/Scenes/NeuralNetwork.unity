@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_iterations: 5000
+  m_learningRate: 0.141
 --- !u!1 &980024494
 GameObject:
   m_ObjectHideFlags: 0

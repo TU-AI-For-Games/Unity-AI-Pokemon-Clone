@@ -7,8 +7,7 @@ public class NeuralNetwork
     private int[] m_networkShape;
     private Layer[] m_layers;
 
-
-    public NeuralNetwork(int[] networkShape)
+    public NeuralNetwork(int[] networkShape, float learningRate)
     {
         m_networkShape = new int[networkShape.Length];
 
@@ -21,7 +20,7 @@ public class NeuralNetwork
 
         for (int i = 0; i < m_layers.Length; ++i)
         {
-            m_layers[i] = new Layer(networkShape[i], networkShape[i + 1]);
+            m_layers[i] = new Layer(networkShape[i], networkShape[i + 1], learningRate);
         }
     }
 

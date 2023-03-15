@@ -18,9 +18,9 @@ namespace Learning
         public float[] Gamma;
         private float[] m_error;
 
-        private float m_learningRate = 0.00333f;
+        private float m_learningRate;
 
-        public Layer(int numInputs, int numOutputs)
+        public Layer(int numInputs, int numOutputs, float learningRate)
         {
             m_numInputs = numInputs;
             m_numOutputs = numOutputs;
@@ -33,6 +33,8 @@ namespace Learning
 
             Gamma = new float[m_numOutputs];
             m_error = new float[m_numOutputs];
+
+            m_learningRate = learningRate;
 
             InitialiseWeights();
         }

@@ -39,7 +39,7 @@ public class NeuralNetwork
 
     public void BackPropagation(float[] expected)
     {
-        for (int i = m_layers.Length - 1; i >= 0; i++)
+        for (int i = m_layers.Length - 1; i >= 0; i--)
         {
             if (i == m_layers.Length - 1)
             {

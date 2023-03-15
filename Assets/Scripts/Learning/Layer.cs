@@ -18,7 +18,7 @@ namespace Learning
         public float[] Gamma;
         private float[] m_error;
 
-        private float m_learningRate = 0.0003f;
+        private float m_learningRate = 0.00333f;
 
         public Layer(int numInputs, int numOutputs)
         {

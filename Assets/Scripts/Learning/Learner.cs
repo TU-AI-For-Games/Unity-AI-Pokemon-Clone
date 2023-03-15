@@ -50,6 +50,16 @@ public class Learner : MonoBehaviour
             net.FeedForward(new float[] { 1, 0, 0 });
             net.BackPropagation(new float[] { 1 });
         }
+
+        // Test the training data
+        float resultA = net.FeedForward(new float[] { 0, 0, 0 })[0];
+        float resultB = net.FeedForward(new float[] { 0, 0, 1 })[0];
+        float resultC = net.FeedForward(new float[] { 0, 1, 1 })[0];
+        float resultD = net.FeedForward(new float[] { 0, 1, 0 })[0];
+        float resultE = net.FeedForward(new float[] { 1, 1, 0 })[0];
+        float resultF = net.FeedForward(new float[] { 1, 1, 1 })[0];
+        float resultG = net.FeedForward(new float[] { 1, 0, 1 })[0];
+        float resultH = net.FeedForward(new float[] { 1, 0, 0 })[0];
     }
 
     // Update is called once per frame

@@ -36,4 +36,25 @@ public class NeuralNetwork
 
         return m_layers[^1].Outputs;
     }
+
+    public void BackPropagation(float[] expected)
+    {
+        for (int i = m_layers.Length - 1; i >= 0; i++)
+        {
+            if (i == m_layers.Length - 1)
+            {
+                m_layers[i].BackPropagationOutputLayer(expected);
+            }
+            else
+            {
+                m_layers[i].BackPropagationHiddenLayer(m_layers[i + 1].Gamma, m_layers[i + 1].Weights);
+            }
+        }
+
+        // Update the weights of the layers...
+        foreach (Layer layer in m_layers)
+        {
+            layer.UpdateWeights();
+        }
+    }
 }

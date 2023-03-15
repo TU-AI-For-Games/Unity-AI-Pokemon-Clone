@@ -12,10 +12,10 @@ namespace Learning
         private float[] m_inputs;
         public float[] Outputs;
 
-        private float[,] m_weights;
+        public float[,] Weights;
         private float[,] m_weightsDelta;
 
-        private float[] m_gamma;
+        public float[] Gamma;
         private float[] m_error;
 
         private float m_learningRate = 0.0003f;
@@ -28,10 +28,10 @@ namespace Learning
             m_inputs = new float[numInputs];
             Outputs = new float[m_numOutputs];
 
-            m_weights = new float[numOutputs, numInputs];
+            Weights = new float[numOutputs, numInputs];
             m_weightsDelta = new float[numOutputs, numInputs];
 
-            m_gamma = new float[m_numOutputs];
+            Gamma = new float[m_numOutputs];
             m_error = new float[m_numOutputs];
 
             InitialiseWeights();
@@ -43,7 +43,7 @@ namespace Learning
             {
                 for (int j = 0; j < m_numInputs; j++)
                 {
-                    m_weights[i, j] = Random.Range(-0.5f, 0.5f);
+                    Weights[i, j] = Random.Range(-0.5f, 0.5f);
                 }
             }
         }
@@ -53,7 +53,7 @@ namespace Learning
             return 1 - value * value;
         }
 
-        private void BackPropagationOutputLayer(float[] expected)
+        public void BackPropagationOutputLayer(float[] expected)
         {
             for (int i = 0; i < m_numOutputs; i++)
             {
@@ -62,24 +62,24 @@ namespace Learning
 
             for (int i = 0; i < m_numOutputs; i++)
             {
-                m_gamma[i] = m_error[i] * DeriveTanH(Outputs[i]);
+                Gamma[i] = m_error[i] * DeriveTanH(Outputs[i]);
             }
 
             UpdateWeightsDelta();
         }
 
-        private void BackPropagationHiddenLayer(float[] gammaForward, float[,] forwardWeights)
+        public void BackPropagationHiddenLayer(float[] gammaForward, float[,] forwardWeights)
         {
             for (int i = 0; i < m_numOutputs; i++)
             {
-                m_gamma[i] = 0;
+                Gamma[i] = 0;
 
                 for (int j = 0; j < gammaForward.Length; j++)
                 {
-                    m_gamma[j] += gammaForward[j] * forwardWeights[j, i];
+                    Gamma[j] += gammaForward[j] * forwardWeights[j, i];
                 }
 
-                m_gamma[i] *= DeriveTanH(Outputs[i]);
+                Gamma[i] *= DeriveTanH(Outputs[i]);
             }
 
             UpdateWeightsDelta();
@@ -91,18 +91,18 @@ namespace Learning
             {
                 for (int j = 0; j < m_numInputs; j++)
                 {
-                    m_weightsDelta[i, j] = m_gamma[i] * m_inputs[j];
+                    m_weightsDelta[i, j] = Gamma[i] * m_inputs[j];
                 }
             }
         }
 
-        private void UpdateWeights()
+        public void UpdateWeights()
         {
             for (int i = 0; i < m_numOutputs; i++)
             {
                 for (int j = 0; j < m_numInputs; j++)
                 {
-                    m_weights[i, j] -= m_weightsDelta[i, j] * m_learningRate;
+                    Weights[i, j] -= m_weightsDelta[i, j] * m_learningRate;
                 }
             }
         }
@@ -117,7 +117,7 @@ namespace Learning
 
                 for (int j = 0; j < m_numInputs; j++)
                 {
-                    Outputs[i] += m_inputs[j] * m_weights[i, j];
+                    Outputs[i] += m_inputs[j] * Weights[i, j];
                 }
 
                 Outputs[i] = (float)Math.Tanh(Outputs[i]);

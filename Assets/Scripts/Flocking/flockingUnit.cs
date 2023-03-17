@@ -21,7 +21,7 @@ public class flockingUnit : MonoBehaviour
 
     private GameObject birb;
     private GameObject rat;
-    bool isBird;
+    [SerializeField] public bool isBird;
 
     public Transform birdTransform { get; set; }
 
@@ -40,7 +40,7 @@ public class flockingUnit : MonoBehaviour
         this.speed = speed;
     }
 
-    private void findPrefab()
+    public void findPrefab()
     {
         birb = GameObject.Find("Assets/Prefabs/Pidgey");
         rat = GameObject.Find("Assets/Prefabs/Rat");
@@ -50,20 +50,25 @@ public class flockingUnit : MonoBehaviour
     {
         findNeighbours();
         calcSpeed();
+        findPrefab();
 
         var cohesionVec = calcCohesionVec() * assignedFlock.cohesionWeight;
         var avoidVec = calcAvoidVec() * assignedFlock.avoidWeight;
         var alignVec = calcAlignVec() * assignedFlock.alignWeight;
         var boundsVec = calcBoundsVec() * assignedFlock.boundsWeight;
         var obstacleVec = calcObstacleVec() * assignedFlock.obstacleWeight;
-
         var moveVec = cohesionVec + avoidVec + alignVec + boundsVec + obstacleVec;
+
         moveVec = Vector3.SmoothDamp(birdTransform.forward, moveVec, ref currentVelocity, smoothDamp);
         moveVec = moveVec.normalized * speed;
         birdTransform.forward = moveVec;
         birdTransform.position += moveVec * Time.deltaTime;
-        //use an IF statement to check if it is birb or rat
-        birdTransform.rotation = new Quaternion(0, birdTransform.rotation.y, 0, birdTransform.rotation.w);
+       
+        if (isBird == false)
+        {
+            birdTransform.rotation = new Quaternion(0, birdTransform.rotation.y, 0, birdTransform.rotation.w);
+        }
+       
     }
 
     private void findNeighbours()
@@ -233,11 +238,7 @@ public class flockingUnit : MonoBehaviour
     }
 
     
-    /*private bool isBird()
-    {
-        if (birb )
-        return birdTransform.position.sqrMagnitude > angleFOV;
-    }*/
+   
 }
 
 

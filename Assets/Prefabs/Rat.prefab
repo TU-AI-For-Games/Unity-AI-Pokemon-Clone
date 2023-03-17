@@ -101,3 +101,4 @@ MonoBehaviour:
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: -1, z: 0}
   speed: 0
+  isBird: 0

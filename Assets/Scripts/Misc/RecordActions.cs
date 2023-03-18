@@ -81,12 +81,7 @@ public class RecordActions : Singleton<RecordActions>
     public void RecordAction(PlayerAction chosenAction, PocketMonster playerPokemon, PocketMonster targetPokemon, int playerHpBefore, int targetHpBefore, bool statusApplied, Move.Outcome moveOutcome, bool statChange, bool targetFainted)
     {
         // SET UP VALUES TO BE WRITTEN TO THE FILE
-        string playerAction = chosenAction switch
-        {
-            PlayerAction.Attack => "Attack",
-            PlayerAction.Heal => "Heal",
-            _ => "Switch"
-        };
+        string playerAction = ((int)chosenAction).ToString();
 
         string playerPkmnID = playerPokemon.ID.ToString();
         string targetPkmnID = targetPokemon.ID.ToString();
@@ -134,13 +129,7 @@ public class RecordActions : Singleton<RecordActions>
 
             appliedStatus = move.Status != Move.StatusEffect.None && statusApplied ? ((int)move.Status).ToString() : "";
 
-            effectiveness = BattleManager.Instance.GetTypeAdvantageMultiplier(move.Type, targetPokemon.Type) switch
-            {
-                0f => "Immune",
-                0.5f => "Not very effective",
-                1f => "Neutral",
-                _ => "Super effective"
-            };
+            effectiveness = BattleManager.Instance.GetTypeAdvantageMultiplier(move.Type, targetPokemon.Type).ToString();
 
             changedStat = statChange switch
             {
@@ -150,8 +139,8 @@ public class RecordActions : Singleton<RecordActions>
 
             statChangeTarget = move.AffectedStatChange switch
             {
-                Move.StatChangeAffected.Target => "T",
-                Move.StatChangeAffected.User => "U",
+                Move.StatChangeAffected.Target => "1",
+                Move.StatChangeAffected.User => "0",
                 _ => ""
             };
         }
@@ -163,9 +152,9 @@ public class RecordActions : Singleton<RecordActions>
 
         string moveHit = moveOutcome switch
         {
-            Move.Outcome.Miss => "Miss",
-            Move.Outcome.Hit => "Hit",
-            Move.Outcome.CriticalHit => "Critical Hit",
+            Move.Outcome.Miss => "0",
+            Move.Outcome.Hit => "1",
+            Move.Outcome.CriticalHit => "2",
             _ => ""
         };
 

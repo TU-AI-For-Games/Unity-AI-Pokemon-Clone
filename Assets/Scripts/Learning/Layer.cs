@@ -20,7 +20,15 @@ namespace Learning
 
         private readonly float m_learningRate;
 
-        public Layer(int numInputs, int numOutputs, float learningRate)
+        public enum WeightInitialisationMode
+        {
+            Random,
+            Xavier,
+            He
+        }
+
+
+        public Layer(int numInputs, int numOutputs, float learningRate, WeightInitialisationMode initialisationMode)
         {
             m_numInputs = numInputs;
             m_numOutputs = numOutputs;
@@ -36,16 +44,61 @@ namespace Learning
 
             m_learningRate = learningRate;
 
-            InitialiseWeights();
+            InitialiseWeights(initialisationMode);
         }
 
-        private void InitialiseWeights()
+        private void InitialiseWeights(WeightInitialisationMode mode)
+        {
+            switch (mode)
+            {
+                case WeightInitialisationMode.Random:
+                    InitialiseWeightsRandom();
+                    break;
+                case WeightInitialisationMode.Xavier:
+                    InitialiseWeightsXavier();
+                    break;
+                case WeightInitialisationMode.He:
+                    InitialiseWeightsHe();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(mode), mode, null);
+            }
+
+        }
+
+        private void InitialiseWeightsRandom()
         {
             for (int i = 0; i < m_numOutputs; i++)
             {
                 for (int j = 0; j < m_numInputs; j++)
                 {
                     Weights[i, j] = Random.Range(-0.5f, 0.5f);
+                }
+            }
+        }
+
+        private void InitialiseWeightsXavier()
+        {
+            float scale = Mathf.Sqrt(2.0f / (m_numInputs + m_numOutputs));
+
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                for (int j = 0; j < m_numInputs; j++)
+                {
+                    Weights[i, j] = Random.Range(-scale, scale);
+                }
+            }
+        }
+
+        private void InitialiseWeightsHe()
+        {
+            float scale = Mathf.Sqrt(2f / m_numInputs);
+
+            for (int i = 0; i < m_numOutputs; i++)
+            {
+                for (int j = 0; j < m_numInputs; j++)
+                {
+                    Weights[i, j] = Random.Range(-scale, scale);
                 }
             }
         }
@@ -109,7 +162,6 @@ namespace Learning
             }
         }
 
-        public float[] FeedForward(float[] input)
         {
             m_inputs = input;
 
@@ -122,7 +174,6 @@ namespace Learning
                     Outputs[i] += m_inputs[j] * Weights[i, j];
                 }
 
-                Outputs[i] = (float)Math.Tanh(Outputs[i]);
             }
 
 

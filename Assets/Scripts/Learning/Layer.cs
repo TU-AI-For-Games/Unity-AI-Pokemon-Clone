@@ -27,6 +27,12 @@ namespace Learning
             He
         }
 
+        public enum NeuronActivationMode
+        {
+            TanH,
+            ReLU,
+            Sigmoid
+        }
 
         public Layer(int numInputs, int numOutputs, float learningRate, WeightInitialisationMode initialisationMode)
         {
@@ -162,6 +168,7 @@ namespace Learning
             }
         }
 
+        public float[] FeedForward(float[] input, NeuronActivationMode neuronActivationMode)
         {
             m_inputs = input;
 
@@ -174,10 +181,26 @@ namespace Learning
                     Outputs[i] += m_inputs[j] * Weights[i, j];
                 }
 
+                Outputs[i] = Activate(Outputs[i], neuronActivationMode);
             }
 
 
             return Outputs;
         }
+
+        private float Activate(float value, NeuronActivationMode mode)
+        {
+            return mode switch
+            {
+                NeuronActivationMode.TanH => (float)Math.Tanh(value),
+                NeuronActivationMode.ReLU => Relu(value),
+                NeuronActivationMode.Sigmoid => Sigmoid(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(mode), mode, null)
+            };
+        }
+
+        private static float Relu(float value) => MathF.Max(0, value);
+
+        private static float Sigmoid(float value) => 1f / (1f + MathF.Pow(MathF.E, value));
     }
 }

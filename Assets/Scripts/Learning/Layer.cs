@@ -6,19 +6,19 @@ namespace Learning
 {
     public class Layer
     {
-        private int m_numInputs;
-        private int m_numOutputs;
+        private readonly int m_numInputs;
+        private readonly int m_numOutputs;
 
         private float[] m_inputs;
         public float[] Outputs;
 
         public float[,] Weights;
-        private float[,] m_weightsDelta;
+        private readonly float[,] m_weightsDelta;
 
         public float[] Gamma;
-        private float[] m_error;
+        private readonly float[] m_error;
 
-        private float m_learningRate;
+        private readonly float m_learningRate;
 
         public Layer(int numInputs, int numOutputs, float learningRate)
         {

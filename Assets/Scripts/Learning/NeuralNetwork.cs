@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class NeuralNetwork
 {
-    private int[] m_networkShape;
-    private Layer[] m_layers;
+    private readonly int[] m_networkShape;
+    private readonly Layer[] m_layers;
 
     public NeuralNetwork(int[] networkShape, float learningRate)
     {

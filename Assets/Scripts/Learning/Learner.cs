@@ -6,60 +6,82 @@ using UnityEngine;
 public class Learner : MonoBehaviour
 {
     [SerializeField] private int m_iterations;
-    [SerializeField][Range(0f, 1f)] private float m_learningRate;
+    [SerializeField][Range(0f, 0.2f)] private float m_learningRate;
+    [SerializeField][Range(0f, 0.1f)] private float m_l2RegularisationRate;
 
-    private readonly Dictionary<PocketMonster.Element, Dictionary<PocketMonster.Element, float>> m_typeMatchupTable = new();
+    [SerializeField] private Layer.WeightInitialisationMode m_initialisationMode;
+    [SerializeField] private Layer.NeuronActivationMode m_activationMode;
+
+    private readonly Dictionary<int, Dictionary<int, float[]>> m_typeMatchupTable = new();
+
+    struct Effectiveness
+    {
+        public Effectiveness(float[] effectiveness)
+        {
+            m_immune = effectiveness[0];
+            m_notVeryEffective = effectiveness[1];
+            m_neutral = effectiveness[2];
+            m_superEffective = effectiveness[3];
+        }
+
+        private readonly float m_immune;
+        private readonly float m_notVeryEffective;
+        private readonly float m_neutral;
+        private readonly float m_superEffective;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         LoadTypingData();
 
-        NeuralNetwork net = new NeuralNetwork(new[] { 2, 34, 34, 34, 1 }, m_learningRate, Layer.WeightInitialisationMode.Xavier, Layer.NeuronActivationMode.Sigmoid);
+        NeuralNetwork net = new NeuralNetwork(new[] { 2, 6, 6, 6, 6, 4 }, m_learningRate, m_l2RegularisationRate, m_initialisationMode, m_activationMode);
 
         for (int i = 0; i < m_iterations; i++)
         {
-            foreach (PocketMonster.Element type in m_typeMatchupTable.Keys)
+            foreach (int type in m_typeMatchupTable.Keys)
             {
-                foreach (KeyValuePair<PocketMonster.Element, float> matchup in m_typeMatchupTable[type])
+                foreach (KeyValuePair<int, float[]> matchup in m_typeMatchupTable[type])
                 {
-                    float aTypeNormalised = normalize((float)type, 0f, 17f);
-                    float normaliseTypeB = normalize((float)matchup.Key, 0f, 17f);
+                    float aTypeNormalised = Normalize(type, 0f, 17f);
+                    float normaliseTypeB = Normalize(matchup.Key, 0f, 17f);
 
-                    net.FeedForward(new[] { aTypeNormalised, normaliseTypeB });
+                    net.FeedForward(new[]
+                    {
+                        aTypeNormalised, normaliseTypeB
+                    });
 
-                    // Dividing by 2 to normalise (0f-2f to range 0f-1f)...
-                    net.BackPropagation(new[] { normalize(matchup.Value, 0f, 2f) }); // Supervised training with the known value
+                    net.BackPropagation(matchup.Value);
                 }
             }
         }
 
         // Test the training data
-        float resultA = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Flying, 0f, 17f)
-        })[0];
+        Effectiveness resultA = new(net.FeedForward(new[] {
+            Normalize((float)PocketMonster.Element.Electric, 0f, 17f),
+            Normalize((float)PocketMonster.Element.Flying, 0f, 17f)
+        }));
 
         Debug.Log(resultA);
 
-        float resultB = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Fire, 0f, 17f)
-        })[0];
+        Effectiveness resultB = new(net.FeedForward(new[] {
+            Normalize((float)PocketMonster.Element.Electric, 0f, 17f),
+            Normalize((float)PocketMonster.Element.Fire, 0f, 17f)
+        }));
 
         Debug.Log(resultB);
 
-        float resultC = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Grass, 0f, 17f)
-        })[0];
+        Effectiveness resultC = new(net.FeedForward(new[] {
+            Normalize((float)PocketMonster.Element.Electric, 0f, 17f),
+            Normalize((float)PocketMonster.Element.Grass, 0f, 17f)
+        }));
 
         Debug.Log(resultC);
 
-        float resultD = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Ground, 0f, 17f)
-        })[0];
+        Effectiveness resultD = new(net.FeedForward(new[] {
+            Normalize((float)PocketMonster.Element.Electric, 0f, 17f),
+            Normalize((float)PocketMonster.Element.Ground, 0f, 17f)
+        }));
 
         Debug.Log(resultD);
     }
@@ -69,27 +91,30 @@ public class Learner : MonoBehaviour
         TextAsset movesFile = (TextAsset)Resources.Load("Data\\AI_Training\\typing");
         string[] linesFromFile = movesFile.text.Split('\n');
 
-        foreach (string line in linesFromFile)
+        for (int i = 1; i < linesFromFile.Length; ++i)
         {
-            string[] lineContents = line.Split(',');
+            string[] lineContents = linesFromFile[i].Split(',');
 
-            PocketMonster.Element type = PocketMonster.StringToType(lineContents[0]);
+            int type = (int)PocketMonster.StringToType(lineContents[0]);
             if (!m_typeMatchupTable.ContainsKey(type))
             {
-                m_typeMatchupTable.Add(type, new Dictionary<PocketMonster.Element, float>());
+                m_typeMatchupTable.Add(type, new Dictionary<int, float[]>());
             }
 
-            PocketMonster.Element otherType = PocketMonster.StringToType(lineContents[1]);
-            float typeMultiplier = float.Parse(lineContents[2]);
+            int otherType = (int)PocketMonster.StringToType(lineContents[1]);
 
-            m_typeMatchupTable[type].Add(otherType, typeMultiplier);
+            float[] effectiveness = {
+                float.Parse(lineContents[2]),
+                float.Parse(lineContents[3]),
+                float.Parse(lineContents[4]),
+                float.Parse(lineContents[5])
+            };
+
+            m_typeMatchupTable[type].Add(otherType, effectiveness);
         }
     }
 
-    private float normalize(float value, float min, float max)
-    {
-        return (value - min) / (max - min);
-    }
+    private static float Normalize(float value, float min, float max) => (value - min) / (max - min);
 
     // Update is called once per frame
     void Update()

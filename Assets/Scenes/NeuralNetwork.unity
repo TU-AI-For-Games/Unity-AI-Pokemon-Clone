@@ -233,11 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a9ec9d6b6f27d438db6e62bec8c48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_iterations: 10000
-  m_learningRate: 0.007
-  m_l2RegularisationRate: 0.0067
-  m_initialisationMode: 1
-  m_activationMode: 2
+  m_iterations: 5000
+  m_learningRate: 0.141
 --- !u!1 &980024494
 GameObject:
   m_ObjectHideFlags: 0

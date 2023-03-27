@@ -47,6 +47,6 @@ outFile = "..\\..\\..\\Resources\\Data\\AI_Training\\typing.csv"
 with open(outFile, 'w') as typeAdvantageFile:
     for type in typeAdvantages.keys():
         for counterType in typeAdvantages[type].keys():
-            typeAdvantageFile.write(f"{allTypes.index(type)},{allTypes.index(counterType)},{typeAdvantages[type][counterType]}\n")
+            typeAdvantageFile.write(f"{type},{counterType},{typeAdvantages[type][counterType]}\n")
 
 

@@ -7,7 +7,9 @@ public class NeuralNetwork
     private readonly int[] m_networkShape;
     private readonly Layer[] m_layers;
 
-    public NeuralNetwork(int[] networkShape, float learningRate, float regularisationRate, Layer.WeightInitialisationMode layerWeightInitialisationMode, Layer.NeuronActivationMode neuronActivationMode)
+    private readonly Layer.NeuronActivationMode m_neuronActivationMode;
+
+    public NeuralNetwork(int[] networkShape, float learningRate, Layer.WeightInitialisationMode layerWeightInitialisationMode, Layer.NeuronActivationMode neuronActivationMode)
     {
         m_networkShape = new int[networkShape.Length];
 
@@ -20,17 +22,17 @@ public class NeuralNetwork
 
         for (int i = 0; i < m_layers.Length; ++i)
         {
-            m_layers[i] = new Layer(networkShape[i], networkShape[i + 1], learningRate, regularisationRate, layerWeightInitialisationMode, neuronActivationMode);
+            m_layers[i] = new Layer(networkShape[i], networkShape[i + 1], learningRate, layerWeightInitialisationMode);
         }
     }
 
     public float[] FeedForward(float[] input)
     {
-        m_layers[0].FeedForward(input);
+        m_layers[0].FeedForward(input, m_neuronActivationMode);
 
         for (int i = 1; i < m_layers.Length; i++)
         {
-            m_layers[i].FeedForward(m_layers[i - 1].Outputs);
+            m_layers[i].FeedForward(m_layers[i - 1].Outputs, m_neuronActivationMode);
         }
 
         return m_layers[^1].Outputs;
@@ -42,8 +44,7 @@ public class NeuralNetwork
         {
             if (i == m_layers.Length - 1)
             {
-                float[] lossGradient = m_layers[i].CalculateCrossEntropyLossGradient(expected, m_layers[i].Outputs);
-                m_layers[i].BackPropagationOutputLayer(lossGradient);
+                m_layers[i].BackPropagationOutputLayer(expected);
             }
             else
             {

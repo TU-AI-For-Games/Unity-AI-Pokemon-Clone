@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class InputData : MonoBehaviour
+namespace Learning
 {
-    // Start is called before the first frame update
-    void Start()
+    public class InputData
     {
-        
-    }
+        public double[] Values;
+        public double[] Targets;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public InputData(double[] values, double[] targets)
+        {
+            Values = values;
+            Targets = targets;
+        }
     }
 }

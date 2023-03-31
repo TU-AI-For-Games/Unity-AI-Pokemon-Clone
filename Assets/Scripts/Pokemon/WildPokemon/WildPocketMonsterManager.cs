@@ -53,7 +53,7 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
 
             GameObject pokemonWrapper = Instantiate(m_wildPocketMonsterTemplate, pocketMonsterArea.transform);
 
-            pocketMonsterArea.AddPokemon(pokemonWrapper);
+            pocketMonsterArea.AddPokemon(pokemonWrapper, m_navGrid);
 
             int pokedexNumber = pocketMonsterArea.GetNextPokedexNumber();
 
@@ -64,8 +64,9 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
 
             // Set up the WildPocketMonster reference
             WildPocketMonster wildMon = pokemonWrapper.GetComponent<WildPocketMonster>();
+            NPCBrain npcBrain = pokemonWrapper.GetComponent<NPCBrain>();
             wildMon.SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber));
-            wildMon.SetNavGrid(m_navGrid);
+            npcBrain.SetNavGrid(m_navGrid);
         }
     }
 

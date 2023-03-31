@@ -25,11 +25,11 @@ public class WildPocketMonsterArea : MonoBehaviour
         return m_activePokemon.Count == m_maxPokemon;
     }
 
-    public void AddPokemon(GameObject pokemonGameObject)
+    public void AddPokemon(GameObject pokemonGameObject, Pathfinding navGrid)
     {
         m_activePokemon.Add(pokemonGameObject);
 
-        pokemonGameObject.transform.position = GenerateRandomPosition();
+        pokemonGameObject.transform.position = GenerateRandomPosition(navGrid);
     }
 
     public void RemovePokemon(GameObject pokemonObject)
@@ -64,13 +64,24 @@ public class WildPocketMonsterArea : MonoBehaviour
         [Range(0, 100)] public float SpawnChance;
     }
 
-    public Vector3 GenerateRandomPosition()
+    public Vector3 GenerateRandomPosition(Pathfinding navGrid)
     {
-        return new Vector3(
-            Random.Range(m_bottomLeft.position.x, m_topRight.position.x),
+        while (true)
+        {
+            Vector3 pos = new Vector3(Random.Range(m_bottomLeft.position.x, m_topRight.position.x),
             Random.Range(m_bottomLeft.position.y, m_topRight.position.y),
-            Random.Range(m_bottomLeft.position.z, m_topRight.position.z)
-        );
+            Random.Range(m_bottomLeft.position.z, m_topRight.position.z));
+            
+            Vector3 offset = new Vector3(0, 1000, 0);
+
+            bool hit = Physics.Linecast(pos + offset, pos - offset, out RaycastHit result, navGrid.m_walkableMask);
+
+            if (hit)
+            {
+                return result.point;
+            }
+
+        }
     }
 
     private void OnDrawGizmos()

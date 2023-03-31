@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2488598601583797285}
   - component: {fileID: 7497268375863672932}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: EncounterRadius
   m_TagString: WildPokemon
   m_Icon: {fileID: 0}
@@ -57,7 +57,8 @@ GameObject:
   - component: {fileID: -8641999726668286552}
   - component: {fileID: 5938556880718481917}
   - component: {fileID: 1705165636826771688}
-  m_Layer: 0
+  - component: {fileID: 7588301254162577209}
+  m_Layer: 2
   m_Name: WildPokemon
   m_TagString: WildPokemon
   m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
@@ -108,8 +109,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b2b1d4acc065d4986807127b3c0865, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 10
-  m_acceptanceRadius: 3
 --- !u!65 &1705165636826771688
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -123,3 +122,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 4.5, z: 3}
   m_Center: {x: 0, y: 2.25, z: 0}
+--- !u!114 &7588301254162577209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5905717182244033230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30aa91bcb3e4f8545921821ed6090a57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_movementSpeed: 5
+  m_movementRadius: 50
+  m_acceptanceRadius: 5
+  m_minTimeBetweenMoves: 2
+  m_maxTimeBetweenMoves: 4
+  m_drawTargetPoint: 0

@@ -333,6 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a9ec9d6b6f27d438db6e62bec8c48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_numIterations: 10000
+  m_learningRate: 0.003
+  m_l2RegressionRate: 0.0006
 --- !u!65 &1760384403
 BoxCollider:
   m_ObjectHideFlags: 0

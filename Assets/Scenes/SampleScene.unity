@@ -1944,20 +1944,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e873748a24e16654284776689c951663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flockBirdsPrefab: {fileID: -8987784621246734216, guid: 3b884db08d93cea438394897e6cf176c, type: 3}
+  flockBirdsPrefab: {fileID: -8751649366973915348, guid: 32986e64308bac148a5766d11f85ec4a, type: 3}
   flockSize: 20
   flockBoundary: {x: 1, y: 1, z: 1}
   minimumSpeed: 1
   maximumSpeed: 5
-  cohesionDist: 7.94
-  avoidDist: 3.94
+  cohesionDist: 5
+  avoidDist: 5
   alignDist: 5.4
-  boundsDist: 8.92
+  boundsDist: 5
   obstacleDist: 2.96
   _cohesionWeight: 3.48
-  _avoidWeight: 4.41
+  _avoidWeight: 8
   _alignWeight: 4.15
-  _boundsWeight: 3.79
+  _boundsWeight: 10
   _obstacleWeight: 6.33
   limit: {x: 5, y: 25}
 --- !u!4 &1243277197
@@ -1968,7 +1968,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1243277195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0907135, y: 12.5, z: 9.841009}
+  m_LocalPosition: {x: 4.0907135, y: 23, z: 9.841009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3508,7 +3508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077412348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2018-01-30T21:43:43Z</created>
+    <modified>2018-01-30T21:43:43Z</modified>
+  </asset>
+  <library_images>
+    <image id="Image">
+      <init_from>./tex_sobj_officeD_main.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="VisualMaterial" name="CR00_sobj_officeD_main">
+      <instance_effect url="#Effect"/>
+      <extra>
+        <technique profile="FCOLLADA">
+          <user_properties>CR00_sobj_officeD_main</user_properties>
+        </technique>
+      </extra>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="Effect" name="tex_sobj_officeD_main_png">
+      <profile_COMMON>
+        <newparam sid="Image-surface">
+          <surface type="2D">
+            <init_from>Image</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="Image-sampler">
+          <sampler2D>
+            <source>Image-surface</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+            <mipfilter>NONE</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="Image-sampler" texcoord=""/>
+            </diffuse>
+            <specular>
+              <color>1 1 1 1</color>
+            </specular>
+            <shininess>
+              <float>0</float>
+            </shininess>
+            <transparent opaque="A_ONE">
+              <color>0 0 0 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+            <index_of_refraction>
+              <float>1.55</float>
+            </index_of_refraction>
+          </phong>
+          <extra>
+            <technique profile="FCOLLADA">
+              <spec_level>
+                <float>0</float>
+              </spec_level>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="FCOLLADA">
+          <user_properties>tex_sobj_officeD_main.png</user_properties>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="Geometry" name="mesh_0_">
+      <mesh>
+        <source id="GeometrySource" name="mesh_0_Pos">
+          <float_array id="GeometrySource-array" count="72">-9.48862 17.7459 45.8341 -8.40899 17.7459 44.8312 -8.40899 30.5399 44.7688 -9.48862 17.0466 44.7023 -9.48862 30.5399 45.8269 -10.4865 17.7459 44.7054 -10.4865 30.5399 44.7749 -9.48862 31.3281 44.825 16.0001 -3 44.047 -16.0001 64 44.047 -16.0001 -3 44.047 16.0001 64 44.047 16.0001 64 44.047 -16.0001 64 40.0005 -16.0001 64 44.047 16.0001 64 40.0005 16.0001 -0.000362 40.0005 16.0001 64 44.047 16.0001 -3 44.047 16.0001 64 40.0005 -16.0001 -3 44.047 -16.0001 64 40.0005 -16.0001 -3 40.0005 -16.0001 64 44.047</float_array>
+          <technique_common>
+            <accessor source="#GeometrySource-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="GeometrySource1" name="mesh_0_Nrm">
+          <float_array id="GeometrySource1-array" count="72">-0.043306 -0.541097 0.839845 0.622939 -0.420817 0.659439 0.647667 0.361097 0.670922 -0.041139 -0.85025 0.524769 -0.027008 0.477764 0.878073 -0.680745 -0.399578 0.61394 -0.686053 0.350778 0.637406 -0.01648 0.785669 0.618428 0 0 1 0 0 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0</float_array>
+          <technique_common>
+            <accessor source="#GeometrySource1-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="GeometrySource2" name="mesh_0_UV">
+          <float_array id="GeometrySource2-array" count="48">0.548669 0.445619 0.557024 0.445619 0.557024 0.181033 0.548669 0.453975 0.548669 0.181033 0.540314 0.445619 0.540314 0.175463 0.548669 0.172678 0.00557 0.395487 0.339785 0.710206 0.00557 0.710206 0.339785 0.395487 0.339785 0.392702 0.172678 0.362066 0.172678 0.392702 0.339785 0.362066 0.339785 0.362066 0.00557 0.392702 0.339785 0.392702 0.00557 0.362066 0.339785 0.362066 0.00557 0.392702 0.339785 0.392702 0.00557 0.362066</float_array>
+          <technique_common>
+            <accessor source="#GeometrySource2-array" count="24" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Geometry-vertices">
+          <input semantic="POSITION" source="#GeometrySource"/>
+          <input semantic="NORMAL" source="#GeometrySource1"/>
+          <input semantic="TEXCOORD" source="#GeometrySource2"/>
+        </vertices>
+        <triangles material="VisualMaterial0" count="16">
+          <input semantic="VERTEX" source="#Geometry-vertices" offset="0"/>
+          <p>0 1 2 0 3 1 0 2 4 0 5 3 0 4 6 0 6 5 2 7 4 4 7 6 8 9 10 8 11 9 12 13 14 12 15 13 16 17 18 16 19 17 20 21 22 20 23 21</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers>
+    <controller id="Controller">
+      <skin source="#Geometry">
+        <bind_shape_matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</bind_shape_matrix>
+        <source id="Controller-joints">
+          <Name_array id="Controller-joints-array" count="1">door</Name_array>
+          <technique_common>
+            <accessor source="#Controller-joints-array" count="1" stride="1">
+              <param name="JOINT" type="Name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Controller-bind_poses">
+          <float_array id="Controller-bind_poses-array" count="16">1 0 0 -16 0 1 0 0 0 0 1 -44.0468 0 0 0 1</float_array>
+          <technique_common>
+            <accessor source="#Controller-bind_poses-array" count="1" stride="16">
+              <param name="TRANSFORM" type="float4x4"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Controller-weights">
+          <float_array id="Controller-weights-array" count="1">1</float_array>
+          <technique_common>
+            <accessor source="#Controller-weights-array" count="1" stride="1">
+              <param name="WEIGHT" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#Controller-joints"/>
+          <input semantic="INV_BIND_MATRIX" source="#Controller-bind_poses"/>
+        </joints>
+        <vertex_weights count="24">
+          <input semantic="JOINT" source="#Controller-joints" offset="0"/>
+          <input semantic="WEIGHT" source="#Controller-weights" offset="1"/>
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+          <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</v>
+        </vertex_weights>
+      </skin>
+      <extra>
+        <technique profile="FCOLLADA">
+          <user_properties>SkinController</user_properties>
+        </technique>
+      </extra>
+    </controller>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="VisualSceneNode" name="rdmscene">
+      <node id="VisualSceneNode1" name="door" sid="door" type="JOINT">
+        <matrix>1 0 0 16 0 1 0 0 0 0 1 44.0468 0 0 0 1</matrix>
+      </node>
+      <node id="VisualSceneNode2" name="mesh_0_" type="NODE">
+        <matrix>1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+        <instance_controller url="#Controller">
+          <skeleton>#VisualSceneNode1</skeleton>
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="VisualMaterial0" target="#VisualMaterial"/>
+            </technique_common>
+          </bind_material>
+        </instance_controller>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#VisualSceneNode"/>
+  </scene>
+</COLLADA>

@@ -1,0 +1,48 @@
+newmtl h_kage_lm1
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka h_kage_lm1.png
+map_Kd h_kage_lm1.png
+map_d h_kage_lm1.png
+newmtl h_mado_lm2
+Ka 0.972549 0.972549 0.972549
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka h_mado_lm2.png
+map_Kd h_mado_lm2.png
+map_d h_mado_lm2.png
+newmtl kabe_001_lm1
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka kabe_001_lm1.png
+map_Kd kabe_001_lm1.png
+map_d kabe_001_lm1.png
+newmtl kabe_002_lm1
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka kabe_002_lm1.png
+map_Kd kabe_002_lm1.png
+map_d kabe_002_lm1.png
+newmtl kazami001_lm1
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka kazami001_lm1.png
+map_Kd kazami001_lm1.png
+map_d kazami001_lm1.png
+newmtl yane_001_lm1
+Ka 0.7843137 0.7843137 0.7843137
+Kd 0.7843137 0.7843137 0.7843137
+d 1
+Tr 1
+map_Ka yane_001_lm1.png
+map_Kd yane_001_lm1.png
+map_d yane_001_lm1.png

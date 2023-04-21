@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,7 +24,7 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
 
     public PocketMonster GetPocketMonster(int id)
     {
-        return m_pocketMonsters[id];
+        return new PocketMonster(m_pocketMonsters[id]);
     }
 
     public GameObject GetPocketMonsterMesh(int id)
@@ -49,11 +47,11 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
             string pkmnName = data[1];
             PocketMonster.Element type = PocketMonster.StringToType(data[2]);
 
-            PocketMonster.Stats stats = new PocketMonster.Stats(
-                float.Parse(data[3]),
-                float.Parse(data[4]),
-                float.Parse(data[5]),
-                float.Parse(data[6])
+            Stats stats = new Stats(
+                int.Parse(data[3]),
+                int.Parse(data[4]),
+                int.Parse(data[5]),
+                int.Parse(data[6])
             );
 
             Move[] moves =
@@ -64,7 +62,7 @@ public class PocketMonsterManager : Singleton<PocketMonsterManager>
                 MoveManager.Instance.GetMove(int.Parse(data[10]))
             };
 
-            m_pocketMonsters.Add(nationalDexNo, new PocketMonster(pkmnName, type, stats, moves));
+            m_pocketMonsters.Add(nationalDexNo, new PocketMonster(nationalDexNo, pkmnName, type, stats, moves));
         }
 
     }

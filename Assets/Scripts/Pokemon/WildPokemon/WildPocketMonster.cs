@@ -16,6 +16,8 @@ public class WildPocketMonster : MonoBehaviour
 
     private WildPocketMonsterArea m_parentArea;
 
+    private bool m_canMove = true;
+
     private void Start()
     {
         m_path = new List<Node>();
@@ -26,19 +28,22 @@ public class WildPocketMonster : MonoBehaviour
 
     private void Update()
     {
-        if (m_path == null)
+        if (m_canMove)
         {
-            SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
-        }
+            if (m_path == null)
+            {
+                SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
+            }
 
-        // If the path is empty, we've reached the target... Choose a new one
-        if (m_path?.Count == 0)
-        {
-            SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
-        }
-        else
-        {
-            MoveTowards();
+            // If the path is empty, we've reached the target... Choose a new one
+            if (m_path?.Count == 0)
+            {
+                SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
+            }
+            else
+            {
+                MoveTowards();
+            }
         }
     }
 
@@ -78,5 +83,10 @@ public class WildPocketMonster : MonoBehaviour
     public void SetPokemon(PocketMonster mon)
     {
         Pokemon = mon;
+    }
+
+    public void StopMoving()
+    {
+        m_canMove = false;
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1944,9 +1944,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e873748a24e16654284776689c951663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flockBirdsPrefab: {fileID: -8751649366973915348, guid: 32986e64308bac148a5766d11f85ec4a, type: 3}
-  flockSize: 20
-  flockBoundary: {x: 1, y: 1, z: 1}
+  flockBirdsPrefab: {fileID: -8987784621246734216, guid: 3b884db08d93cea438394897e6cf176c, type: 3}
+  flockSize: 75
+  flockBoundary: {x: 100, y: 10, z: 100}
   minimumSpeed: 1
   maximumSpeed: 5
   cohesionDist: 5
@@ -2784,9 +2784,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eada92f874dfc614ba6595ea02b5fa75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_player: {fileID: 0}
+  m_typeColours: []
   m_choiceUI: {fileID: 2128231476}
+  m_playerPkmnName: {fileID: 0}
+  m_playerHpSlider: {fileID: 0}
+  m_otherPkmnName: {fileID: 0}
+  m_otherHpSlider: {fileID: 0}
+  m_moveInfo: {fileID: 0}
+  m_moveDescription: {fileID: 0}
   m_moveUI: {fileID: 1534839925}
+  m_moveButtons: []
+  m_battleInfo: {fileID: 0}
+  m_battleInfoText: {fileID: 0}
   m_monsterUI: {fileID: 0}
+  m_pokemonButtons: []
+  m_pokemonStatText: {fileID: 0}
+  m_pokemonStatTextBox: {fileID: 0}
   m_bagUI: {fileID: 0}
 --- !u!1 &1695108722
 GameObject:
@@ -3141,8 +3155,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78f72049643b7c45a2585b3b1c88c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_battleHUD: {fileID: 1669892745}
   m_gameHUD: {fileID: 0}
+  m_player: {fileID: 0}
+  m_overworldVolume: {fileID: 0}
+  m_battleVolume: {fileID: 0}
+  m_battleHUD: {fileID: 1669892745}
+  m_battlePlayerPosition: {fileID: 0}
+  m_battlePlayerPkmnPosition: {fileID: 0}
+  m_battleTrainerPosition: {fileID: 0}
+  m_battleTrainerPkmnPosition: {fileID: 0}
+  m_battleWildPkmnPosition: {fileID: 0}
+  m_overworldCamera: {fileID: 0}
+  m_battleCamera: {fileID: 0}
 --- !u!4 &1909879379
 Transform:
   m_ObjectHideFlags: 0
@@ -5950,6 +5974,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_speed: 25
   m_rotationSpeed: 180
+  m_cameraSensitivity: 0
+  m_cameraFocus: {fileID: 0}
+  m_freeLookCamera: {fileID: 0}
 --- !u!54 &8771825353307965060
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -25,10 +25,14 @@ public class flockingUnit : MonoBehaviour
 
     public Transform birdTransform { get; set; }
 
+
     private void Awake()
     {
         birdTransform = transform;
+
+
     }
+
 
     public void assignFlock (Flocking flock)
     {

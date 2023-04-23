@@ -1,99 +1,126 @@
 using System.Collections;
 using System.Collections.Generic;
-using Learning;
 using UnityEngine;
 
 public class Learner : MonoBehaviour
 {
-    [SerializeField] private int m_iterations;
-    [SerializeField][Range(0f, 1f)] private float m_learningRate;
+    // TODO: Neural network for every type, trained against the type matchups for it
+    private NeuralNetwork m_neuralNetwork;
 
-    private readonly Dictionary<PocketMonster.Element, Dictionary<PocketMonster.Element, float>> m_typeMatchupTable = new();
+    [SerializeField] private int m_epochs = 5000;
+    [SerializeField] private float m_learningRate = 0.141f;
+
+    private Dictionary<PocketMonster.Element, List<LearningData>> m_data;
 
     // Start is called before the first frame update
     void Start()
     {
-        LoadTypingData();
+        ReadDataFromFiles();
 
-        NeuralNetwork net = new NeuralNetwork(new[] { 2, 34, 34, 34, 1 }, m_learningRate, Layer.WeightInitialisationMode.Xavier, Layer.NeuronActivationMode.Sigmoid);
+        m_neuralNetwork = new NeuralNetwork(
+            new[] { 17, 34, 34, 34, 4 },
+            m_learningRate
+        );
 
-        for (int i = 0; i < m_iterations; i++)
+        for (int i = 0; i < m_epochs; i++)
         {
-            foreach (PocketMonster.Element type in m_typeMatchupTable.Keys)
+            foreach (LearningData data in m_data[PocketMonster.Element.Fire])
             {
-                foreach (KeyValuePair<PocketMonster.Element, float> matchup in m_typeMatchupTable[type])
-                {
-                    float aTypeNormalised = normalize((float)type, 0f, 17f);
-                    float normaliseTypeB = normalize((float)matchup.Key, 0f, 17f);
-
-                    net.FeedForward(new[] { aTypeNormalised, normaliseTypeB });
-
-                    // Dividing by 2 to normalise (0f-2f to range 0f-1f)...
-                    net.BackPropagation(new[] { normalize(matchup.Value, 0f, 2f) }); // Supervised training with the known value
-                }
+                m_neuralNetwork.FeedForward(data.Targets);
+                m_neuralNetwork.BackPropagation(data.Values);
             }
         }
 
-        // Test the training data
-        float resultA = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Flying, 0f, 17f)
-        })[0];
+        Effectiveness a = new(m_neuralNetwork.FeedForward(GenerateInputType(PocketMonster.Element.Grass))); // Should be super-effective
 
-        Debug.Log(resultA);
+        Effectiveness b = new(m_neuralNetwork.FeedForward(GenerateInputType(PocketMonster.Element.Dark))); // Should be neutral
 
-        float resultB = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Fire, 0f, 17f)
-        })[0];
+        Effectiveness c = new(m_neuralNetwork.FeedForward(GenerateInputType(PocketMonster.Element.Rock))); // Should be not very effective
 
-        Debug.Log(resultB);
-
-        float resultC = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Grass, 0f, 17f)
-        })[0];
-
-        Debug.Log(resultC);
-
-        float resultD = net.FeedForward(new[] {
-            normalize((float)PocketMonster.Element.Electric, 0f, 17f),
-            normalize((float)PocketMonster.Element.Ground, 0f, 17f)
-        })[0];
-
-        Debug.Log(resultD);
-    }
-
-    private void LoadTypingData()
-    {
-        TextAsset movesFile = (TextAsset)Resources.Load("Data\\AI_Training\\typing");
-        string[] linesFromFile = movesFile.text.Split('\n');
-
-        foreach (string line in linesFromFile)
-        {
-            string[] lineContents = line.Split(',');
-
-            PocketMonster.Element type = PocketMonster.StringToType(lineContents[0]);
-            if (!m_typeMatchupTable.ContainsKey(type))
-            {
-                m_typeMatchupTable.Add(type, new Dictionary<PocketMonster.Element, float>());
-            }
-
-            PocketMonster.Element otherType = PocketMonster.StringToType(lineContents[1]);
-            float typeMultiplier = float.Parse(lineContents[2]);
-
-            m_typeMatchupTable[type].Add(otherType, typeMultiplier);
-        }
-    }
-
-    private float normalize(float value, float min, float max)
-    {
-        return (value - min) / (max - min);
+        // Effectiveness d = new(m_neuralNetwork.Compute(GenerateInputType(PocketMonster.Element.Ground))); // Should be immune
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private float[] GenerateInputType(PocketMonster.Element inType)
+    {
+        float[] types = new float[17];
+        for (int i = 0; i < (int)PocketMonster.Element.Water; ++i)
+        {
+            types[i] = (PocketMonster.Element)i == inType ? 1f : 0f;
+        }
+
+        return types;
+    }
+
+    private void ReadDataFromFiles()
+    {
+        m_data = new Dictionary<PocketMonster.Element, List<LearningData>>();
+
+        for (int i = 0; i < (int)PocketMonster.Element.Water; ++i)
+        {
+            // Open the file
+            string fileName = $"{PocketMonster.TypeToString((PocketMonster.Element)i).ToUpper()}_typeMatchUp";
+
+            string[] linesFromFile = ((TextAsset)Resources.Load($"Data\\AI_Training\\{fileName}")).text.Split('\n');
+
+            // Build the LearningData list
+            List<LearningData> data = new List<LearningData>((int)PocketMonster.Element.Water);
+
+            for (int j = 1; j < linesFromFile.Length; ++j)
+            {
+                string[] lineContents = linesFromFile[j].Split(',');
+
+                float[] inputValues = new float[(int)PocketMonster.Element.Water + 1];
+
+                for (int k = 0; k < (int)PocketMonster.Element.Water; k++)
+                {
+                    inputValues[k] = float.Parse(lineContents[k]);
+                }
+
+                float[] outputValues = new float[4];
+                for (int k = 0; k < 4; k++)
+                {
+                    outputValues[k] = float.Parse(lineContents[(int)PocketMonster.Element.Water + 1 + k]);
+                }
+
+                data.Add(new LearningData(inputValues, outputValues));
+            }
+
+            // Add to the dictionary for the type
+            m_data[(PocketMonster.Element)i] = data;
+        }
+    }
+
+    struct Effectiveness
+    {
+        public Effectiveness(float[] effectiveness)
+        {
+            m_immune = effectiveness[0];
+            m_notVeryEffective = effectiveness[1];
+            m_neutral = effectiveness[2];
+            m_superEffective = effectiveness[3];
+        }
+
+        private readonly float m_immune;
+        private readonly float m_notVeryEffective;
+        private readonly float m_neutral;
+        private readonly float m_superEffective;
+    }
+}
+
+public class LearningData
+{
+    public float[] Targets;
+    public float[] Values;
+
+    public LearningData(float[] targets, float[] values)
+    {
+        Targets = targets;
+        Values = values;
     }
 }

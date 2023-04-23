@@ -20,7 +20,16 @@ namespace Learning
 
         private float m_learningRate;
 
-        public Layer(int numInputs, int numOutputs, float learningRate)
+        public enum ActivationFunction
+        {
+            Sigmoid,
+            TanH,
+            ReLU
+        }
+
+        private ActivationFunction m_activationFunction;
+
+        public Layer(int numInputs, int numOutputs, float learningRate, ActivationFunction activationFunction)
         {
             m_numInputs = numInputs;
             m_numOutputs = numOutputs;
@@ -37,6 +46,7 @@ namespace Learning
             m_learningRate = learningRate;
 
             InitialiseWeights();
+            m_activationFunction = activationFunction;
         }
 
         private void InitialiseWeights()
@@ -50,11 +60,6 @@ namespace Learning
             }
         }
 
-        private static float DeriveTanH(float value)
-        {
-            return 1 - value * value;
-        }
-
         public void BackPropagationOutputLayer(float[] expected)
         {
             for (int i = 0; i < m_numOutputs; i++)
@@ -64,7 +69,7 @@ namespace Learning
 
             for (int i = 0; i < m_numOutputs; i++)
             {
-                Gamma[i] = m_error[i] * DeriveTanH(Outputs[i]);
+                Gamma[i] = m_error[i] * Derive(Outputs[i]);
             }
 
             UpdateWeightsDelta();
@@ -81,7 +86,7 @@ namespace Learning
                     Gamma[j] += gammaForward[j] * forwardWeights[j, i];
                 }
 
-                Gamma[i] *= DeriveTanH(Outputs[i]);
+                Gamma[i] *= Derive(Outputs[i]);
             }
 
             UpdateWeightsDelta();
@@ -122,11 +127,41 @@ namespace Learning
                     Outputs[i] += m_inputs[j] * Weights[i, j];
                 }
 
-                Outputs[i] = (float)Math.Tanh(Outputs[i]);
+                Outputs[i] = Evaluate(Outputs[i]);
             }
 
 
             return Outputs;
+        }
+
+        private float Evaluate(float value)
+        {
+            switch (m_activationFunction)
+            {
+                case ActivationFunction.Sigmoid:
+                    return Sigmoid.Evaluate(value);
+                case ActivationFunction.TanH:
+                    return TanH.Evaluate(value);
+                case ActivationFunction.ReLU:
+                    return ReLU.Evaluate(value);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private float Derive(float value)
+        {
+            switch (m_activationFunction)
+            {
+                case ActivationFunction.Sigmoid:
+                    return Sigmoid.Derive(value);
+                case ActivationFunction.TanH:
+                    return TanH.Derive(value);
+                case ActivationFunction.ReLU:
+                    return ReLU.Derive(value);
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

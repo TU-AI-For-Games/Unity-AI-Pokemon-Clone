@@ -197,6 +197,8 @@ namespace Learning
             m_numOutputs = int.Parse(substrings[1]);
             m_inputs = BuildArray1D(substrings[2]);
             Outputs = BuildArray1D(substrings[3]);
+            Weights = BuildArray2D(substrings[4]);
+            m_weightsDelta = BuildArray2D(substrings[5]);
             Gamma = BuildArray1D(substrings[6]);
             m_error = BuildArray1D(substrings[7]);
             m_learningRate = float.Parse(substrings[8]);
@@ -242,5 +244,28 @@ namespace Learning
             return stringArray;
         }
 
+        private float[,] BuildArray2D(string input)
+        {
+            float[,] floats = new float[m_numOutputs, m_numInputs];
+
+            string[] output = Regex.Matches(input, @"(?<=\{)[^{}]*(?=\})|(?<=\})(\s*)(?=\{)")
+                .Cast<Match>()
+                .Select(m => m.Value.Replace("{", "").Replace("}", ""))
+                .ToArray();
+
+            for(int col = 0; col < floats.GetLength(0); ++col)
+            {
+                for (int row = 0; row < floats.GetLength(1); ++row)
+                {
+                    string number = output[col * m_numInputs + row];
+                    if (number.Length != 0)
+                    {
+                        floats[col, row] = float.Parse(number);
+                    }
+                }
+            }
+
+            return floats;
+        }
     }
 }

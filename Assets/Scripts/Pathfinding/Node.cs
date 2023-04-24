@@ -18,7 +18,7 @@ public class Node
     private readonly float m_radius;
     private Vector3 m_worldPosition;
     private readonly Vector2Int m_gridPosition;
-    public int weight;
+    public int weight = 0;
     private bool m_walkable = true;
     private LayerMask m_unWalkableMask;
     private bool m_selected;
@@ -31,11 +31,26 @@ public class Node
         m_gridPosition = gridPosition;
         m_unWalkableMask = unWalkableMask;
         CheckWalkable();
+        GetWeight();
     }
 
     private void CheckWalkable()
     {
         m_walkable = !Physics.CheckSphere(m_worldPosition - new Vector3(0,2, 0), m_radius, m_unWalkableMask);
+    }
+
+    private void GetWeight()
+    {
+        Collider[] colliders = Physics.OverlapSphere(m_worldPosition, m_radius);
+
+        foreach(Collider collider in colliders)
+        {
+            WeightZone Zone;
+            if (Zone = collider.GetComponent<WeightZone>())
+            {
+                weight = Zone.WeightCost;
+            }
+        }
     }
 
     public void SetParent(Node newParent)

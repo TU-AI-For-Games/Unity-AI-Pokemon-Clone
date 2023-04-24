@@ -18,6 +18,7 @@ using UnityEngine.Serialization;
     [ExecuteInEditMode]
     public class Pathfinding : MonoBehaviour
     {
+        [SerializeField] private bool liveDebug = false;
         [SerializeField] public int m_straightCost = 10;
         [SerializeField] public int m_diagonalCost = 14;
         [SerializeField] [Range(0.0f, 180.0f)] public float m_maxWalkableAngle = 30;
@@ -40,6 +41,8 @@ using UnityEngine.Serialization;
             MakeGrid(transform.position);
             
         }
+
+        
 
 
         private void MakeGrid(Vector3 location)
@@ -359,7 +362,7 @@ using UnityEngine.Serialization;
 
                     
                     
-                    neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode);
+                    neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode) + neighbor.weight;
                     
                     // Check if this neighbor has a higher hCost, or not in Open list
                     if (currentNode.hCost <= neighbor.hCost && openNodes.Contains(neighbor)) continue;
@@ -439,7 +442,7 @@ using UnityEngine.Serialization;
                     if (newMovementCostToNeighbor >= neighbor.gCost && openNodes.Contains(neighbor)) continue;
                     // Calculate the costs for this new node
                     neighbor.gCost = newMovementCostToNeighbor;
-                    neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode);
+                    neighbor.hCost = GetDistanceBetweenNodes(neighbor, endNode) + neighbor.weight;
                     neighbor.SetParent(currentNode);
 
                     // If the openNodes doesn't already contain this node, add it
@@ -508,7 +511,10 @@ using UnityEngine.Serialization;
 
         private void Update()
         {
-            MakeGrid(transform.position);
+            if(liveDebug)
+            {
+                MakeGrid(transform.position);
+            }
         }
 
         private Node MakeNode(Vector3 worldPosition, Vector2Int gridPosition)
@@ -622,13 +628,17 @@ using UnityEngine.Serialization;
             {
                 float radius = node.GetNodeRadius() * 0.9f;
                 bool selected = node.IsSelected();
-                Gizmos.color = selected ? Color.blue : node.IsWalkable() ? Color.green : Color.red;
+            
+            Gizmos.color = node.IsWalkable() ? Color.green : Color.red;
+            float weightLerp = node.weight / 100f;
+            if (node.weight > 0) Gizmos.color = Color.Lerp(Color.green, Color.red, weightLerp);
+            if(selected) Gizmos.color = Color.blue;
+            
 
 
                 if (m_showGrid || ((m_showPath || m_showSearchedNodes) && selected))
                 {
                     Gizmos.DrawSphere(node.GetNodeWorldPosition(), radius / 4);
-
                 }
             }
         }

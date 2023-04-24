@@ -62,6 +62,8 @@ public class GameManager : Singleton<GameManager>
     {
         BattleManager.Instance.InitialiseBattle(type);
 
+        Destroy(m_battler);
+
         m_battler = battler;
 
         Debug.Log("BATTLE STARTED!");
@@ -90,7 +92,11 @@ public class GameManager : Singleton<GameManager>
                 battler.transform.position = m_battleWildPkmnPosition.position;
                 battler.transform.rotation = m_battleWildPkmnPosition.rotation;
 
-                PocketMonster wildMon = battler.GetComponent<WildPocketMonster>().Pokemon;
+                // Stop the wildPokemon from walking when in battle!
+                WildPocketMonster wild = battler.GetComponent<WildPocketMonster>();
+                wild.StopMoving();
+
+                PocketMonster wildMon = wild.Pokemon;
 
                 BattleManager.Instance.SetOtherPokemon(wildMon);
 

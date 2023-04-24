@@ -23,31 +23,38 @@ public class Learner : MonoBehaviour
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
-            NeuralNetwork neuralNetwork = new NeuralNetwork(
+            NeuralNetwork serialisedNetwork = new NeuralNetwork(
                 new[] { 17, 19, 4 },
                 m_learningRate,
                 Layer.ActivationFunction.TanH
             );
 
+            NeuralNetwork trainedNetwork = new NeuralNetwork(
+                new[] { 17, 19, 4 },
+                m_learningRate,
+                Layer.ActivationFunction.TanH
+            );
 
-            neuralNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+            trainedNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
+            //neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
-            // neuralNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
-            // neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+            serialisedNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
-            m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
-            return;
+            m_typeNeuralNetworks.Add((PocketMonster.Element)i, serialisedNetwork);
         }
 
         // Pick random pairings to test the ANN
-        for (int i = 0; i < m_numTests; i++)
+        for (int i = 0; i < 17; i++)
         {
-            PocketMonster.Element typeA = (PocketMonster.Element)Random.Range(0, (int)PocketMonster.Element.Water + 1);
-            PocketMonster.Element typeB = (PocketMonster.Element)Random.Range(0, (int)PocketMonster.Element.Water + 1);
+            for (int j = 0; j < 17; j++)
+            {
+                PocketMonster.Element typeA = (PocketMonster.Element)i;
+                PocketMonster.Element typeB = (PocketMonster.Element)j;
 
-            Effectiveness effectiveness = new(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
+                Effectiveness effectiveness = new(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
 
-            effectiveness.DebugPrint(typeA, typeB);
+                effectiveness.DebugPrint(typeA, typeB);
+            }
         }
     }
 

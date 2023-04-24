@@ -93,7 +93,7 @@ public class NeuralNetwork
         writer.WriteLine(networkShape);
 
         // Each Layer on new line
-        foreach(Layer layer in m_layers)
+        foreach (Layer layer in m_layers)
         {
             layer.Save(writer);
         }
@@ -108,6 +108,8 @@ public class NeuralNetwork
 
         string text = File.ReadAllText(filePath);
         string[] lines = text.Split(Environment.NewLine);
+
+        m_layers = new List<Layer>();
 
         for (int i = 0; i < lines.Length; ++i)
         {
@@ -133,6 +135,7 @@ public class NeuralNetwork
                 // Layer details
                 Layer layer = new Layer();
                 layer.Load(lines[i]);
+
                 m_layers.Add(layer);
             }
         }

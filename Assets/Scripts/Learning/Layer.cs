@@ -197,8 +197,8 @@ namespace Learning
             m_numOutputs = int.Parse(substrings[1]);
             m_inputs = BuildArray1D(substrings[2]);
             Outputs = BuildArray1D(substrings[3]);
-            Weights = BuildArray2D(substrings[4]);
-            m_weightsDelta = BuildArray2D(substrings[5]);
+            Weights = BuildArray2D(substrings[4], m_numOutputs, m_numInputs);
+            m_weightsDelta = BuildArray2D(substrings[5], m_numOutputs, m_numInputs);
             Gamma = BuildArray1D(substrings[6]);
             m_error = BuildArray1D(substrings[7]);
             m_learningRate = float.Parse(substrings[8]);
@@ -244,27 +244,28 @@ namespace Learning
             return stringArray;
         }
 
-        private float[,] BuildArray2D(string input)
+        private float[,] BuildArray2D(string input, int cols, int rows)
         {
-            float[,] floats = new float[m_numOutputs, m_numInputs];
+            float[,] floats = new float[cols, rows];
 
-            string[] output = Regex.Matches(input, @"(?<=\{)[^{}]*(?=\})|(?<=\})(\s*)(?=\{)")
-                .Cast<Match>()
+            List<string> output = Regex.Matches(input, @"(?<=\{)[^{}]*(?=\})|(?<=\})(\s*)(?=\{)")
                 .Select(m => m.Value.Replace("{", "").Replace("}", ""))
-                .ToArray();
+                .ToList();
 
-            for(int col = 0; col < floats.GetLength(0); ++col)
+            output.RemoveAll(string.IsNullOrWhiteSpace);
+
+            for (int col = 0; col < cols; ++col)
             {
-                for (int row = 0; row < floats.GetLength(1); ++row)
+                string[] numbers = output[col].Split(',');
+                for (int row = 0; row < rows; ++row)
                 {
-                    string number = output[col * m_numInputs + row];
-                    if (number.Length != 0)
+                    if (numbers[row].Length != 0)
                     {
-                        floats[col, row] = float.Parse(number);
+                        floats[col, row] = float.Parse(numbers[row]);
                     }
                 }
+                Console.WriteLine();
             }
-
             return floats;
         }
     }

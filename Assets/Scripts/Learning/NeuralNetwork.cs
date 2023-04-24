@@ -102,4 +102,39 @@ public class NeuralNetwork
         outStream.Close();
     }
 
+    public void Load(string filename)
+    {
+        string filePath = $"{m_outputFolderName}\\{filename}";
+
+        string text = File.ReadAllText(filePath);
+        string[] lines = text.Split(Environment.NewLine);
+
+        for (int i = 0; i < lines.Length; ++i)
+        {
+            if (lines[i].Length == 0)
+            {
+                continue;
+            }
+
+            // Network details
+            if (i == 0)
+            {
+                string[] networkDetails = lines[i].Split(',');
+
+                m_networkShape = new int[networkDetails.Length];
+
+                for (int j = 0; j < networkDetails.Length; ++j)
+                {
+                    m_networkShape[j] = int.Parse(networkDetails[j]);
+                }
+            }
+            else
+            {
+                // Layer details
+                Layer layer = new Layer();
+                layer.Load(lines[i]);
+                m_layers.Add(layer);
+            }
+        }
+    }
 }

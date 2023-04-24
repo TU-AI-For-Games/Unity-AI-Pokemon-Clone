@@ -188,12 +188,39 @@ namespace Learning
             writer.WriteLine(output);
         }
 
+        public void Load(string data)
+        {
+            Regex regex = new(",(?![^{}^]*\\})");
+            string[] substrings = regex.Split(data);
+
+            m_numInputs = int.Parse(substrings[0]);
+            m_numOutputs = int.Parse(substrings[1]);
+            m_inputs = BuildArray1D(substrings[2]);
+            Outputs = BuildArray1D(substrings[3]);
+            Gamma = BuildArray1D(substrings[6]);
+            m_error = BuildArray1D(substrings[7]);
+            m_learningRate = float.Parse(substrings[8]);
+            m_activationFunction = (ActivationFunction)int.Parse(substrings[9]);
+        }
 
         private string FlattenArray1D(float[] array)
         {
             return $"{{{string.Join(',', array)}}}";
         }
 
+        private float[] BuildArray1D(string input)
+        {
+            List<float> floats = new List<float>();
+
+            string[] list = input.Substring(1, input.Length - 2).Split(',');
+
+            foreach (string str in list)
+            {
+                floats.Add(float.Parse(str));
+            }
+
+            return floats.ToArray();
+        }
 
         private string FlattenArray2D(float[,] array)
         {

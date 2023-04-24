@@ -33,8 +33,10 @@ public class Learner : MonoBehaviour
             neuralNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
             // neuralNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
+            // neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
             m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
+            return;
         }
 
         // Pick random pairings to test the ANN

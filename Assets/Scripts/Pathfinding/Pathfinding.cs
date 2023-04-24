@@ -237,9 +237,6 @@ using UnityEngine.Serialization;
         private List<Node> DijkstraPathfinding(Vector3 startPosition, Vector3 targetPosition)
         {
             // Dijkstra's algorithm always finds the shortest path and takes into account movement cost.
-            // It checks each of its neighboring nodes in layers, in all directions from the start node
-            // Checks the next node in a queue, which means the closer nodes are checked before newly added nodes.
-            // Continues to expand until it finds the end node
 
             HashSet<Node> unExploredNodes = new();
             IDictionary<Node, int> distances = new Dictionary<Node, int>();

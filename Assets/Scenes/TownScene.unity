@@ -946,7 +946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306045, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: WeightCost
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306046, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: m_Radius
@@ -3224,7 +3224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306045, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: WeightCost
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306046, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: m_Radius
@@ -4701,7 +4701,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306045, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: WeightCost
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306046, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: m_Radius
@@ -4851,7 +4851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306045, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: WeightCost
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306046, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: m_Radius
@@ -4902,11 +4902,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bffb1bb78c35e648b46525a17bb1cda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  liveDebug: 0
+  liveDebug: 1
   m_straightCost: 10
   m_diagonalCost: 14
-  m_maxWalkableAngle: 27.2
-  m_showGrid: 0
+  m_maxWalkableAngle: 61.7
+  m_showGrid: 1
   m_showPath: 0
   m_showSearchedNodes: 0
   m_pathfindingMethod: 4
@@ -6819,6 +6819,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6817371783279306045, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
+      propertyPath: WeightCost
+      value: 70
+      objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306046, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: m_Radius
       value: 20
@@ -8368,7 +8372,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306045, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: WeightCost
-      value: 50
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 6817371783279306046, guid: cd09ffc9c72e1b84f9fed7a8d395f081, type: 3}
       propertyPath: m_Radius

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -47,6 +51,10 @@ namespace Learning
 
             InitialiseWeights();
             m_activationFunction = activationFunction;
+        }
+
+        public Layer()
+        {
         }
 
         private void InitialiseWeights()
@@ -163,5 +171,49 @@ namespace Learning
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        public void Save(StreamWriter writer)
+        {
+            string output = $"{m_numInputs},{m_numOutputs},";
+
+            // numInputs, numOutputs, {input1, input2}, {output1, output2}, {{weight1, weight2}, {weight1, weight2}}, {{weightsDelta}}, {gamma}, {error}, learningRate, activationfunction
+            output += FlattenArray1D(m_inputs) + ",";
+            output += FlattenArray1D(Outputs) + ",";
+            output += FlattenArray2D(Weights) + ",";
+            output += FlattenArray2D(m_weightsDelta) + ",";
+            output += FlattenArray1D(Gamma) + ",";
+            output += FlattenArray1D(m_error) + ",";
+            output += $"{m_learningRate},{(int)m_activationFunction}";
+
+            writer.WriteLine(output);
+        }
+
+
+        private string FlattenArray1D(float[] array)
+        {
+            return $"{{{string.Join(',', array)}}}";
+        }
+
+
+        private string FlattenArray2D(float[,] array)
+        {
+            string stringArray = "{";
+            for (int col = 0; col < array.GetLength(0); col++)
+            {
+                stringArray += "{";
+
+                for (int row = 0; row < array.GetLength(1); row++)
+                {
+                    stringArray += array[col, row].ToString() + ",";
+                }
+
+                stringArray += "}";
+            }
+
+            stringArray += "}";
+
+            return stringArray;
+        }
+
     }
 }

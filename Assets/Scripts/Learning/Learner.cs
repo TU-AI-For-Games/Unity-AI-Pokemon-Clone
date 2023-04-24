@@ -24,12 +24,15 @@ public class Learner : MonoBehaviour
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
             NeuralNetwork neuralNetwork = new NeuralNetwork(
-                new[] { 17, 34, 34, 34, 4 },
+                new[] { 17, 19, 4 },
                 m_learningRate,
                 Layer.ActivationFunction.TanH
             );
 
-            neuralNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
+
+            neuralNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+
+            // neuralNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
 
             m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
         }

@@ -1,11 +1,16 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Learning;
 using UnityEngine;
 
 public class NeuralNetwork
 {
     private int[] m_networkShape;
-    private Layer[] m_layers;
+    private List<Layer> m_layers;
+
+    // The folder that the ANN will be saved out to when serialised
+    private readonly string m_outputFolderName = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\AiPokeClone";
 
     public NeuralNetwork(int[] networkShape, float learningRate, Layer.ActivationFunction activationFunction)
     {
@@ -16,11 +21,11 @@ public class NeuralNetwork
             m_networkShape[i] = networkShape[i];
         }
 
-        m_layers = new Layer[networkShape.Length - 1];
+        m_layers = new List<Layer>();
 
-        for (int i = 0; i < m_layers.Length; ++i)
+        for (int i = 0; i < networkShape.Length - 1; ++i)
         {
-            m_layers[i] = new Layer(networkShape[i], networkShape[i + 1], learningRate, activationFunction);
+            m_layers.Add(new Layer(networkShape[i], networkShape[i + 1], learningRate, activationFunction));
         }
     }
 
@@ -46,7 +51,7 @@ public class NeuralNetwork
     {
         m_layers[0].FeedForward(input);
 
-        for (int i = 1; i < m_layers.Length; i++)
+        for (int i = 1; i < m_layers.Count; i++)
         {
             m_layers[i].FeedForward(m_layers[i - 1].Outputs);
         }
@@ -54,9 +59,9 @@ public class NeuralNetwork
 
     private void BackPropagation(float[] expected)
     {
-        for (int i = m_layers.Length - 1; i >= 0; i--)
+        for (int i = m_layers.Count - 1; i >= 0; i--)
         {
-            if (i == m_layers.Length - 1)
+            if (i == m_layers.Count - 1)
             {
                 m_layers[i].BackPropagationOutputLayer(expected);
             }
@@ -72,4 +77,29 @@ public class NeuralNetwork
             layer.UpdateWeights();
         }
     }
+
+    public void Save(string filename)
+    {
+        string filePath = $"{m_outputFolderName}\\{filename}";
+
+        File.WriteAllText(filePath, string.Empty);
+
+        FileStream outStream = File.OpenWrite(filePath);
+
+        StreamWriter writer = new StreamWriter(outStream);
+
+        // Network shape
+        string networkShape = string.Join(',', m_networkShape);
+        writer.WriteLine(networkShape);
+
+        // Each Layer on new line
+        foreach(Layer layer in m_layers)
+        {
+            layer.Save(writer);
+        }
+
+        writer.Close();
+        outStream.Close();
+    }
+
 }

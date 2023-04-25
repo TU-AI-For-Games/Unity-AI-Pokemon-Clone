@@ -3,23 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using Learning;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-public class Learner : MonoBehaviour
+public class TypeLearner : Singleton<TypeLearner>
 {
-    private readonly Dictionary<PocketMonster.Element, NeuralNetwork> m_typeNeuralNetworks = new();
+    private Dictionary<PocketMonster.Element, NeuralNetwork> m_typeNeuralNetworks = new();
 
     [SerializeField] private int m_epochs = 5000;
     [SerializeField] private float m_learningRate = 0.141f;
-
-    private Dictionary<PocketMonster.Element, List<LearningData>> m_data;
-
     [SerializeField] private int m_numTests;
+    [SerializeField] private bool m_loadLearnedData;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void InternalInit()
     {
-        ReadDataFromFiles();
+        if (m_loadLearnedData)
+        {
+            LoadLearnedData();
+        }
+        else
+        {
+            LearnData();
+        }
+    }
+
+    public void LearnData()
+    {
+        m_typeNeuralNetworks = new Dictionary<PocketMonster.Element, NeuralNetwork>();
+
+        Dictionary<PocketMonster.Element, List<LearningData>> data = ReadTypeTrainingDataFromFiles();
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
@@ -30,7 +40,7 @@ public class Learner : MonoBehaviour
             );
 
 
-            neuralNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
+            neuralNetwork.Train(data[(PocketMonster.Element)i], m_epochs);
 
             neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
@@ -52,11 +62,24 @@ public class Learner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadLearnedData()
     {
+        m_typeNeuralNetworks = new Dictionary<PocketMonster.Element, NeuralNetwork>();
 
+        for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
+        {
+            NeuralNetwork neuralNetwork = new NeuralNetwork(
+                new[] { 17, 34, 34, 4 },
+                m_learningRate,
+                Layer.ActivationFunction.TanH
+            );
+
+            neuralNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+
+            m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
+        }
     }
+
 
     private float[] GenerateInputType(PocketMonster.Element inType)
     {
@@ -69,9 +92,9 @@ public class Learner : MonoBehaviour
         return types;
     }
 
-    private void ReadDataFromFiles()
+    private Dictionary<PocketMonster.Element, List<LearningData>> ReadTypeTrainingDataFromFiles()
     {
-        m_data = new Dictionary<PocketMonster.Element, List<LearningData>>();
+        Dictionary<PocketMonster.Element, List<LearningData>> typeTrainingData = new Dictionary<PocketMonster.Element, List<LearningData>>();
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
@@ -104,8 +127,10 @@ public class Learner : MonoBehaviour
             }
 
             // Add to the dictionary for the type
-            m_data[(PocketMonster.Element)i] = data;
+            typeTrainingData[(PocketMonster.Element)i] = data;
         }
+
+        return typeTrainingData;
     }
 
     struct Effectiveness

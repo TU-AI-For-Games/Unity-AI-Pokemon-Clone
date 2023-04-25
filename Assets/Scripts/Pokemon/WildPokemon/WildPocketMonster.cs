@@ -22,10 +22,10 @@ public class WildPocketMonster : MonoBehaviour
     {
         m_path = new List<Node>();
 
+        m_parentArea = transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
+
         if (m_parentArea != null)
         {
-            m_parentArea = transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
-
             SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
         }
     }

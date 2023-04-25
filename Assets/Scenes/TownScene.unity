@@ -962,7 +962,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 228189953}
-  m_LocalRotation: {x: 0.09642904, y: 0.3367474, z: -0.10273066, w: 0.93099356}
+  m_LocalRotation: {x: 0.096429095, y: 0.3367477, z: -0.10273069, w: 0.93099344}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1567,7 +1567,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 379529924}
-  m_LocalRotation: {x: 0.14795534, y: 0.33052623, z: -0.12126353, w: 0.9242061}
+  m_LocalRotation: {x: 0.14795545, y: 0.33052647, z: -0.12126358, w: 0.92420596}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2779,7 +2779,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 559348659}
   m_LocalRotation: {x: -0, y: -0, z: 0.08311827, w: 0.9965398}
-  m_LocalPosition: {x: 490.42535, y: 16.4, z: 200.49895}
+  m_LocalPosition: {x: 479.82535, y: 8.5, z: 98.89895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3770,8 +3770,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853247807}
-  m_LocalRotation: {x: 0.11997063, y: 0.34168032, z: -0.044025518, w: 0.93108726}
-  m_LocalPosition: {x: 490.42535, y: 16.4, z: 200.49895}
+  m_LocalRotation: {x: 0.11997071, y: 0.3416806, z: -0.044025593, w: 0.9310871}
+  m_LocalPosition: {x: 479.82535, y: 8.5, z: 98.89895}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5327,21 +5327,49 @@ PrefabInstance:
       propertyPath: m_freeLookCamera
       value: 
       objectReference: {fileID: 559348660}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.data[0]
+      value: 59
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.data[1]
+      value: 149
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.data[2]
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.data[3]
+      value: 130
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.data[4]
+      value: 123
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397435495923725937, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
+      propertyPath: m_pokemonIds.Array.data[5]
+      value: 135
+      objectReference: {fileID: 0}
     - target: {fileID: 1742717689622588618, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1742717689622588618, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 495.6
+      value: 485
       objectReference: {fileID: 0}
     - target: {fileID: 1742717689622588618, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.9
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1742717689622588618, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 206.6
+      value: 105
       objectReference: {fileID: 0}
     - target: {fileID: 1742717689622588618, guid: facd171d93045fe42b4a4f94957e3e7e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -6650,7 +6678,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1668155367}
-  m_LocalRotation: {x: 0.11583498, y: 0.3345304, z: -0.109735176, w: 0.9287787}
+  m_LocalRotation: {x: 0.1158351, y: 0.3345307, z: -0.10973522, w: 0.9287786}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

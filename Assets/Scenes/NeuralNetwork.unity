@@ -230,13 +230,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 675190994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74a9ec9d6b6f27d438db6e62bec8c48d, type: 3}
+  m_Script: {fileID: 11500000, guid: 524488e1c1b663146bb5728f6c786c45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_epochs: 5000
+  m_epochs: 10000
   m_learningRate: 0.141
-  m_numTests: 20
+  m_numTests: 50
   m_loadLearnedData: 1
+  m_activationFunction: 1
 --- !u!1 &980024494
 GameObject:
   m_ObjectHideFlags: 0

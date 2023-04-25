@@ -41,7 +41,7 @@ public class TypeLearner : Learner
 
             neuralNetwork.Train(m_trainingData[(PocketMonster.Element)i], m_epochs);
 
-            neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+            neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i));
 
             m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
         }
@@ -59,7 +59,7 @@ public class TypeLearner : Learner
                 Layer.ActivationFunction.TanH
             );
 
-            neuralNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+            neuralNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i));
 
             m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
         }

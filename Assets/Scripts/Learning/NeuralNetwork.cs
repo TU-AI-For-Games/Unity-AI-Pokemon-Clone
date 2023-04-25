@@ -39,6 +39,8 @@ namespace Learning
                     FeedForward(data.Targets);
                     BackPropagation(data.Values);
                 }
+
+                System.Diagnostics.Debug.WriteLine($"{i + 1}/{numEpochs} epochs");
             }
         }
 
@@ -81,7 +83,7 @@ namespace Learning
 
         public void Save(string filename)
         {
-            string filePath = $"{m_outputFolderName}\\{filename}";
+            string filePath = $"{m_outputFolderName}\\{filename}.NEURALNET";
 
             File.WriteAllText(filePath, string.Empty);
 
@@ -105,7 +107,7 @@ namespace Learning
 
         public void Load(string filename)
         {
-            string filePath = $"{m_outputFolderName}\\{filename}";
+            string filePath = $"{m_outputFolderName}\\{filename}.NEURALNET";
 
             string text = File.ReadAllText(filePath);
             string[] lines = text.Split(Environment.NewLine);

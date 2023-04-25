@@ -4,20 +4,17 @@ using System.Linq;
 using Learning;
 using UnityEngine;
 
-public class TypeLearner : Singleton<TypeLearner>
+public class TypeLearner : Learner
 {
     private Dictionary<PocketMonster.Element, NeuralNetwork> m_typeNeuralNetworks = new();
 
-    [SerializeField] private int m_epochs = 5000;
-    [SerializeField] private float m_learningRate = 0.141f;
-    [SerializeField] private int m_numTests;
-    [SerializeField] private bool m_loadLearnedData;
+    private Dictionary<PocketMonster.Element, List<LearningData>> m_trainingData;
 
     protected override void InternalInit()
     {
         if (m_loadLearnedData)
         {
-            LoadLearnedData();
+            LoadSavedNeuralNetwork();
         }
         else
         {
@@ -27,11 +24,11 @@ public class TypeLearner : Singleton<TypeLearner>
         PrintTypePairings();
     }
 
-    public void LearnData()
+    public override void LearnData()
     {
         m_typeNeuralNetworks = new Dictionary<PocketMonster.Element, NeuralNetwork>();
 
-        Dictionary<PocketMonster.Element, List<LearningData>> data = ReadTypeTrainingDataFromFiles();
+        LoadTrainingDataFile();
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
@@ -42,7 +39,7 @@ public class TypeLearner : Singleton<TypeLearner>
             );
 
 
-            neuralNetwork.Train(data[(PocketMonster.Element)i], m_epochs);
+            neuralNetwork.Train(m_trainingData[(PocketMonster.Element)i], m_epochs);
 
             neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
@@ -50,7 +47,7 @@ public class TypeLearner : Singleton<TypeLearner>
         }
     }
 
-    public void LoadLearnedData()
+    public override void LoadSavedNeuralNetwork()
     {
         m_typeNeuralNetworks = new Dictionary<PocketMonster.Element, NeuralNetwork>();
 
@@ -95,9 +92,9 @@ public class TypeLearner : Singleton<TypeLearner>
         return types;
     }
 
-    private Dictionary<PocketMonster.Element, List<LearningData>> ReadTypeTrainingDataFromFiles()
+    protected override void LoadTrainingDataFile()
     {
-        Dictionary<PocketMonster.Element, List<LearningData>> typeTrainingData = new Dictionary<PocketMonster.Element, List<LearningData>>();
+        m_trainingData = new Dictionary<PocketMonster.Element, List<LearningData>>();
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
@@ -130,10 +127,8 @@ public class TypeLearner : Singleton<TypeLearner>
             }
 
             // Add to the dictionary for the type
-            typeTrainingData[(PocketMonster.Element)i] = data;
+            m_trainingData[(PocketMonster.Element)i] = data;
         }
-
-        return typeTrainingData;
     }
 
     struct Effectiveness
@@ -170,22 +165,9 @@ public class TypeLearner : Singleton<TypeLearner>
 
         }
 
-        public readonly float Immune;
-        public readonly float NotVeryEffective;
-        public readonly float Neutral;
-        public readonly float SuperEffective;
-    }
-}
-
-
-public class LearningData
-{
-    public float[] Targets;
-    public float[] Values;
-
-    public LearningData(float[] targets, float[] values)
-    {
-        Targets = targets;
-        Values = values;
+        private readonly float Immune;
+        private readonly float NotVeryEffective;
+        private readonly float Neutral;
+        private readonly float SuperEffective;
     }
 }

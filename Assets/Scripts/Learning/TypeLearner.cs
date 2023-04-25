@@ -23,6 +23,8 @@ public class TypeLearner : Singleton<TypeLearner>
         {
             LearnData();
         }
+
+        PrintTypePairings();
     }
 
     public void LearnData()
@@ -46,20 +48,6 @@ public class TypeLearner : Singleton<TypeLearner>
 
             m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
         }
-
-        // Pick random pairings to test the ANN
-        for (int i = 0; i < 17; i++)
-        {
-            for (int j = 0; j < 17; j++)
-            {
-                PocketMonster.Element typeA = (PocketMonster.Element)i;
-                PocketMonster.Element typeB = (PocketMonster.Element)j;
-
-                Effectiveness effectiveness = new(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
-
-                effectiveness.DebugPrint(typeA, typeB);
-            }
-        }
     }
 
     public void LoadLearnedData()
@@ -80,6 +68,21 @@ public class TypeLearner : Singleton<TypeLearner>
         }
     }
 
+    private void PrintTypePairings()
+    {
+        for (int i = 0; i < 17; i++)
+        {
+            for (int j = 0; j < 17; j++)
+            {
+                PocketMonster.Element typeA = (PocketMonster.Element)i;
+                PocketMonster.Element typeB = (PocketMonster.Element)j;
+
+                Effectiveness effectiveness = new(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
+
+                effectiveness.DebugPrint(typeA, typeB);
+            }
+        }
+    }
 
     private float[] GenerateInputType(PocketMonster.Element inType)
     {

@@ -236,6 +236,7 @@ MonoBehaviour:
   m_epochs: 5000
   m_learningRate: 0.141
   m_numTests: 20
+  m_loadLearnedData: 1
 --- !u!1 &980024494
 GameObject:
   m_ObjectHideFlags: 0

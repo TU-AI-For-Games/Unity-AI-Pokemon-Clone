@@ -246,15 +246,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gameHUD: {fileID: 0}
-  m_mainCamera: {fileID: 0}
   m_player: {fileID: 0}
-  m_battleCamera: {fileID: 0}
+  m_overworldVolume: {fileID: 0}
+  m_battleVolume: {fileID: 0}
   m_battleHUD: {fileID: 0}
   m_battlePlayerPosition: {fileID: 0}
   m_battlePlayerPkmnPosition: {fileID: 0}
   m_battleTrainerPosition: {fileID: 0}
   m_battleTrainerPkmnPosition: {fileID: 0}
   m_battleWildPkmnPosition: {fileID: 0}
+  m_overworldCamera: {fileID: 0}
+  m_battleCamera: {fileID: 0}
 --- !u!114 &8173849577703208381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,6 +449,8 @@ MonoBehaviour:
   m_spawnTime: 3
   m_bottomLeft: {fileID: 4807625167782405323}
   m_topRight: {fileID: 2085790251736067036}
+  m_spawnAreas: []
+  m_navGrid: {fileID: 0}
 --- !u!114 &8173849577703208382
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,23 +466,23 @@ MonoBehaviour:
   m_battleHUD: {fileID: 0}
   AllMessagesConsumed: 0
   TypeColours:
-  - {r: 0.04705883, g: 0.35686275, b: 0, a: 0.6666667}
-  - {r: 0.27450982, g: 0.26666668, b: 0.45098042, a: 0.6666667}
-  - {r: 0.30588236, g: 0, b: 0.4039216, a: 0.6666667}
-  - {r: 0.90196085, g: 1, b: 0, a: 0.6666667}
-  - {r: 1, g: 0.25882354, b: 0, a: 0.6666667}
-  - {r: 0.46274513, g: 0.3372549, b: 0, a: 0.6666667}
-  - {r: 0.68235296, g: 0.9568628, b: 1, a: 0.6666667}
-  - {r: 0.14901961, g: 0, b: 0.3019608, a: 0.6666667}
-  - {r: 0.003921569, g: 0.6784314, b: 0, a: 0.6666667}
-  - {r: 0.54901963, g: 0.47450984, b: 0.20392159, a: 0.6666667}
-  - {r: 0.5882353, g: 0.8196079, b: 1, a: 0.6666667}
-  - {r: 0.50980395, g: 0.50980395, b: 0.50980395, a: 0.6666667}
-  - {r: 0.69803923, g: 0, b: 1, a: 0.6666667}
-  - {r: 0.75294125, g: 0, b: 0.627451, a: 0.6666667}
-  - {r: 0.36862746, g: 0.21568629, b: 0, a: 0.6666667}
-  - {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 0.6666667}
-  - {r: 0, g: 0.03529412, b: 1, a: 0.6666667}
+  - {r: 0.69346285, g: 1, b: 0.64690024, a: 1}
+  - {r: 0.6980559, g: 0.6846361, b: 1, a: 1}
+  - {r: 0.62569743, g: 0.45862788, b: 0.6792453, a: 1}
+  - {r: 1, g: 0.962673, b: 0.5525606, a: 1}
+  - {r: 1, g: 0.6152115, b: 0.57142854, a: 1}
+  - {r: 0.8396226, g: 0.6797706, b: 0.49562627, a: 1}
+  - {r: 0.7259828, g: 0.913871, b: 0.9433962, a: 1}
+  - {r: 0.5306448, g: 0.4685831, b: 0.5943396, a: 1}
+  - {r: 0.5873773, g: 0.8113208, b: 0.58607537, a: 1}
+  - {r: 0.8301887, g: 0.77873415, b: 0.59187305, a: 1}
+  - {r: 0.6769567, g: 0.73884124, b: 0.9622642, a: 1}
+  - {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  - {r: 0.9190159, g: 0.7318059, b: 1, a: 1}
+  - {r: 1, g: 0.60916436, b: 0.93486077, a: 1}
+  - {r: 0.6698113, g: 0.57399094, b: 0.44593906, a: 1}
+  - {r: 0.8490566, g: 0.8490566, b: 0.8490566, a: 1}
+  - {r: 0.49595684, g: 0.5520935, b: 1, a: 1}
 --- !u!114 &8173849577703208369
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,8 +1,10 @@
 #define RECORD_PLAYER_ACTIONS
+#undef INFINITE_BATTLE
 using System.Collections;
 using System.Linq;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerController : MonoBehaviour
 {
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private bool m_canMove;
 
+    [SerializeField] private int[] m_pokemonIds;
     private readonly PocketMonster[] m_pocketMonsters = new PocketMonster[6];
 
     private int m_activePokemonIndex = 0;
@@ -45,15 +48,9 @@ public class PlayerController : MonoBehaviour
 
         m_mainCamera = Camera.main;
 
-        // For now, set up 6 random pokemon
         for (int i = 0; i < 6; ++i)
         {
-            m_pocketMonsters[i] = PocketMonsterManager.Instance.GetPocketMonster(
-                Random.Range(
-                    1,
-                    PocketMonsterManager.Instance.GetPocketMonsterCount()
-                )
-            );
+            m_pocketMonsters[i] = PocketMonsterManager.Instance.GetPocketMonster(m_pokemonIds[i]);
         }
     }
 
@@ -64,6 +61,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
+
+#if INFINITE_BATTLE
+        if (GameManager.Instance.CurrentState != GameManager.State.Battle)
+        {
+            GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, WildPocketMonsterManager.Instance.SpawnPokemon());
+        }
+#endif
 
 
         float forward = Input.GetAxisRaw(StringConstants.FORWARD);
@@ -81,13 +85,13 @@ public class PlayerController : MonoBehaviour
 
         m_controller.Move(moveVector);
         Vector3 lookDirection = new Vector3(moveDirection.x, 0, moveDirection.z);
-        
+
         if (lookDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_rotationSpeed * Time.deltaTime);
         }
-        
+
 
         m_animator.SetFloat(Speed, m_controller.velocity.magnitude);
     }

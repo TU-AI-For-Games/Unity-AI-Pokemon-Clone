@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69215a0f0ed92564e8635cce09a02e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DrawDebug: 1
   m_bottomLeft: {fileID: 6399610279025437668}
   m_topRight: {fileID: 4123278154292887466}
-  m_maxPokemon: 0
+  m_maxPokemon: 40
   m_spawnChances: []
 --- !u!1 &240583703847045388
 GameObject:

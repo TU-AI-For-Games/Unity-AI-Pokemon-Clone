@@ -402,4 +402,10 @@ public class PocketMonster
     {
         m_status = StatusType.None;
     }
+
+    public void HealHealthAndStatus()
+    {
+        HealHP();
+        HealStatus();
+    }
 }

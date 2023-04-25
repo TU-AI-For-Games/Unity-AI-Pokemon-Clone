@@ -40,6 +40,8 @@ public class GameManager : Singleton<GameManager>
 
     private GameObject m_battler;
 
+    public State CurrentState => m_state;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -150,6 +152,16 @@ public class GameManager : Singleton<GameManager>
 #if RECORD_PLAYER_ACTIONS
         RecordActions.Instance.OnEndBattle();
 #endif
+
+        // Heal up the player's Pokemon
+        foreach (PocketMonster monster in m_player.GetPokemon())
+        {
+            // monster.HealHealthAndStatus();
+            if (monster.HasFainted())
+            {
+                monster.HealHealthAndStatus();
+            }
+        }
     }
 
     private void SwitchCamera(Poke.CameraType cameraType)

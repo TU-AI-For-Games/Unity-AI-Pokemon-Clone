@@ -33,11 +33,11 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
         if (m_spawnCountdown < 0f)
         {
             m_spawnCountdown = m_spawnTime;
-            SpawnPokemon();
+            SpawnPokemonInArea();
         }
     }
 
-    public void SpawnPokemon()
+    public void SpawnPokemonInArea()
     {
         if (!CanSpawnPokemon)
         {
@@ -51,26 +51,42 @@ public class WildPocketMonsterManager : Singleton<WildPocketMonsterManager>
                 continue;
             }
 
-            GameObject pokemonWrapper = Instantiate(m_wildPocketMonsterTemplate, pocketMonsterArea.transform);
-
-            pocketMonsterArea.AddPokemon(pokemonWrapper);
-
             int pokedexNumber = pocketMonsterArea.GetNextPokedexNumber();
+            GameObject pokemon = SpawnPokemon(pocketMonsterArea.transform, pokedexNumber);
 
-            pokemonWrapper.name = $"WILD_{PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber).Name}";
-
-            // Spawn the pokemon mesh
-            Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(pokedexNumber), pokemonWrapper.transform);
-
-            // Set up the WildPocketMonster reference
-            WildPocketMonster wildMon = pokemonWrapper.GetComponent<WildPocketMonster>();
-            wildMon.SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber));
-            wildMon.SetNavGrid(m_navGrid);
+            pocketMonsterArea.AddPokemon(pokemon);
         }
+    }
+
+    public GameObject SpawnPokemon(Transform parent = null, int pokedexNumber = -1)
+    {
+        if (pokedexNumber == -1)
+        {
+            pokedexNumber = Random.Range(0, 152);
+        }
+
+        GameObject pokemonWrapper = parent == null ? Instantiate(m_wildPocketMonsterTemplate) : Instantiate(m_wildPocketMonsterTemplate, parent);
+
+        pokemonWrapper.name = $"WILD_{PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber).Name}";
+
+        // Spawn the pokemon mesh
+        Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(pokedexNumber), pokemonWrapper.transform);
+
+        // Set up the WildPocketMonster reference
+        WildPocketMonster wildMon = pokemonWrapper.GetComponent<WildPocketMonster>();
+        wildMon.SetPokemon(PocketMonsterManager.Instance.GetPocketMonster(pokedexNumber));
+        wildMon.SetNavGrid(m_navGrid);
+
+        return pokemonWrapper;
     }
 
     public void OnPokemonDeath(GameObject pokemonObject)
     {
+        if (pokemonObject.transform.parent == null)
+        {
+            return;
+        }
+
         // RemovePokemon the gameobject from the area
         WildPocketMonsterArea area = pokemonObject.transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
         area.RemovePokemon(pokemonObject);

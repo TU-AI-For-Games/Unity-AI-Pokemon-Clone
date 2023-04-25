@@ -23,24 +23,18 @@ public class Learner : MonoBehaviour
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
-            NeuralNetwork serialisedNetwork = new NeuralNetwork(
-                new[] { 17, 19, 4 },
+            NeuralNetwork neuralNetwork = new NeuralNetwork(
+                new[] { 17, 34, 34, 4 },
                 m_learningRate,
                 Layer.ActivationFunction.TanH
             );
 
-            NeuralNetwork trainedNetwork = new NeuralNetwork(
-                new[] { 17, 19, 4 },
-                m_learningRate,
-                Layer.ActivationFunction.TanH
-            );
 
-            trainedNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
-            //neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+            neuralNetwork.Train(m_data[(PocketMonster.Element)i], m_epochs);
 
-            serialisedNetwork.Load(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
+            neuralNetwork.Save(PocketMonster.TypeToString((PocketMonster.Element)i) + ".NEURALNET");
 
-            m_typeNeuralNetworks.Add((PocketMonster.Element)i, serialisedNetwork);
+            m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
         }
 
         // Pick random pairings to test the ANN

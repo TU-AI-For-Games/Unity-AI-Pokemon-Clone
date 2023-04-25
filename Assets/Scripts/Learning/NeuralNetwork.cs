@@ -10,7 +10,7 @@ public class NeuralNetwork
     private List<Layer> m_layers;
 
     // The folder that the ANN will be saved out to when serialised
-    private readonly string m_outputFolderName = $"{Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData)}\\AiPokeClone";
+    private readonly string m_outputFolderName = $"{Application.dataPath}\\Resources\\NeuralNets";
 
     public NeuralNetwork(int[] networkShape, float learningRate, Layer.ActivationFunction activationFunction)
     {

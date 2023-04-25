@@ -156,7 +156,11 @@ public class GameManager : Singleton<GameManager>
         // Heal up the player's Pokemon
         foreach (PocketMonster monster in m_player.GetPokemon())
         {
-            monster.HealHealthAndStatus();
+            // monster.HealHealthAndStatus();
+            if (monster.HasFainted())
+            {
+                monster.HealHealthAndStatus();
+            }
         }
     }
 

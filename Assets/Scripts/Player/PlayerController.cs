@@ -1,4 +1,5 @@
 #define RECORD_PLAYER_ACTIONS
+#undef INFINITE_BATTLE
 using System.Collections;
 using System.Linq;
 using Cinemachine;
@@ -61,10 +62,12 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+#if INFINITE_BATTLE
         if (GameManager.Instance.CurrentState != GameManager.State.Battle)
         {
             GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, WildPocketMonsterManager.Instance.SpawnPokemon());
         }
+#endif
 
 
         float forward = Input.GetAxisRaw(StringConstants.FORWARD);

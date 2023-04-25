@@ -150,6 +150,12 @@ public class GameManager : Singleton<GameManager>
 #if RECORD_PLAYER_ACTIONS
         RecordActions.Instance.OnEndBattle();
 #endif
+
+        // Heal up the player's Pokemon
+        foreach (PocketMonster monster in m_player.GetPokemon())
+        {
+            monster.HealHealthAndStatus();
+        }
     }
 
     private void SwitchCamera(Poke.CameraType cameraType)

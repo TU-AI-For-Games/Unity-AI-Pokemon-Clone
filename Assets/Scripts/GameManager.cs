@@ -40,6 +40,8 @@ public class GameManager : Singleton<GameManager>
 
     private GameObject m_battler;
 
+    public State CurrentState => m_state;
+
     // Start is called before the first frame update
     void Start()
     {

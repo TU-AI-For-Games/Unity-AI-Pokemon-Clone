@@ -61,6 +61,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        if (GameManager.Instance.CurrentState != GameManager.State.Battle)
+        {
+            GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, WildPocketMonsterManager.Instance.SpawnPokemon());
+        }
+
 
         float forward = Input.GetAxisRaw(StringConstants.FORWARD);
         float sideways = Input.GetAxisRaw(StringConstants.ROTATE);

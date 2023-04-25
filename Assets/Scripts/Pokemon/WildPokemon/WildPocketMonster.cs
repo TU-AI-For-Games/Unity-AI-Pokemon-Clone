@@ -21,9 +21,13 @@ public class WildPocketMonster : MonoBehaviour
     private void Start()
     {
         m_path = new List<Node>();
-        m_parentArea = transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
 
-        SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
+        if (m_parentArea != null)
+        {
+            m_parentArea = transform.parent.gameObject.GetComponent<WildPocketMonsterArea>();
+
+            SetPathfindingTarget(m_parentArea.GenerateRandomPosition());
+        }
     }
 
     private void Update()
@@ -50,7 +54,7 @@ public class WildPocketMonster : MonoBehaviour
     private void MoveTowards()
     {
         if (m_path == null || m_path.Count < 1) return;
-        
+
         Vector3 nextPoint = m_path[0].GetNodeWorldPosition();
 
         // If distance is less than the acceptanceradius

@@ -14,12 +14,12 @@ namespace Learning
         public abstract void LearnData();
     }
 
-    public class LearningData
+    public class TrainingData
     {
         public float[] Targets;
         public float[] Values;
 
-        public LearningData(float[] targets, float[] values)
+        public TrainingData(float[] targets, float[] values)
         {
             Targets = targets;
             Values = values;

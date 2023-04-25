@@ -30,11 +30,11 @@ namespace Learning
             }
         }
 
-        public void Train(List<LearningData> trainingData, int numEpochs)
+        public void Train(List<TrainingData> trainingData, int numEpochs)
         {
             for (int i = 0; i < numEpochs; i++)
             {
-                foreach (LearningData data in trainingData)
+                foreach (TrainingData data in trainingData)
                 {
                     FeedForward(data.Targets);
                     BackPropagation(data.Values);

@@ -8,7 +8,7 @@ public class TypeLearner : Learner
 {
     private Dictionary<PocketMonster.Element, NeuralNetwork> m_typeNeuralNetworks = new();
 
-    private Dictionary<PocketMonster.Element, List<LearningData>> m_trainingData;
+    private Dictionary<PocketMonster.Element, List<TrainingData>> m_trainingData;
 
     protected override void InternalInit()
     {
@@ -94,7 +94,7 @@ public class TypeLearner : Learner
 
     protected override void LoadTrainingDataFile()
     {
-        m_trainingData = new Dictionary<PocketMonster.Element, List<LearningData>>();
+        m_trainingData = new Dictionary<PocketMonster.Element, List<TrainingData>>();
 
         for (int i = 0; i < (int)PocketMonster.Element.Water + 1; ++i)
         {
@@ -103,8 +103,8 @@ public class TypeLearner : Learner
 
             string[] linesFromFile = ((TextAsset)Resources.Load($"Data\\AI_Training\\{fileName}")).text.Split('\n');
 
-            // Build the LearningData list
-            List<LearningData> data = new List<LearningData>((int)PocketMonster.Element.Water + 1);
+            // Build the TrainingData list
+            List<TrainingData> data = new List<TrainingData>((int)PocketMonster.Element.Water + 1);
 
             for (int j = 1; j < linesFromFile.Length; ++j)
             {
@@ -123,7 +123,7 @@ public class TypeLearner : Learner
                     outputValues[k] = float.Parse(lineContents[(int)PocketMonster.Element.Water + 1 + k]);
                 }
 
-                data.Add(new LearningData(inputValues, outputValues));
+                data.Add(new TrainingData(inputValues, outputValues));
             }
 
             // Add to the dictionary for the type

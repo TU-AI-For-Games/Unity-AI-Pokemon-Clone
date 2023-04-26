@@ -2,13 +2,13 @@
 
 namespace Learning
 {
-    public abstract class Learner : Singleton<Learner>
+    public abstract class Learner
     {
-        [SerializeField] protected int m_epochs = 5000;
-        [SerializeField] protected float m_learningRate = 0.141f;
-        [SerializeField] protected int m_numTests;
-        [SerializeField] protected bool m_loadLearnedData;
-        [SerializeField] protected Layer.ActivationFunction m_activationFunction;
+        protected int m_epochs = 5000;
+        protected float m_learningRate = 0.141f;
+        protected int m_numTests;
+        protected bool m_loadLearnedData;
+        protected Layer.ActivationFunction m_activationFunction;
 
         protected abstract void LoadTrainingDataFile();
         public abstract void LoadSavedNeuralNetwork();

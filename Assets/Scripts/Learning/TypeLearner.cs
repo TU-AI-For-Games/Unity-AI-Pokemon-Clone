@@ -10,8 +10,14 @@ public class TypeLearner : Learner
 
     private Dictionary<PocketMonster.Element, List<TrainingData>> m_trainingData;
 
-    protected override void InternalInit()
+    public TypeLearner(int epochs, float learningRate, int numTests, bool loadLearnedData, Layer.ActivationFunction activationFunction)
     {
+        m_epochs = epochs;
+        m_learningRate = learningRate;
+        m_numTests = numTests;
+        m_loadLearnedData = loadLearnedData;
+        m_activationFunction = activationFunction;
+
         if (m_loadLearnedData)
         {
             LoadSavedNeuralNetwork();
@@ -24,7 +30,7 @@ public class TypeLearner : Learner
         PrintTypePairings();
     }
 
-    public override void LearnData()
+    public sealed override void LearnData()
     {
         m_typeNeuralNetworks = new Dictionary<PocketMonster.Element, NeuralNetwork>();
 
@@ -47,7 +53,7 @@ public class TypeLearner : Learner
         }
     }
 
-    public override void LoadSavedNeuralNetwork()
+    public sealed override void LoadSavedNeuralNetwork()
     {
         m_typeNeuralNetworks = new Dictionary<PocketMonster.Element, NeuralNetwork>();
 
@@ -63,6 +69,11 @@ public class TypeLearner : Learner
 
             m_typeNeuralNetworks.Add((PocketMonster.Element)i, neuralNetwork);
         }
+    }
+
+    public Effectiveness GetLearnedEffectiveness(PocketMonster.Element typeA, PocketMonster.Element typeB)
+    {
+        return new Effectiveness(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
     }
 
     private void PrintTypePairings()
@@ -131,7 +142,7 @@ public class TypeLearner : Learner
         }
     }
 
-    struct Effectiveness
+    public struct Effectiveness
     {
         public Effectiveness(float[] effectiveness)
         {

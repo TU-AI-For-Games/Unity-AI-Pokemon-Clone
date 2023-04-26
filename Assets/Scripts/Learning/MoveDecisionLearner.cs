@@ -11,8 +11,19 @@ public class MoveDecisionLearner : Learner
     private NeuralNetwork m_neuralNetwork;
     private List<TrainingData> m_trainingData;
 
-    protected override void InternalInit()
+    public enum Action
     {
+        Attack, Switch, Heal
+    }
+
+    public MoveDecisionLearner(int epochs, float learningRate, int numTests, bool loadLearnedData, Layer.ActivationFunction activationFunction)
+    {
+        m_epochs = epochs;
+        m_learningRate = learningRate;
+        m_numTests = numTests;
+        m_loadLearnedData = loadLearnedData;
+        m_activationFunction = activationFunction;
+
         if (m_loadLearnedData)
         {
             LoadTrainingDataFile();
@@ -24,6 +35,21 @@ public class MoveDecisionLearner : Learner
         }
 
         TestData();
+    }
+
+    public Action GetLearnedMoveOutcome(float trainerHp, PocketMonster.Element trainerType, float targetHp, PocketMonster.Element targetType)
+    {
+        return new MoveOutcome(m_neuralNetwork.Compute(GenerateInputData(trainerHp, trainerType, targetHp, targetType))).GetAction();
+    }
+
+    private float[] GenerateInputData(float trainerHp, PocketMonster.Element trainerType, float targetHp, PocketMonster.Element targetType)
+    {
+        float[] inputData = new float[4];
+        inputData[0] = trainerHp;
+        inputData[1] = (float)trainerType / 17f;
+        inputData[2] = targetHp;
+        inputData[3] = (float)targetType / 17f;
+        return inputData;
     }
 
     private void TestData()
@@ -48,7 +74,7 @@ public class MoveDecisionLearner : Learner
         }
     }
 
-    public override void LearnData()
+    public sealed override void LearnData()
     {
         LoadTrainingDataFile();
 
@@ -62,7 +88,7 @@ public class MoveDecisionLearner : Learner
         m_neuralNetwork.Save("MoveDecision");
     }
 
-    protected override void LoadTrainingDataFile()
+    protected sealed override void LoadTrainingDataFile()
     {
         m_trainingData = new List<TrainingData>();
 
@@ -92,7 +118,7 @@ public class MoveDecisionLearner : Learner
 
     }
 
-    public override void LoadSavedNeuralNetwork()
+    public sealed override void LoadSavedNeuralNetwork()
     {
         m_neuralNetwork = new NeuralNetwork(
             new[] { 4, 40, 40, 40, 3 },
@@ -103,7 +129,7 @@ public class MoveDecisionLearner : Learner
         m_neuralNetwork.Load("MoveDecision");
     }
 
-    struct MoveOutcome
+    public struct MoveOutcome
     {
         public MoveOutcome(float[] outcome)
         {
@@ -135,6 +161,18 @@ public class MoveDecisionLearner : Learner
 
             Debug.Log($"Player Pokemon {playerType} with {playerHP}% health against {targetType} with {targetHP}% health should {actionStrings[maxIndex]} ");
 
+        }
+
+        public Action GetAction()
+        {
+            float[] actions =
+            {
+                m_attack,
+                m_switch,
+                m_heal
+            };
+
+            return (Action)Array.IndexOf(actions, actions.Max());
         }
 
         private readonly float m_attack;

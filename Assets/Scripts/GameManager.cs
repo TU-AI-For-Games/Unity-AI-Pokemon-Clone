@@ -1,6 +1,7 @@
 #define RECORD_PLAYER_ACTIONS
 using System;
 using Cinemachine;
+using Learning;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using CameraType = Poke.CameraType;
@@ -29,6 +30,9 @@ public class GameManager : Singleton<GameManager>
     private Vector3 m_previousPlayerPosition;
     private Quaternion m_previousPlayerRotation;
 
+    private TypeLearner m_typeLearner;
+    private MoveDecisionLearner m_moveDecisionLearner;
+
     public enum State
     {
         Overworld,
@@ -45,6 +49,9 @@ public class GameManager : Singleton<GameManager>
     // Start is called before the first frame update
     void Start()
     {
+        m_typeLearner = new TypeLearner(5000, 0.141f, 20, true, Layer.ActivationFunction.TanH);
+        m_moveDecisionLearner = new MoveDecisionLearner(10000, 0.141f, 100, true, Layer.ActivationFunction.TanH);
+
         m_player.CanMove = true;
         WildPocketMonsterManager.Instance.CanSpawnPokemon = true;
 
@@ -105,7 +112,6 @@ public class GameManager : Singleton<GameManager>
                 m_battleHUD.OnOtherSwitchPokemon(wildMon);
                 break;
             case BattleManager.BattleType.Trainer:
-                // TODO: SET UP TRAINER BATTLES
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -114,7 +120,6 @@ public class GameManager : Singleton<GameManager>
 
     public void SpawnPlayerPokemon()
     {
-        m_player.ShowPokemon(m_battlePlayerPkmnPosition);
         m_battleHUD.OnPlayerSwitchPokemon();
     }
 
@@ -194,6 +199,16 @@ public class GameManager : Singleton<GameManager>
     public PlayerController GetPlayerController()
     {
         return m_player;
+    }
+
+    public TypeLearner GetTypeLearner()
+    {
+        return m_typeLearner;
+    }
+
+    public MoveDecisionLearner GetMoveDecisionLearner()
+    {
+        return m_moveDecisionLearner;
     }
 
     protected override void InternalInit()

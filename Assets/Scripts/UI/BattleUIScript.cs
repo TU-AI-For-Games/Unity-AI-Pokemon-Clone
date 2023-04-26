@@ -26,6 +26,13 @@ public class BattleUIScript : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_battleInfoText;
     private bool m_displayedAllMessages = false;
 
+    [Header("Pokeballs remaining UI")]
+    [SerializeField] private GameObject m_trainerPokemonRemaining;
+    [SerializeField] private GameObject m_playerPokemonRemaining;
+    [SerializeField] private Sprite m_pokeballSprite;
+    [SerializeField] private Sprite m_emptyPokeballSprite;
+
+
     public enum Screens
     {
         Menu,
@@ -140,5 +147,28 @@ public class BattleUIScript : MonoBehaviour
 
         m_battleInfo.gameObject.SetActive(false); ;
         m_bagUi.gameObject.SetActive(false);
+    }
+
+    public void ShowPokeballs(PocketMonster[] pokemon, bool isPlayer)
+    {
+        int amountOfPokemon = pokemon.Length - 1;
+        for (int i = 0; i < 6; ++i)
+        {
+            GameObject pokeballUiObject = isPlayer ? m_playerPokemonRemaining : m_trainerPokemonRemaining;
+
+            if (i > amountOfPokemon || pokemon[i].HasFainted())
+            {
+                pokeballUiObject.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = m_emptyPokeballSprite;
+            }
+            else
+            {
+                pokeballUiObject.transform.GetChild(i).gameObject.GetComponent<Image>().sprite = m_pokeballSprite;
+            }
+        }
+    }
+
+    public void SetTrainerBalls(bool activeState)
+    {
+        m_trainerPokemonRemaining.SetActive(activeState);
     }
 }

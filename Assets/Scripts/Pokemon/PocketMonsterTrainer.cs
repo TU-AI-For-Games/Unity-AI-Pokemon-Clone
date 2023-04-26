@@ -145,4 +145,9 @@ public class PocketMonsterTrainer : MonoBehaviour
             monster.HealHealthAndStatus();
         }
     }
+
+    public PocketMonster[] GetPokemon()
+    {
+        return m_pokemon.ToArray();
+    }
 }

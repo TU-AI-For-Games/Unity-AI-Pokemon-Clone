@@ -98,6 +98,8 @@ public class GameManager : Singleton<GameManager>
 
         BattleManager.Instance.SetPlayerPokemon(m_player.GetActivePokemon());
 
+        m_battleHUD.ShowPokeballs(m_player.GetPokemon(), true);
+
         switch (type)
         {
             case BattleManager.BattleType.WildPkmn:
@@ -113,6 +115,8 @@ public class GameManager : Singleton<GameManager>
                 BattleManager.Instance.SetOtherPokemon(wildMon);
 
                 m_battleHUD.OnOtherSwitchPokemon(wildMon);
+
+                m_battleHUD.SetTrainerBalls(false);
                 break;
             case BattleManager.BattleType.Trainer:
                 m_previousTrainerPosition = new(battler.transform.position.x, battler.transform.position.y, battler.transform.position.z);
@@ -126,6 +130,9 @@ public class GameManager : Singleton<GameManager>
                 // Spawn the trainer's pokemon
                 SpawnTrainerPokemon();
                 BattleManager.Instance.SetTrainer(m_trainer);
+
+                m_battleHUD.SetTrainerBalls(true);
+                m_battleHUD.ShowPokeballs(m_trainer.GetPokemon(), false);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);

@@ -429,6 +429,7 @@ public class BattleManager : Singleton<BattleManager>
         if (pokemon == m_playerPokemon)
         {
             SetBattleState(BattleState.PlayerFainted);
+            m_battleHUD.ShowPokeballs(GameManager.Instance.GetPlayerController().GetPokemon(), true);
         }
         else
         {
@@ -444,6 +445,7 @@ public class BattleManager : Singleton<BattleManager>
                 {
                     m_trainer.SwitchPokemon(m_playerPokemon);
                     SetOtherPokemon(m_trainer.GetActivePokemon());
+                    m_battleHUD.ShowPokeballs(m_trainer.GetPokemon(), false);
                 }
                 else
                 {

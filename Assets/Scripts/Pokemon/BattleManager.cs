@@ -517,7 +517,11 @@ public class BattleManager : Singleton<BattleManager>
 
     public void SetOtherPokemon(PocketMonster pokemon)
     {
-        GameManager.Instance.SpawnTrainerPokemon();
+        if (m_currentBattleType == BattleType.Trainer)
+        {
+            GameManager.Instance.SpawnTrainerPokemon();
+        }
+
         m_otherPokemon = pokemon;
         pokemon.ResetStats();
     }

@@ -84,6 +84,7 @@ MonoBehaviour:
   m_cameraSensitivity: 5
   m_cameraFocus: {fileID: 1036213680}
   m_freeLookCamera: {fileID: 0}
+  m_pokemonIds: 3b0000009500000041000000820000007b00000087000000
 --- !u!95 &6615276898751170487
 Animator:
   serializedVersion: 4

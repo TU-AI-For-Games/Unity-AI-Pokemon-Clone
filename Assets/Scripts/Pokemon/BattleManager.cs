@@ -10,6 +10,7 @@ public class BattleManager : Singleton<BattleManager>
     // The type matchup table, 2 if super-effective, 0.5 if not-very effective, 0 if immune, 1 if normal
     private Dictionary<PocketMonster.Element, Dictionary<PocketMonster.Element, float>> m_typeMatchupTable;
 
+    private PocketMonsterTrainer m_trainer;
     private PocketMonster m_playerPokemon;
     private PocketMonster m_otherPokemon;
 
@@ -47,8 +48,12 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_inBattle = false;
     private bool m_aiChosenThisTurn = false;
     private bool m_battleEnded = false;
+
     private bool m_playerSwitchedOutThisTurn;
     private bool m_playerUsedItem;
+
+    private bool m_aiSwitchedOutThisTurn;
+    private bool m_aiUsedItem;
 
 #if RECORD_PLAYER_ACTIONS
     private int m_playerHpBefore;
@@ -81,6 +86,15 @@ public class BattleManager : Singleton<BattleManager>
                         m_aiChosenThisTurn = true;
                     }
 
+                    if (!m_aiChosenThisTurn && m_currentBattleType == BattleType.Trainer)
+                    {
+                        m_aiSwitchedOutThisTurn = false;
+                        m_aiUsedItem = false;
+
+                        TrainerDecisionMaking();
+                        m_aiChosenThisTurn = true;
+                    }
+
                     break;
                 }
             case BattleState.Attack:
@@ -103,6 +117,7 @@ public class BattleManager : Singleton<BattleManager>
                     if (m_battleHUD.DisplayedAllMessages())
                     {
                         Debug.Log("Nothing more to show...");
+                        m_battleState = BattleState.Attack;
                     }
 
                     break;
@@ -173,8 +188,8 @@ public class BattleManager : Singleton<BattleManager>
 #endif
 
         bool firstMonIsPlayer = firstMon == m_playerPokemon;
-        bool firstMonSwitchedOut = firstMonIsPlayer && m_playerSwitchedOutThisTurn;
-        bool firstMonUsedItem = firstMonIsPlayer && m_playerUsedItem;
+        bool firstMonSwitchedOut = (firstMonIsPlayer && m_playerSwitchedOutThisTurn) || (!firstMonIsPlayer && m_aiSwitchedOutThisTurn);
+        bool firstMonUsedItem = (firstMonIsPlayer && m_playerUsedItem) || (!firstMonIsPlayer && m_aiUsedItem);
 
         // If the player switched out, or used an item then they shouldn't be able to move
         if (!firstMonSwitchedOut && !firstMonUsedItem)
@@ -183,8 +198,8 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         bool secondMonIsPlayer = secondMon == m_playerPokemon;
-        bool secondMonSwitchedOut = secondMonIsPlayer && m_playerSwitchedOutThisTurn;
-        bool secondMonUsedItem = secondMonIsPlayer && m_playerUsedItem;
+        bool secondMonSwitchedOut = (secondMonIsPlayer && m_playerSwitchedOutThisTurn) || (!secondMonIsPlayer && m_aiSwitchedOutThisTurn);
+        bool secondMonUsedItem = (secondMonIsPlayer && m_playerUsedItem) || (!secondMonIsPlayer && m_aiUsedItem);
 
         if (!secondMonSwitchedOut && !secondMonUsedItem)
         {
@@ -208,6 +223,44 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         m_battleHUD.SetScreen(BattleUIScript.Screens.BattleInfo);
+    }
+
+    private void TrainerDecisionMaking()
+    {
+        MoveDecisionLearner.Action trainerAction = m_trainer.ChooseAction(m_playerPokemon);
+
+        Debug.Log("AI Chose to : " + trainerAction);
+
+        switch (trainerAction)
+        {
+            case MoveDecisionLearner.Action.Attack:
+                // TODO: For now, choose a random move!
+                m_trainer.GetActivePokemon().ChooseRandomMove();
+                break;
+            case MoveDecisionLearner.Action.Switch:
+                m_trainer.SwitchPokemon(m_playerPokemon);
+                m_aiSwitchedOutThisTurn = true;
+                break;
+            case MoveDecisionLearner.Action.Heal:
+                {
+                    float healthPercentage = m_trainer.GetActivePokemon().GetStats().HP / (float)m_trainer.GetActivePokemon().GetStats().BaseHP;
+                    if (healthPercentage > 0.5f)
+                    {
+                        Debug.Log("More than half health... Overriding to attack instead");
+                        m_trainer.GetActivePokemon().ChooseRandomMove();
+                    }
+                    else
+                    {
+                        m_trainer.HealPokemon();
+                        m_aiUsedItem = true;
+                    }
+                }
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        m_aiChosenThisTurn = true;
     }
 
     private void TakeTurn(PocketMonster attacker, PocketMonster target)
@@ -427,6 +480,12 @@ public class BattleManager : Singleton<BattleManager>
     {
         m_otherPokemon = pokemon;
         pokemon.ResetStats();
+    }
+
+    public void SetTrainer(PocketMonsterTrainer trainer)
+    {
+        m_trainer = trainer;
+        SetOtherPokemon(trainer.GetActivePokemon());
     }
 
     public string ConsumeNextMessage()

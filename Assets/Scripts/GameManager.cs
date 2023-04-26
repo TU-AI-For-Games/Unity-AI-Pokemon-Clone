@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private GameObject m_gameHUD;
 
     [SerializeField] private PlayerController m_player;
+    private PocketMonsterTrainer m_trainer;
 
     [SerializeField] private PostProcessVolume m_overworldVolume;
     [SerializeField] private PostProcessVolume m_battleVolume;
@@ -29,6 +30,8 @@ public class GameManager : Singleton<GameManager>
 
     private Vector3 m_previousPlayerPosition;
     private Quaternion m_previousPlayerRotation;
+    private Vector3 m_previousTrainerPosition;
+    private Quaternion m_previousTrainerRotation;
 
     private TypeLearner m_typeLearner;
     private MoveDecisionLearner m_moveDecisionLearner;
@@ -112,6 +115,17 @@ public class GameManager : Singleton<GameManager>
                 m_battleHUD.OnOtherSwitchPokemon(wildMon);
                 break;
             case BattleManager.BattleType.Trainer:
+                m_previousTrainerPosition = new(battler.transform.position.x, battler.transform.position.y, battler.transform.position.z);
+                m_previousTrainerRotation = new(battler.transform.rotation.x, battler.transform.rotation.y, battler.transform.rotation.z, battler.transform.rotation.w);
+
+                battler.transform.position = m_battleTrainerPosition.position;
+                battler.transform.rotation = m_battleTrainerPosition.rotation;
+
+                m_trainer = battler.GetComponent<PocketMonsterTrainer>();
+
+                // Spawn the trainer's pokemon
+                SpawnTrainerPokemon();
+                BattleManager.Instance.SetTrainer(m_trainer);
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -120,7 +134,24 @@ public class GameManager : Singleton<GameManager>
 
     public void SpawnPlayerPokemon()
     {
+        ShowPokemon(m_battlePlayerPkmnPosition, m_player.GetActivePokemon().ID);
         m_battleHUD.OnPlayerSwitchPokemon();
+    }
+
+    public void SpawnTrainerPokemon()
+    {
+        ShowPokemon(m_battleTrainerPkmnPosition, m_trainer.GetActivePokemon().ID);
+        m_battleHUD.OnOtherSwitchPokemon(m_trainer.GetActivePokemon());
+    }
+
+    public void ShowPokemon(Transform parent, int pokemonId)
+    {
+        foreach (Transform child in parent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(pokemonId), parent);
     }
 
     public void EndBattle(bool runAway)

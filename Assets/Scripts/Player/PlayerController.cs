@@ -125,16 +125,6 @@ public class PlayerController : MonoBehaviour
         m_controller.enabled = true;
     }
 
-    public void ShowPokemon(Transform parent)
-    {
-        foreach (Transform child in parent)
-        {
-            Destroy(child.gameObject);
-        }
-
-        Instantiate(PocketMonsterManager.Instance.GetPocketMonsterMesh(GetActivePokemon().ID), parent);
-    }
-
     public PocketMonster GetActivePokemon()
     {
         return m_pocketMonsters[m_activePokemonIndex];
@@ -156,6 +146,11 @@ public class PlayerController : MonoBehaviour
         {
             // The trigger collider is on a child of the pokemon, passing the parent
             GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, other.transform.parent.gameObject);
+        }
+
+        if (other.CompareTag(StringConstants.TRAINER_TAG))
+        {
+            GameManager.Instance.StartBattle(BattleManager.BattleType.Trainer, other.gameObject);
         }
 
         if (other.CompareTag(StringConstants.POKEMON_CENTRE_TAG))

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WildPokemon
   - PokeCentre
+  - Trainer
   layers:
   - Default
   - TransparentFX

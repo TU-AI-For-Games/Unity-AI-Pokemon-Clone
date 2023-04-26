@@ -34,7 +34,7 @@ public class MoveDecisionLearner : Learner
             LearnData();
         }
 
-        TestData();
+        // TestData();
     }
 
     public Action GetLearnedMoveOutcome(float trainerHp, PocketMonster.Element trainerType, float targetHp, PocketMonster.Element targetType)

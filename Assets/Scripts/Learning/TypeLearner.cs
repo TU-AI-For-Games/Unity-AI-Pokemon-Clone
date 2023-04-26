@@ -27,7 +27,7 @@ public class TypeLearner : Learner
             LearnData();
         }
 
-        PrintTypePairings();
+        // PrintTypePairings();
     }
 
     public sealed override void LearnData()

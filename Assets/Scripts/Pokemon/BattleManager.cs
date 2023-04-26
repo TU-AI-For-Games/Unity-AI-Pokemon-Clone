@@ -29,6 +29,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public enum Item
     {
+        None = -1,
         HealHP,
         HealStatus
     }
@@ -53,7 +54,8 @@ public class BattleManager : Singleton<BattleManager>
     private bool m_playerUsedItem;
 
     private bool m_aiSwitchedOutThisTurn;
-    private bool m_aiUsedItem;
+    private bool m_aiUsedItemThisTurn;
+    private Item m_aiChosenItem;
 
 #if RECORD_PLAYER_ACTIONS
     private int m_playerHpBefore;
@@ -89,7 +91,7 @@ public class BattleManager : Singleton<BattleManager>
                     if (!m_aiChosenThisTurn && m_currentBattleType == BattleType.Trainer)
                     {
                         m_aiSwitchedOutThisTurn = false;
-                        m_aiUsedItem = false;
+                        m_aiUsedItemThisTurn = false;
 
                         TrainerDecisionMaking();
                         m_aiChosenThisTurn = true;
@@ -106,6 +108,11 @@ public class BattleManager : Singleton<BattleManager>
                         {
                             m_battleMessages.Enqueue($"GO! {m_trainer.GetActivePokemon().Name}!");
                             SetOtherPokemon(m_trainer.GetActivePokemon());
+                        }
+
+                        if (m_aiUsedItemThisTurn)
+                        {
+                            UseItem(m_aiChosenItem, m_trainer.GetActivePokemon());
                         }
 
                         AttackState();
@@ -195,7 +202,7 @@ public class BattleManager : Singleton<BattleManager>
 
         bool firstMonIsPlayer = firstMon == m_playerPokemon;
         bool firstMonSwitchedOut = (firstMonIsPlayer && m_playerSwitchedOutThisTurn) || (!firstMonIsPlayer && m_aiSwitchedOutThisTurn);
-        bool firstMonUsedItem = (firstMonIsPlayer && m_playerUsedItem) || (!firstMonIsPlayer && m_aiUsedItem);
+        bool firstMonUsedItem = (firstMonIsPlayer && m_playerUsedItem) || (!firstMonIsPlayer && m_aiUsedItemThisTurn);
 
         // If the player switched out, or used an item then they shouldn't be able to move
         if (!firstMonSwitchedOut && !firstMonUsedItem)
@@ -205,7 +212,7 @@ public class BattleManager : Singleton<BattleManager>
 
         bool secondMonIsPlayer = secondMon == m_playerPokemon;
         bool secondMonSwitchedOut = (secondMonIsPlayer && m_playerSwitchedOutThisTurn) || (!secondMonIsPlayer && m_aiSwitchedOutThisTurn);
-        bool secondMonUsedItem = (secondMonIsPlayer && m_playerUsedItem) || (!secondMonIsPlayer && m_aiUsedItem);
+        bool secondMonUsedItem = (secondMonIsPlayer && m_playerUsedItem) || (!secondMonIsPlayer && m_aiUsedItemThisTurn);
 
         if (!secondMonSwitchedOut && !secondMonUsedItem)
         {
@@ -257,16 +264,14 @@ public class BattleManager : Singleton<BattleManager>
                 break;
             case MoveDecisionLearner.Action.Heal:
                 {
-                    float healthPercentage = m_trainer.GetActivePokemon().GetStats().HP / (float)m_trainer.GetActivePokemon().GetStats().BaseHP;
-                    if (healthPercentage > 0.5f)
+                    m_aiChosenItem = m_trainer.HealPokemon();
+                    if (m_aiChosenItem != Item.None)
                     {
-                        Debug.Log("More than half health... Overriding to attack instead");
-                        m_trainer.ChooseMove(m_playerPokemon);
+                        m_aiUsedItemThisTurn = true;
                     }
                     else
                     {
-                        m_trainer.HealPokemon();
-                        m_aiUsedItem = true;
+                        m_trainer.ChooseMove(m_playerPokemon);
                     }
                 }
                 break;
@@ -425,8 +430,16 @@ public class BattleManager : Singleton<BattleManager>
             }
             else
             {
-                m_trainer.SwitchPokemon(m_playerPokemon);
-                SetOtherPokemon(m_trainer.GetActivePokemon());
+                // If the trainer has another usable pokemon, swap out 
+                if (m_trainer.CanStillBattle())
+                {
+                    m_trainer.SwitchPokemon(m_playerPokemon);
+                    SetOtherPokemon(m_trainer.GetActivePokemon());
+                }
+                else
+                {
+                    m_battleEnded = true;
+                }
             }
         }
     }
@@ -770,20 +783,19 @@ public class BattleManager : Singleton<BattleManager>
         if (mon == m_playerPokemon)
         {
             m_playerUsedItem = true;
+            SetBattleState(BattleState.Attack);
         }
 
         if (item == Item.HealHP)
         {
             OnUseHealMessage(Mathf.Max(0, mon.GetStats().BaseHP - mon.GetStats().HP), mon);
-            m_playerPokemon.HealHP();
+            mon.HealHP();
         }
         else if (item == Item.HealStatus)
         {
             OnUseHealStatusMessage(mon);
             mon.HealStatus();
         }
-
-        SetBattleState(BattleState.Attack);
     }
 
     private void OnUseHealMessage(int pointsHealed, PocketMonster mon)
@@ -795,6 +807,7 @@ public class BattleManager : Singleton<BattleManager>
         else
         {
             // TODO: Grab the other trainer's name
+            m_battleMessages.Enqueue($"{m_trainer.name} used Max Potion");
         }
 
         m_battleMessages.Enqueue($"{mon.Name} was healed by <b>{pointsHealed}</b> hit point(s)");
@@ -809,6 +822,7 @@ public class BattleManager : Singleton<BattleManager>
         else
         {
             // TODO: Grab the other trainer's name
+            m_battleMessages.Enqueue($"{m_trainer.name} used Full Heal");
         }
 
         OnEndStatusMessage(mon, mon.GetStatusEffect());

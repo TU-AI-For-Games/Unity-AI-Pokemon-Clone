@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PocketMonsterTrainer : MonoBehaviour
@@ -75,8 +76,21 @@ public class PocketMonsterTrainer : MonoBehaviour
         return false;
     }
 
-    public void HealPokemon()
+    public BattleManager.Item HealPokemon()
     {
+        float healthPercentage = GetActivePokemon().GetStats().HP / (float)GetActivePokemon().GetStats().BaseHP;
+        bool hasStatus = GetActivePokemon().GetStatusEffect() != PocketMonster.StatusType.None;
+
+        if (healthPercentage < 0.5f)
+        {
+            return BattleManager.Item.HealHP;
+        }
+        else if (hasStatus)
+        {
+            return BattleManager.Item.HealStatus;
+        }
+
+        return BattleManager.Item.None;
     }
 
     public void ChooseMove(PocketMonster playerPokemon)
@@ -102,5 +116,10 @@ public class PocketMonsterTrainer : MonoBehaviour
         Debug.Log($"The most effective move chosen is {chosenMove.Name}... It is {chosenMoveEffectiveness} against {playerPokemon.Name}");
 
         GetActivePokemon().SetChosenMove(chosenMove);
+    }
+
+    public bool CanStillBattle()
+    {
+        return m_pokemon.Any(mon => !mon.HasFainted());
     }
 }

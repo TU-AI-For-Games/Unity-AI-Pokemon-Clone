@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
             GameManager.Instance.StartBattle(BattleManager.BattleType.WildPkmn, other.transform.parent.gameObject);
         }
 
-        if (other.CompareTag(StringConstants.TRAINER_TAG))
+        if (other.CompareTag(StringConstants.TRAINER_TAG) && other.GetComponent<PocketMonsterTrainer>().CanStartBattle())
         {
             GameManager.Instance.StartBattle(BattleManager.BattleType.Trainer, other.gameObject);
         }

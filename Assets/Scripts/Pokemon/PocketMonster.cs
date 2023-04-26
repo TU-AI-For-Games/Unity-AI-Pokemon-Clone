@@ -407,5 +407,6 @@ public class PocketMonster
     {
         HealHP();
         HealStatus();
+        ResetStats();
     }
 }

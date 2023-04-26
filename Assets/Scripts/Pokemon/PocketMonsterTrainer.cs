@@ -9,12 +9,20 @@ public class PocketMonsterTrainer : MonoBehaviour
     private readonly List<PocketMonster> m_pokemon = new(6);
     private int m_activePokemonIndex = 0;
 
+    [SerializeField] private float m_battleCoolDown;
+    private float m_battleCountDown;
+
     private void Awake()
     {
         foreach (var dexNo in m_pokedexIds)
         {
             m_pokemon.Add(PocketMonsterManager.Instance.GetPocketMonster(dexNo));
         }
+    }
+
+    private void Update()
+    {
+        m_battleCountDown -= Time.deltaTime;
     }
 
     public PocketMonster GetActivePokemon()
@@ -118,8 +126,23 @@ public class PocketMonsterTrainer : MonoBehaviour
         GetActivePokemon().SetChosenMove(chosenMove);
     }
 
+    public bool CanStartBattle()
+    {
+        return m_battleCountDown < 0f;
+    }
+
     public bool CanStillBattle()
     {
         return m_pokemon.Any(mon => !mon.HasFainted());
+    }
+
+    public void StartCoolDown()
+    {
+        m_battleCountDown = m_battleCoolDown;
+
+        foreach (PocketMonster monster in m_pokemon)
+        {
+            monster.HealHealthAndStatus();
+        }
     }
 }

@@ -180,7 +180,10 @@ public class GameManager : Singleton<GameManager>
         }
         else if (BattleManager.Instance.GetBattleType() == BattleManager.BattleType.Trainer)
         {
-            // TODO: Destroy the trainer's pokemon but maintain the trainer model
+            m_trainer.transform.position = m_previousTrainerPosition;
+            m_trainer.transform.rotation = m_previousTrainerRotation;
+
+            m_trainer.StartCoolDown();
         }
 
         BattleManager.Instance.SetBattleType(BattleManager.BattleType.None);

@@ -102,6 +102,12 @@ public class BattleManager : Singleton<BattleManager>
                     // We haven't attacked yet if there are no messages in the queue
                     if (m_battleMessages.Count == 0 || m_playerUsedItem)
                     {
+                        if (m_aiSwitchedOutThisTurn)
+                        {
+                            m_battleMessages.Enqueue($"GO! {m_trainer.GetActivePokemon().Name}!");
+                            SetOtherPokemon(m_trainer.GetActivePokemon());
+                        }
+
                         AttackState();
                         if (m_battleState != BattleState.PlayerFainted)
                         {
@@ -237,8 +243,17 @@ public class BattleManager : Singleton<BattleManager>
                 m_trainer.ChooseMove(m_playerPokemon);
                 break;
             case MoveDecisionLearner.Action.Switch:
-                m_trainer.SwitchPokemon(m_playerPokemon);
-                m_aiSwitchedOutThisTurn = true;
+                // If a switch can be conducted, swap!
+                if (m_trainer.SwitchPokemon(m_playerPokemon))
+                {
+                    m_aiSwitchedOutThisTurn = true;
+                }
+                else
+                {
+                    // Otherwise we should attack...
+                    m_trainer.ChooseMove(m_playerPokemon);
+                }
+
                 break;
             case MoveDecisionLearner.Action.Heal:
                 {
@@ -410,7 +425,8 @@ public class BattleManager : Singleton<BattleManager>
             }
             else
             {
-                // TODO: Make the trainer AI pick another pokemon to battle
+                m_trainer.SwitchPokemon(m_playerPokemon);
+                SetOtherPokemon(m_trainer.GetActivePokemon());
             }
         }
     }
@@ -477,6 +493,7 @@ public class BattleManager : Singleton<BattleManager>
 
     public void SetOtherPokemon(PocketMonster pokemon)
     {
+        GameManager.Instance.SpawnTrainerPokemon();
         m_otherPokemon = pokemon;
         pokemon.ResetStats();
     }

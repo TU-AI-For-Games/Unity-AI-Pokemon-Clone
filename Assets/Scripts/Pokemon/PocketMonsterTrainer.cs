@@ -35,9 +35,44 @@ public class PocketMonsterTrainer : MonoBehaviour
         );
     }
 
-    public void SwitchPokemon(PocketMonster playerPokemon)
+    public bool SwitchPokemon(PocketMonster playerPokemon)
     {
+        int chosenIndex = m_activePokemonIndex;
+        Move.Effectiveness chosenEffectiveness = Move.Effectiveness.Immune;
+        float chosenHealthPercentage = 0f;
 
+        // Swap to the pokemon who is the most effective with the highest health
+        for (int i = 0; i < m_pokemon.Count; ++i)
+        {
+            if (m_pokemon[i].HasFainted())
+            {
+                continue;
+            }
+
+            Move.Effectiveness effectiveness = GameManager.Instance.GetTypeLearner().GetLearnedEffectiveness(m_pokemon[i].Type, playerPokemon.Type).GetEffectiveness();
+
+            if ((int)effectiveness <= (int)chosenEffectiveness)
+            {
+                continue;
+            }
+
+            float healthPercentage = m_pokemon[i].GetStats().HP / (float)m_pokemon[i].GetStats().BaseHP;
+
+            if (healthPercentage >= chosenHealthPercentage)
+            {
+                chosenIndex = i;
+                chosenEffectiveness = effectiveness;
+                chosenHealthPercentage = healthPercentage;
+            }
+        }
+
+        if (chosenIndex != m_activePokemonIndex)
+        {
+            m_activePokemonIndex = chosenIndex;
+            return true;
+        }
+
+        return false;
     }
 
     public void HealPokemon()

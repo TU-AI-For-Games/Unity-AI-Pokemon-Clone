@@ -139,7 +139,14 @@ public class BattleManager : Singleton<BattleManager>
                 {
                     if (m_battleHUD.DisplayedAllMessages())
                     {
-                        m_battleHUD.SetScreen(BattleUIScript.Screens.ChoosePokemon);
+                        if (GameManager.Instance.GetPlayerController().HasUsablePokemon())
+                        {
+                            m_battleHUD.SetScreen(BattleUIScript.Screens.ChoosePokemon);
+                        }
+                        else
+                        {
+                            m_battleEnded = true;
+                        }
                     }
                 }
                 break;
@@ -258,6 +265,7 @@ public class BattleManager : Singleton<BattleManager>
                 else
                 {
                     // Otherwise we should attack...
+                    Debug.Log("Switching would be stupid actually, attacking instead...");
                     m_trainer.ChooseMove(m_playerPokemon);
                 }
 
@@ -271,6 +279,7 @@ public class BattleManager : Singleton<BattleManager>
                     }
                     else
                     {
+                        Debug.Log("Healing would be stupid actually, attacking instead...");
                         m_trainer.ChooseMove(m_playerPokemon);
                     }
                 }

@@ -71,9 +71,9 @@ public class TypeLearner : Learner
         }
     }
 
-    public Effectiveness GetLearnedEffectiveness(PocketMonster.Element typeA, PocketMonster.Element typeB)
+    public PredictedEffectiveness GetLearnedEffectiveness(PocketMonster.Element typeA, PocketMonster.Element typeB)
     {
-        return new Effectiveness(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
+        return new PredictedEffectiveness(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
     }
 
     private void PrintTypePairings()
@@ -85,9 +85,9 @@ public class TypeLearner : Learner
                 PocketMonster.Element typeA = (PocketMonster.Element)i;
                 PocketMonster.Element typeB = (PocketMonster.Element)j;
 
-                Effectiveness effectiveness = new(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
+                PredictedEffectiveness predictedEffectiveness = new(m_typeNeuralNetworks[typeA].Compute(GenerateInputType(typeB)));
 
-                effectiveness.DebugPrint(typeA, typeB);
+                predictedEffectiveness.DebugPrint(typeA, typeB);
             }
         }
     }
@@ -142,9 +142,9 @@ public class TypeLearner : Learner
         }
     }
 
-    public struct Effectiveness
+    public struct PredictedEffectiveness
     {
-        public Effectiveness(float[] effectiveness)
+        public PredictedEffectiveness(float[] effectiveness)
         {
             Immune = effectiveness[0];
             NotVeryEffective = effectiveness[1];
@@ -174,6 +174,19 @@ public class TypeLearner : Learner
 
             Debug.Log($"{aType} is {effectiveString[maxIndex]} against {bType}");
 
+        }
+
+        public Move.Effectiveness GetEffectiveness()
+        {
+            float[] effectivenessArray =
+            {
+                Immune,
+                NotVeryEffective,
+                Neutral,
+                SuperEffective
+            };
+
+            return (Move.Effectiveness)Array.IndexOf(effectivenessArray, effectivenessArray.Max());
         }
 
         private readonly float Immune;

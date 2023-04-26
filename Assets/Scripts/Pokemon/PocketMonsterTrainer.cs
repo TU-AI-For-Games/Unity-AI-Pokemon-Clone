@@ -43,4 +43,29 @@ public class PocketMonsterTrainer : MonoBehaviour
     public void HealPokemon()
     {
     }
+
+    public void ChooseMove(PocketMonster playerPokemon)
+    {
+        // TODO: Think about using status or stat change moves if available...
+        Move[] pokemonMoves = GetActivePokemon().GetMoves();
+
+        Move chosenMove = pokemonMoves[0];
+        Move.Effectiveness chosenMoveEffectiveness = Move.Effectiveness.Immune;
+
+        // Find the highest damaging, most effective move
+        foreach (Move move in pokemonMoves)
+        {
+            Move.Effectiveness effectiveness = GameManager.Instance.GetTypeLearner().GetLearnedEffectiveness(move.Type, playerPokemon.Type).GetEffectiveness();
+
+            if ((int)effectiveness > (int)chosenMoveEffectiveness)
+            {
+                chosenMove = move;
+                chosenMoveEffectiveness = effectiveness;
+            }
+        }
+
+        Debug.Log($"The most effective move chosen is {chosenMove.Name}... It is {chosenMoveEffectiveness} against {playerPokemon.Name}");
+
+        GetActivePokemon().SetChosenMove(chosenMove);
+    }
 }

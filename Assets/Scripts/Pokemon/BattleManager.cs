@@ -234,8 +234,7 @@ public class BattleManager : Singleton<BattleManager>
         switch (trainerAction)
         {
             case MoveDecisionLearner.Action.Attack:
-                // TODO: For now, choose a random move!
-                m_trainer.GetActivePokemon().ChooseRandomMove();
+                m_trainer.ChooseMove(m_playerPokemon);
                 break;
             case MoveDecisionLearner.Action.Switch:
                 m_trainer.SwitchPokemon(m_playerPokemon);
@@ -247,7 +246,7 @@ public class BattleManager : Singleton<BattleManager>
                     if (healthPercentage > 0.5f)
                     {
                         Debug.Log("More than half health... Overriding to attack instead");
-                        m_trainer.GetActivePokemon().ChooseRandomMove();
+                        m_trainer.ChooseMove(m_playerPokemon);
                     }
                     else
                     {

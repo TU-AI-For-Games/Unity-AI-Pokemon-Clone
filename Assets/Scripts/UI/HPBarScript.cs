@@ -22,7 +22,7 @@ public class HPBarScript : MonoBehaviour
             return;
 
         m_hpText.text = $"<size=36><color=#3C3C3C>{MathF.Max(0, m_pokemon.GetStats().HP)}</size></color>" +
-                        "<size=20><color=#ABABAB>/150</size></color>";
+                        $"<size=20><color=#ABABAB>/{m_pokemon.GetStats().BaseHP}</size></color>";
 
 
         m_healthbarSlider.value = m_pokemon.GetStats().HP / (float)m_pokemon.GetStats().BaseHP;

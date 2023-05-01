@@ -12,4 +12,5 @@ public class AnimationFlap : MonoBehaviour
         float Offset = Random.Range(0f, 1.0f);
         animator.Play(state.fullPathHash, 0, Offset);
     }
+    
 }
